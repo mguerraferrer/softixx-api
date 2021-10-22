@@ -1,8 +1,11 @@
 package softixx.api.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
@@ -14,7 +17,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Pageable;
-import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -89,7 +96,7 @@ public abstract class GenericCrudDao<T, ID> {
 		this.dataSource = dataSource;
 		this.showQuery = false;
 	}
-
+	
 	/**
 	 * Prints query information if showQuery is true. <br>
 	 * By default, showQuery is false.
@@ -101,14 +108,25 @@ public abstract class GenericCrudDao<T, ID> {
 	}
 	
 	/**
+	 * Prints query information if showQuery is true. <br>
+	 * By default, showQuery is false.
+	 * 
+	 * @param showQuery Boolean
+	 * 
+	 * @since: 1.1.0
+	 */
+	protected void showQuery(boolean showQuery) {
+		this.showQuery = showQuery;
+	}
+	
+	/**
 	 * Gets PreparedStatement
 	 * @param query - String query
 	 * @return PreparedStatement
 	 */
 	protected PreparedStatement getPreparedStatement(final String query) {
-		try {
+		try (val conn = dataSource.getConnection()) {
 			
-			Connection conn = dataSource.getConnection();
 			this.preparedStatement = conn.prepareStatement(query);
 			return this.preparedStatement;
 			
