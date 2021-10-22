@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+		<!-- Pagination-->
+		<div th:fragment="paginator1(paginator)" th:unless="${#lists.isEmpty(paginator.page.content)}">
+			<ul class="pagination">
+				<li class="page-item" th:classappend="${paginator.isDisableFirst ? 'disabled' : ''}">
+					<a class="page-link" th:href="@{${paginator.isDisableFirst} ? '#' : ${paginator.firstRequest}}" th:title="${firstTitle}">
+						<span>
+							<i class="fad fa-angle-double-left"></i>
+						</span>
+					</a>
+				</li>
+				<li class="page-item" th:classappend="${paginator.isDisablePreviously ? 'disabled' : ''}">
+					<a class="page-link" th:href="@{${paginator.isDisablePreviously} ? '#' : ${paginator.previouslyRequest}}" th:title="${previouslyTitle}">
+						<span>
+							<i class="fad fa-angle-left"></i>
+						</span>
+					</a>
+				</li>
+				<li class="active">
+					<a class="page-link">
+						<span th:text="${paginator.pageInfo}"></span>
+					</a>
+				</li>
+				<li id="li-next-nom" class="page-item" th:classappend="${paginator.isDisableNext ? 'disabled' : ''}">
+					<a class="page-link" th:href="@{${paginator.isDisableNext} ? '#' : ${paginator.nextRequest}}" th:title="${nextTitle}">
+						<i class="fad fa-angle-right"></i>
+					</a>
+				</li>
+				<li id="li-last-nom" class="page-item" th:classappend="${paginator.isDisableLast ? 'disabled' : ''}">
+					<a class="page-link" th:href="@{${paginator.isDisableLast} ? '#' : ${paginator.lastRequest}}" th:title="${lastTitle}">
+						<i class="fad fa-angle-double-right"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- Pagination-->
+		<div th:fragment="paginator2(page)" th:id="${id}" th:unless="${#lists.isEmpty(page.content)}" class="entry-navigation mt-5">
+			<!-- Previous-->
+			<!-- Hidden only on xs-->
+			<div class="column text-left d-none d-sm-block">
+				<button th:if="${page.first}" class="btn btn-outline-secondary btn-sm" disabled>
+					<i class="icon-arrow-left"></i>&nbsp;Anterior
+				</button>
+				<a th:if="${not page.first}" class="btn btn-outline-secondary btn-sm" th:href="@{/account/wishlist(page=${page.number - 1}, size=${page.size})}">
+					<i class="icon-arrow-left"></i>&nbsp;Anterior
+				</a>
+			</div>
+			<!-- Visible only on xs-->
+			<div class="column text-left d-block d-sm-none">
+				<button th:if="${page.first}" class="btn btn-outline-secondary btn-sm" disabled>
+					<i class="icon-arrow-left"></i>
+				</button>
+				<a th:if="${not page.first}" class="btn btn-outline-secondary btn-sm" th:href="@{/account/wishlist(page=${page.number - 1}, size=${page.size})}">
+					<i class="icon-arrow-left"></i>
+				</a>
+			</div>
+			<div class="column">
+				<small class="text-muted"><span th:text="'Página ' + ${page.number + 1} + ' de ' + ${page.totalPages}"></span></small>
+			</div>
+			<!-- Next-->
+			<!-- Hidden only on xs-->
+			<div class="column text-right d-none d-sm-block">
+				<button th:if="${page.last}" class="btn btn-outline-secondary btn-sm" disabled>
+					<span>Siguiente&nbsp;</span><i class="icon-arrow-right"></i>
+				</button>
+				<a th:if="${not page.last}" class="btn btn-outline-secondary btn-sm" th:href="@{/account/wishlist(page=${page.number + 1}, size=${page.size})}">
+					<span>Siguiente&nbsp;</span><i class="icon-arrow-right"></i>
+				</a>
+			</div>
+			<!-- Visible only on xs-->
+			<div class="column text-right d-block d-sm-none">
+				<button th:if="${page.last}" class="btn btn-outline-secondary btn-sm" disabled>
+					<i class="icon-arrow-right"></i>
+				</button>
+				<a th:if="${not page.last}" class="btn btn-outline-secondary btn-sm" th:href="@{/account/orders(page=${page.number + 1}, size=${page.size})}">
+					<i class="icon-arrow-right"></i>
+				</a>
+			</div>
+		</div>
+
+    </body>
+</html>

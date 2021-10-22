@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:if="${errorBean != null}" th:fragment="pageError(errorBean)" id="page-message-fragment" class="animate__animated animate__fadeIn">
+			<div class="alert alert-danger" >
+				<span style="font-weight: bold;">
+					<i class="fas fa-ban"></i> <span th:text="${errorBean.message}"></span>
+				</span>
+				<div th:if="${errorBean.description != null}" class="error-description">
+					<div class="card">
+						<div class="card-body">
+							<div class="card-title" style="font-weight: bold; margin-bottom: 0;">
+								<span th:text="#{error.info}"></span>
+							</div>
+							<span th:text="#{errorBean.description}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

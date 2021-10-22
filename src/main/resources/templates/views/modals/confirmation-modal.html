@@ -1,0 +1,68 @@
+<div th:fragment="confirmation-modal-bs3" id="confirmation-modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="confirmation-modal-title" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+			<div class="modal-header cis-modal-header-bb">
+            	<button type="button" class="close" data-dismiss="modal">
+            		<i class="fad fa-times-circle"></i>
+            	</button>
+                <h6 id="confirmation-modal-title" class="modal-title">
+                	<i class="fas fa-exclamation-triangle"></i> 
+                	<span th:text="#{info.text.confirmation}"></span>
+                </h6>
+            </div>
+            <div class="modal-body" id="confirmation-modal-body" style="min-height: 60px; height:auto; padding: 20px;">
+				<p style="text-align: center;">
+            		<span id="span-confirmation-modal-text"></span>
+            	</p>
+            	<p id="confirmation-modal-risk" class="hidden" style="text-align: center; font-weight: bold;">
+            		<span th:text="#{info.text.risk}"></span>
+            	</p>
+			</div>
+            <div class="modal-footer">
+            	<button type="button" id="btn-confirmation-modal" name="btn-confirmation-modal" class="btn btn-primary">
+            		<i class="fas fa-check"></i>
+            		<span th:text="#{btn.text.accept}"></span>
+            	</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                	<i class="fas fa-reply"></i>
+                	<span th:text="#{btn.text.cancel}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:fragment="confirmation-modal-bs4" id="confirmation-modal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="confirmation-modal-title" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+			<div class="modal-header">
+				<h6 class="modal-title" id="confirmation-modal-title">
+					<i class="fas fa-exclamation-triangle"></i> 
+                	<span th:text="#{info.text.confirmation}"></span>
+				</h6>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						<i class="fad fa-times-circle"></i>
+					</span>
+				</button>
+			</div>
+            <div class="modal-body" id="confirmation-modal-body" style="min-height: 60px; height:auto; padding: 20px;">
+				<p style="text-align: center;">
+            		<span id="span-confirmation-modal-text"></span>
+            	</p>
+            	<p id="confirmation-modal-risk" class="hidden" style="text-align: center; font-weight: bold;">
+            		<span th:text="#{info.text.risk}"></span>
+            	</p>
+			</div>
+            <div class="modal-footer">
+            	<button type="button" id="btn-confirmation-modal" name="btn-confirmation-modal" class="btn btn-primary">
+            		<i class="fas fa-check"></i>
+            		<span th:text="#{btn.text.accept}"></span>
+            	</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                	<i class="fas fa-reply"></i>
+                	<span th:text="#{btn.text.cancel}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
