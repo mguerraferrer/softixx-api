@@ -2,7 +2,6 @@ package softixx.api.util;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.text.RandomStringGenerator;
@@ -29,16 +28,15 @@ public class UPassword {
     }
 
     public static String generateCommonTextPassword() {
-        String pwString = generateRandomSpecialCharacters(PWD_LENGTH)
-                .concat(generateRandomNumbers(PWD_LENGTH))
-                .concat(generateRandomAlphabet(PWD_LENGTH, true))
-                .concat(generateRandomAlphabet(PWD_LENGTH, false))
-                .concat(generateRandomCharacters(PWD_LENGTH));
+        val pwString = generateRandomSpecialCharacters(PWD_LENGTH)
+                		.concat(generateRandomNumbers(PWD_LENGTH))
+                		.concat(generateRandomAlphabet(PWD_LENGTH, true))
+                		.concat(generateRandomAlphabet(PWD_LENGTH, false))
+                		.concat(generateRandomCharacters(PWD_LENGTH));
 
-        List<Character> pwChars = pwString.chars().mapToObj(data -> (char) data).collect(Collectors.toList());
+        val pwChars = pwString.chars().mapToObj(char.class::cast).collect(Collectors.toList());
         Collections.shuffle(pwChars);
-        String password = pwChars.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
-        return password;
+        return pwChars.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
     }
 
     private static String generateRandomSpecialCharacters(int length) {
@@ -83,8 +81,7 @@ public class UPassword {
     	
     	val generator = new PasswordGenerator();
     	//##### Generated password is 12 characters long, which complies with policy
-    	val password = generator.generatePassword(12, rules);
-    	return password;
+    	return generator.generatePassword(12, rules);
     }
     
     public static boolean passwordValidator(final String password) {

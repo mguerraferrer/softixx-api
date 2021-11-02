@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
@@ -28,6 +26,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.lang.Nullable;
 
 import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 import softixx.api.bean.CommonBean;
 import softixx.api.bean.DataLimitBean;
 import softixx.api.bean.PageBean;
@@ -45,9 +44,8 @@ import softixx.api.util.UValidator;
  * @param <ID> Object id type
  * @author Maikel Guerra Ferrer
  */
+@Slf4j
 public abstract class GenericCrudDao<T, ID> {
-	private static final Logger log = LoggerFactory.getLogger(GenericCrudDao.class);
-
 	@Autowired
 	protected DataSource dataSource;
 

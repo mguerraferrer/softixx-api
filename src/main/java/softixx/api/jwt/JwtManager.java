@@ -2,6 +2,8 @@ package softixx.api.jwt;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -19,6 +21,10 @@ public class JwtManager {
 	}
 
 	public static String createJWT(String id, String issuer, String subject, long ttlMillis, String secretKey) {
+		return createJWT(id, issuer, subject, ttlMillis, secretKey, new HashMap<String, Object>());
+	}
+	
+	public static String createJWT(String id, String issuer, String subject, long ttlMillis, String secretKey, Map<String, Object> claims) {
 		try {
 			
 			// The JWT signature algorithm we will be using to sign the token
@@ -33,6 +39,7 @@ public class JwtManager {
 
 	        // Let's set the JWT Claims
 	        val jwtBuilder = Jwts.builder()
+	        					 .setClaims(claims)
 	        					 .setId(id)
 	        					 .setIssuedAt(now)
 	        					 .setSubject(subject)

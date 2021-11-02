@@ -1,6 +1,7 @@
 package softixx.api.util;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -227,7 +228,7 @@ public class UCrypto {
 	public static byte[] bytesEncryptor(String value) {
 		try {
 
-			return Encryptors.standard(CRYPT, SALT).encrypt(value.getBytes(Charset.forName("UTF-8")));
+			return Encryptors.standard(CRYPT, SALT).encrypt(value.getBytes(StandardCharsets.UTF_8));
 
 		} catch (Exception e) {
 			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
@@ -238,7 +239,7 @@ public class UCrypto {
 	public static byte[] bytesEncryptor(String salt, String value) {
 		try {
 
-			return Encryptors.standard(CRYPT, salt).encrypt(value.getBytes(Charset.forName("UTF-8")));
+			return Encryptors.standard(CRYPT, salt).encrypt(value.getBytes(StandardCharsets.UTF_8));
 
 		} catch (Exception e) {
 			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
@@ -268,22 +269,29 @@ public class UCrypto {
 		return null;
 	}
 
-	public static String encrypt(final String data, final String secret) throws Exception {
-		Key key = generateKey(secret);
-		Cipher c = Cipher.getInstance(ALGORITHM_AES);
-		c.init(Cipher.ENCRYPT_MODE, key);
-		byte[] encVal = c.doFinal(data.getBytes(Charset.forName("UTF-8")));
-		String encryptedValue = Base64.getEncoder().encodeToString(encVal);
-		return encryptedValue;
+	public static String encrypt(final String data, final String secret) {
+		try {
+			
+			val key = generateKey(secret);
+			val cipher = Cipher.getInstance(ALGORITHM_AES);
+			cipher.init(Cipher.ENCRYPT_MODE, key);
+			
+			byte[] encVal = cipher.doFinal(data.getBytes(StandardCharsets.UTF_8));
+			return Base64.getEncoder().encodeToString(encVal);
+			
+		} catch (Exception e) {
+			log.error("UCrypto#decrypt error 'Error while crypting' {}", e.toString());
+		}
+		return null;
 	}
 
 	public static String decrypt(final String strToDecrypt, final String secret) {
 		try {
 
-			Key key = generateKey(secret);
-			Cipher cipher = Cipher.getInstance(ALGORITHM_AES);
+			val key = generateKey(secret);
+			val cipher = Cipher.getInstance(ALGORITHM_AES);
 			cipher.init(Cipher.DECRYPT_MODE, key);
-			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)), Charset.forName("UTF-8"));
+			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)), StandardCharsets.UTF_8);
 
 		} catch (Exception e) {
 			log.error("UCrypto#decrypt error 'Error while decrypting' {}", e.toString());
