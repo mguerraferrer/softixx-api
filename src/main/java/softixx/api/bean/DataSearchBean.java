@@ -19,6 +19,10 @@ public class DataSearchBean {
 	@Getter(AccessLevel.NONE)
 	protected List<DataOrderByBean> orderByList;
 	protected DataLimitBean dataLimitBean;
+	
+	public static String getLowerLike(String value) {
+		return "lower('%"+value+"%')";
+	}
 
 	@Data
 	@NoArgsConstructor

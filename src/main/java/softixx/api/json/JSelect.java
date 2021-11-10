@@ -14,8 +14,12 @@ import softixx.api.util.UMessage;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JSelect {
-	public static final String SELECT_DEFAULT_OPTION = "<option value=\"\">"
-			+ UMessage.getMessage("select.text.default") + "</option>";
+	private static final String OPTION_START = "<option value=\"";
+	private static final String OPTION_END = "</option>";
+	
+	public static final String SELECT_OPTION_EMPTY = "-";
+	public static final String SELECT_OPTION_DEFAULT = "<option value=\"\">"
+			+ UMessage.getMessage("select.text.default") + OPTION_END;
 
 	private Option option;
 	@Singular("options")
@@ -34,7 +38,7 @@ public class JSelect {
 		private String optionCode;
 		private String optionValue;
 	}
-	
+
 	@Data
 	@Builder
 	@NoArgsConstructor
@@ -55,25 +59,29 @@ public class JSelect {
 	}
 
 	public static JSelect empty() {
-		return JSelect
-				.builder()
-				.optionsSource(SELECT_DEFAULT_OPTION)
-				.build();
+		return JSelect.builder().optionsSource(SELECT_OPTION_DEFAULT).build();
 	}
 
 	public static JSelect optionsSource(final String options) {
-		return JSelect
-				.builder()
-				.optionsSource(options)
-				.build();
+		return JSelect.builder().optionsSource(options).build();
 	}
 
 	public static JSelect optionsSource(final String options, List<AdditionalData> additionalData) {
-		return JSelect
-				.builder()
-				.optionsSource(options)
-				.clearAdditionalData()
-				.additionalData(additionalData)
-				.build();
+		return JSelect.builder().optionsSource(options).clearAdditionalData().additionalData(additionalData).build();
+	}
+
+	public static String defaultOption() {
+		return SELECT_OPTION_DEFAULT;
+	}
+	
+	public static String option(String id, String value) {
+		return OPTION_START + id + "\">" + value + OPTION_END;
+	}
+	
+	public static String option(String id, String value, boolean isSelected) {
+		if(isSelected) {
+			return OPTION_START + id + "\" selected=\"selected\">" + value + OPTION_END;
+		}
+		return OPTION_START + id + "\">" + value + OPTION_END;
 	}
 }

@@ -22,16 +22,16 @@ public class OptionDto {
 	private String value;
 	
 	public static List<OptionDto> empty() {
-		return new ArrayList<OptionDto>();
+		return new ArrayList<>();
 	}
 	
 	public static OptionDto optDefault() {
-		String SELECT_DEFAULT_OPTION = UMessage.getMessage("select.text.default");
+		String selectDefaultOption = UMessage.getMessage("select.text.default");
 		return OptionDto
 				.builder()
 				.id("")
-				.code(SELECT_DEFAULT_OPTION)
-				.value(SELECT_DEFAULT_OPTION)
+				.code(selectDefaultOption)
+				.value(selectDefaultOption)
 				.build();
 	}
 	

@@ -113,10 +113,8 @@ public class UPaginator<T> {
 					totalPages = 1;
 				} else {
 					totalPages = totalRows / pageSize;
-					if(totalPages > 0) {
-						if (totalRows % pageSize > 0) {
-							totalPages++;
-						}
+					if(totalPages > 0 && totalRows % pageSize > 0) {
+						totalPages++;
 					}
 				}
 				
@@ -133,7 +131,7 @@ public class UPaginator<T> {
 			val pageNumber = page;
 			val numberOfElements = this.content.size();
 			
-			this.pageJson = new JPage<T>();
+			this.pageJson = new JPage<>();
 			this.pageJson.setFirst(isFirst);
 			this.pageJson.setHasContent(hasContent);
 			this.pageJson.setHasNext(hasNext);

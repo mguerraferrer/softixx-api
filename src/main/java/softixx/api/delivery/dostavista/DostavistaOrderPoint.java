@@ -30,7 +30,7 @@ public class DostavistaOrderPoint {
 	@JsonProperty("point_id")
     private Integer pointId;
 	@JsonProperty("delivery_id")
-    private Integer deliveryId;
+    private Integer carrierId;
 	@JsonProperty("client_order_id")
     private Integer clientOrderId;
     private String address;

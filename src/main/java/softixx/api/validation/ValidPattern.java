@@ -18,7 +18,7 @@ import javax.validation.Payload;
 
 import softixx.api.util.UValidator;
 import softixx.api.validation.ValidPattern.List;
-import softixx.api.validator.constraint.PatternValidator;
+import softixx.api.validation.constraint.PatternValidator;
 
 /**
  * The annotated {@code CharSequence} must match the specified regular

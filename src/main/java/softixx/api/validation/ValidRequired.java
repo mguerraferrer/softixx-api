@@ -18,7 +18,7 @@ import javax.validation.Payload;
 
 import softixx.api.util.UValidator;
 import softixx.api.validation.ValidRequired.List;
-import softixx.api.validator.constraint.RequiredValidator;
+import softixx.api.validation.constraint.RequiredValidator;
 
 /**
  * The annotated element must not be {@code null} nor empty. Supported types

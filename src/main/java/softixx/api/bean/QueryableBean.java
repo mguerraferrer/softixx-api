@@ -39,6 +39,7 @@ public abstract class QueryableBean implements Serializable {
 	public static final String QUERY_FIND_LAST = "SELECT MAX(id) FROM --TABLE--";
 	public static final String QUERY_ALL = "SELECT * FROM --TABLE--";
 	public static final String QUERY_ALL_ORDER_BY = "SELECT * FROM --TABLE-- --ORDER BY--";
+	public static final String QUERY_ALL_JOIN = "SELECT * FROM --TABLE-- --INNER JOIN--";
 	/*LIMIT*/
 	public static final String QUERY_LIMIT = "SELECT --COLUMNS-- FROM --TABLE-- --LIMIT--";
 	public static final String QUERY_JOIN_LIMIT = "SELECT --COLUMNS-- FROM --TABLE-- --INNER JOIN-- --LIMIT--";

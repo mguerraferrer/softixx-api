@@ -1,26 +1,35 @@
 package softixx.api.util;
 
-import lombok.val;
-import lombok.extern.slf4j.Slf4j;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import softixx.api.util.UMessage.CustomMessage;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.Period;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
+
+import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+import softixx.api.util.UMessage.CustomMessage;
 
 @Slf4j
 public class UDateTime {
-	private static final Logger log = LoggerFactory.getLogger(UDateTime.class);
-
 	public static final String DATE_RANGE_SEPARATOR = " - ";
 	public static final String LAST_TIME_OF_DATE = "23:59:59";
 
@@ -240,6 +249,27 @@ public class UDateTime {
 
 			if (localDateTime != null) {
 				return localDateTime.format(DateTimeFormatter.ofPattern(formatter.format));
+			}
+
+		} catch (Exception e) {
+			log.error("UDateTime#formatDate error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Formats a date with a specific format
+	 * 
+	 * @param localDateTime - java.time.DateTimeFormatter
+	 * @param formatter - String formatter
+	 * @return A string date formatted from the DateTimeFormatter
+	 * @see Formatter
+	 */
+	public static String formatDate(final LocalDateTime localDateTime, final String formatter) {
+		try {
+
+			if (localDateTime != null) {
+				return localDateTime.format(DateTimeFormatter.ofPattern(formatter));
 			}
 
 		} catch (Exception e) {
@@ -485,84 +515,89 @@ public class UDateTime {
 	}
 	
 	public static CustomMessage fullDate(final Date date) {
+		val localDate = localDate(date);
+		return fullDate(localDate);
+	}
+	
+	public static CustomMessage fullDate(final LocalDate localDate) {
 		try {
 			
-			val localDate = localDate(date);
-
-			String day = null;
-			val dayOfWeek = localDate.getDayOfWeek().name();
-			switch (dayOfWeek) {
-			case "MONDAY":
-				day = "date.text.day.monday";
-				break;
-			case "TUESDAY":
-				day = "date.text.day.tuesday";
-				break;
-			case "WEDNESDAY":
-				day = "date.text.day.wednesday";
-				break;
-			case "THURSDAY":
-				day = "date.text.day.thursday";
-				break;
-			case "FRIDAY":
-				day = "date.text.day.friday";
-				break;
-			case "SATURDAY":
-				day = "date.text.day.saturday";
-				break;
-			case "SUNDAY":
-				day = "date.text.day.sunday";
-				break;
+			if (localDate != null) {
+				String day = null;
+				val dayOfWeek = localDate.getDayOfWeek().name();
+				switch (dayOfWeek) {
+				case "MONDAY":
+					day = "date.text.day.monday";
+					break;
+				case "TUESDAY":
+					day = "date.text.day.tuesday";
+					break;
+				case "WEDNESDAY":
+					day = "date.text.day.wednesday";
+					break;
+				case "THURSDAY":
+					day = "date.text.day.thursday";
+					break;
+				case "FRIDAY":
+					day = "date.text.day.friday";
+					break;
+				case "SATURDAY":
+					day = "date.text.day.saturday";
+					break;
+				case "SUNDAY":
+					day = "date.text.day.sunday";
+					break;
+				}
+				
+				String month = null;
+				val monthOfYear = localDate.getMonth().name();
+				switch (monthOfYear) {
+				case "JANUARY":
+					month = "date.text.month.january";
+					break;
+				case "FEBRUARY":
+					month = "date.text.month.february";
+					break;
+				case "MARCH":
+					month = "date.text.month.march";
+					break;
+				case "APRIL":
+					month = "date.text.month.april";
+					break;
+				case "MAY":
+					month = "date.text.month.may";
+					break;
+				case "JUNE":
+					month = "date.text.month.june";
+					break;
+				case "JULY":
+					month = "date.text.month.july";
+					break;
+				case "AUGUST":
+					month = "date.text.month.august";
+					break;
+				case "SEPTEMBER":
+					month = "date.text.month.september";
+					break;
+				case "OCTOBER":
+					month = "date.text.month.october";
+					break;
+				case "NOVEMBER":
+					month = "date.text.month.november";
+					break;
+				case "DECEMBER":
+					month = "date.text.month.december";
+					break;
+				}
+				
+				Integer dayOfMonth = localDate.getDayOfMonth();
+				Integer year = localDate.getYear();
+				
+				val params = new String[] { UMessage.getMessage(day), dayOfMonth.toString(), UMessage.getMessage(month),
+						year.toString() };
+				val customMessage = CustomMessage.builder().key("date.text.date.full").params(params).build();
+				return customMessage;
 			}
-
-			String month = null;
-			val monthOfYear = localDate.getMonth().name();
-			switch (monthOfYear) {
-			case "JANUARY":
-				month = "date.text.month.january";
-				break;
-			case "FEBRUARY":
-				month = "date.text.month.february";
-				break;
-			case "MARCH":
-				month = "date.text.month.march";
-				break;
-			case "APRIL":
-				month = "date.text.month.april";
-				break;
-			case "MAY":
-				month = "date.text.month.may";
-				break;
-			case "JUNE":
-				month = "date.text.month.june";
-				break;
-			case "JULY":
-				month = "date.text.month.july";
-				break;
-			case "AUGUST":
-				month = "date.text.month.august";
-				break;
-			case "SEPTEMBER":
-				month = "date.text.month.september";
-				break;
-			case "OCTOBER":
-				month = "date.text.month.october";
-				break;
-			case "NOVEMBER":
-				month = "date.text.month.november";
-				break;
-			case "DECEMBER":
-				month = "date.text.month.december";
-				break;
-			}
-
-			Integer dayOfMonth = localDate.getDayOfMonth();
-			Integer year = localDate.getYear();
-
-			val params = new String[] { UMessage.getMessage(day), dayOfMonth.toString(), UMessage.getMessage(month),
-					year.toString() };
-			val customMessage = CustomMessage.builder().key("date.text.date.full").params(params).build();
-			return customMessage;
 			
 		} catch (Exception e) {
 			log.error("UDateTime#fullDate error > {}", e.getMessage());
@@ -1050,9 +1085,22 @@ public class UDateTime {
 		try {
 
 			if (dateOne != null && dateTwo != null) {
-				val dateOneLocalDate = localDate(dateOne);
-				val dateTwoLocalDate = localDate(dateTwo);
-				return dateOneLocalDate.isBefore(dateTwoLocalDate);
+				val ldOne = localDate(dateOne);
+				val ldTwo = localDate(dateTwo);
+				return isBeforeLocalDate(ldOne, ldTwo);
+			}
+
+		} catch (Exception e) {
+			log.error("UDateTime#isBeforeLocalDate error > {}", e.getMessage());
+		}
+		return false;
+	}
+	
+	public static boolean isBeforeLocalDate(final LocalDate ldOne, final LocalDate ldTwo) {
+		try {
+
+			if (ldOne != null && ldTwo != null) {
+				return ldOne.isBefore(ldTwo);
 			}
 
 		} catch (Exception e) {

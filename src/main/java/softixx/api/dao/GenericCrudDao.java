@@ -840,7 +840,7 @@ public abstract class GenericCrudDao<T, ID> {
 			log.error("GenericCrudDao#paginate error {}", e.getMessage());
 		}
 		
-		return new PageBean<T>();
+		return new PageBean<>();
 	}
 
 	/**
@@ -1423,39 +1423,41 @@ public abstract class GenericCrudDao<T, ID> {
 	 * @param bean SqlBean<T>
 	 */
 	private void getSqlBeanData(final SqlBean<T, ID> bean) {
-		this.query = bean.getQuery();
-		this.countQuery = bean.getCountQuery();
-		this.table = bean.getTable();
-		this.columns = !bean.isUpdateOperation() ? bean.getSelectableColumns() : bean.getUpdatableColumns();
-		this.columnsReplace = bean.getSelectableReplaceColumns();
-		this.sentence = bean.getUpdatableColumns();
-		this.conditional = bean.getConditionals();
-		this.where = bean.getWhere();
-		this.joinTables = bean.getJoinTables();
-		this.join = bean.getJoin();
-		this.args = bean.getArgs();
-		this.values = bean.getSqlValues();
-		this.conditionalsData = bean.getConditionalsData();
-		this.declaredParameters = bean.getDeclaredParameters();
-		this.parameters = bean.getParameters();
-		this.namedParams = bean.getNamedParams();
-		this.idColumnName = bean.getIdColumnName();
-		this.className = bean.getClazz().getName();
-		this.idClass = bean.getIdClazz();
-		this.idClassName = bean.getIdClazz().getName();
-		this.orderBy = bean.getOrderBy();
-		this.limit = bean.getLimit();
-		this.offset = bean.getOffset();
-		this.pageable = bean.getPageable();
-		this.page = bean.getPage();
-		this.pageSize = bean.getPageSize();
-		this.rowMapper = bean.getRowMapper();
-		this.beanId = bean.getBeanId();
-		this.sanitizeQuery = bean.isSanitizeQuery();
-		
-		this.forceInsertSentence = bean.isForceInsertSentence();
-		if(Boolean.TRUE.equals(this.forceInsertSentence)) {
-			this.forceSentence = bean.getInsertForceSentence();
+		if (bean != null) {
+			this.query = bean.getQuery();
+			this.countQuery = bean.getCountQuery();
+			this.table = bean.getTable();
+			this.columns = !bean.isUpdateOperation() ? bean.getSelectableColumns() : bean.getUpdatableColumns();
+			this.columnsReplace = bean.getSelectableReplaceColumns();
+			this.sentence = bean.getUpdatableColumns();
+			this.conditional = bean.getConditionals();
+			this.where = bean.getWhere();
+			this.joinTables = bean.getJoinTables();
+			this.join = bean.getJoin();
+			this.args = bean.getArgs();
+			this.values = bean.getSqlValues();
+			this.conditionalsData = bean.getConditionalsData();
+			this.declaredParameters = bean.getDeclaredParameters();
+			this.parameters = bean.getParameters();
+			this.namedParams = bean.getNamedParams();
+			this.idColumnName = bean.getIdColumnName();
+			this.className = bean.getClazz().getName();
+			this.idClass = bean.getIdClazz();
+			this.idClassName = bean.getIdClazz().getName();
+			this.orderBy = bean.getOrderBy();
+			this.limit = bean.getLimit();
+			this.offset = bean.getOffset();
+			this.pageable = bean.getPageable();
+			this.page = bean.getPage();
+			this.pageSize = bean.getPageSize();
+			this.rowMapper = bean.getRowMapper();
+			this.beanId = bean.getBeanId();
+			this.sanitizeQuery = bean.isSanitizeQuery();
+			
+			this.forceInsertSentence = bean.isForceInsertSentence();
+			if(Boolean.TRUE.equals(this.forceInsertSentence)) {
+				this.forceSentence = bean.getInsertForceSentence();
+			}
 		}
 	}
 

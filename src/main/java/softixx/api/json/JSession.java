@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JSession {
-
 	private String sessionId;
 	private String sessionUserId;
 	private String sessionDate;
 	private String sessionTime;
+	private String sessionDateTime;
 	@Default
 	private boolean sessionActive = false;
 	@Default
 	private boolean sessionError = false;
-	
 }

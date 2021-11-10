@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import softixx.api.validator.constraint.Time24HNullableValidator;
+import softixx.api.validation.constraint.Time24HNullableValidator;
 
 @Target({ TYPE, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
