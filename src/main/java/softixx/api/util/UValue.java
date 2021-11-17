@@ -42,7 +42,7 @@ public class UValue {
 				return value.toString();
 
 		} catch (Exception e) {
-			log.error("UValue#str error {}", e.getMessage());
+			log.error("UValue#str error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -54,7 +54,7 @@ public class UValue {
 				return str.trim();
 
 		} catch (Exception e) {
-			log.error("UValue#str error {}", e.getMessage());
+			log.error("UValue#str error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -68,7 +68,7 @@ public class UValue {
 			}
 
 		} catch (Exception e) {
-			log.error("UValue#strCapitalize error {}", e.getMessage());
+			log.error("UValue#strCapitalize error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -80,7 +80,7 @@ public class UValue {
 				return str.trim().charAt(0);
 
 		} catch (Exception e) {
-			log.error("UValue#str error {}", e.getMessage());
+			log.error("UValue#str error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -100,7 +100,7 @@ public class UValue {
 			}
 			
 		} catch (Exception e) {
-			log.error("UValue#isStrContainsSubstring error {}", e.getMessage());
+			log.error("UValue#isStrContainsSubstring error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -114,7 +114,7 @@ public class UValue {
 				   	   	   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstCharacter(String) error {}", e.getMessage());
+			log.error("UValue#removeFirstCharacter(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -129,7 +129,7 @@ public class UValue {
 						   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstCharacter(String, String) error {}", e.getMessage());
+			log.error("UValue#removeFirstCharacter(String, String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -143,7 +143,7 @@ public class UValue {
 						   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstAndLastCharacter(String) error {}", e.getMessage());
+			log.error("UValue#removeFirstAndLastCharacter(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -158,7 +158,7 @@ public class UValue {
 						   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstAndLastCharacter(String, String) error {}", e.getMessage());
+			log.error("UValue#removeFirstAndLastCharacter(String, String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -172,7 +172,7 @@ public class UValue {
 						   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstAndLastCharacter(String) error {}", e.getMessage());
+			log.error("UValue#removeFirstAndLastCharacter(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -188,7 +188,7 @@ public class UValue {
 						   .orElse(str);
 			
 		} catch (Exception e) {
-			log.error("UValue#removeFirstAndLastCharacter(String, String, String) error {}", e.getMessage());
+			log.error("UValue#removeFirstAndLastCharacter(String, String, String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -201,7 +201,7 @@ public class UValue {
 			}
 
 		} catch (Exception e) {
-			log.error("UValue#stringToByte error {}", e.getMessage());
+			log.error("UValue#stringToByte error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -212,7 +212,7 @@ public class UValue {
 			return new String(b, StandardCharsets.UTF_8);
 
 		} catch (Exception e) {
-			log.error("UValue#byteToString error {}", e.getMessage());
+			log.error("UValue#byteToString error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -229,7 +229,7 @@ public class UValue {
 			}
 
 		} catch (Exception e) {
-			log.error("UValue#customReplace error {}", e.getMessage());
+			log.error("UValue#customReplace error - {}", e.getMessage());
 		}
 		return str;
 	}
@@ -246,7 +246,7 @@ public class UValue {
 			}
 
 		} catch (Exception e) {
-			log.error("UValue#customReplaceInverse error {}", e.getMessage());
+			log.error("UValue#customReplaceInverse error - {}", e.getMessage());
 		}
 		return str;
 	}
@@ -280,7 +280,7 @@ public class UValue {
 			}
 			
 		} catch (Exception e) {
-			log.error("UValue#textReplace error {}", e.getMessage());
+			log.error("UValue#textReplace error - {}", e.getMessage());
 		}
 		return text;
 	}
@@ -306,7 +306,7 @@ public class UValue {
 			return reverse;
 			
 		} catch (Exception e) {
-			log.error("UValue#reverse error {}", e.getMessage());
+			log.error("UValue#reverse error - {}", e.getMessage());
 		}
 		return source;
 	}

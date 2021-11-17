@@ -51,14 +51,14 @@ public abstract class FileBeanRW<T> extends FileRW {
 			return fileData;
 			
 		} catch (Exception e) {
-			log.error("UFileReader#parseFile error {}", e.getMessage());
+			log.error("UFileReader#parseFile error - {}", e.getMessage());
 		} finally {
 			try {
 				
 				fileReader.close();
 				
 			} catch (IOException e) {
-				log.error("UFileReader#parseFile fileReader.close error {}", e.getMessage());
+				log.error("UFileReader#parseFile fileReader.close error - {}", e.getMessage());
 			}
 		}
 		return null;
@@ -84,7 +84,7 @@ public abstract class FileBeanRW<T> extends FileRW {
 	    	beanToCsv.write(fileData.getSource());
 	      
 	    } catch (Exception e) {
-	    	log.error("UFileReader#dataToFile error {}", e.getMessage());
+	    	log.error("UFileReader#dataToFile error - {}", e.getMessage());
 	    	e.printStackTrace();
 	    }
 	}

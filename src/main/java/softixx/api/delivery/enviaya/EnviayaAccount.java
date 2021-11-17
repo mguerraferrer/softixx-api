@@ -31,7 +31,7 @@ public class EnviayaAccount {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("EnviayaAccount toJsonString error {}", e.getMessage());
+			log.error("EnviayaAccount toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -43,7 +43,7 @@ public class EnviayaAccount {
             return mapper.readValue(json, EnviayaAccount.class);
     		
 		} catch (Exception e) {
-			log.error("EnviayaAccount fromJsonString error {}", e.getMessage());
+			log.error("EnviayaAccount fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }

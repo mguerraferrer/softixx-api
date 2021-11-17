@@ -71,7 +71,7 @@ public class DostavistaRequest {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("DostavistaRequest#toJsonString error {}", e.getMessage());
+			log.error("DostavistaRequest#toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -83,7 +83,7 @@ public class DostavistaRequest {
             return mapper.readValue(json, DostavistaRequest.class);
     		
 		} catch (Exception e) {
-			log.error("DostavistaRequest#fromJsonString error {}", e.getMessage());
+			log.error("DostavistaRequest#fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }

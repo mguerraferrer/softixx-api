@@ -142,7 +142,7 @@ public abstract class EnviayaDelivery {
 			return rates;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#rates error {}", e.getMessage());
+			log.error("EnviayaDelivery#rates error - {}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
@@ -185,7 +185,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#shipmentBooking error {}", e.getMessage());
+			log.error("EnviayaDelivery#shipmentBooking error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -231,7 +231,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#shipmentLookUp error {}", e.getMessage());
+			log.error("EnviayaDelivery#shipmentLookUp error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -274,7 +274,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#shipmentCancellation error {}", e.getMessage());
+			log.error("EnviayaDelivery#shipmentCancellation error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -317,7 +317,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#shipmentTracking error {}", e.getMessage());
+			log.error("EnviayaDelivery#shipmentTracking error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -360,7 +360,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#pickupsBooking error {}", e.getMessage());
+			log.error("EnviayaDelivery#pickupsBooking error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -406,7 +406,7 @@ public abstract class EnviayaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#pickupsLookUp error {}", e.getMessage());
+			log.error("EnviayaDelivery#pickupsLookUp error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -450,7 +450,7 @@ public abstract class EnviayaDelivery {
 			}
 			
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#getCatalogue error {}", e.getMessage());
+			log.error("EnviayaDelivery#getCatalogue error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -467,7 +467,7 @@ public abstract class EnviayaDelivery {
 			return UriComponentsBuilder.fromUri(new URI(url)).build().encode().toUri();
 		
 		} catch (Exception e) {
-			log.error("EnviayaDelivery#getURI error {}", e.getMessage());
+			log.error("EnviayaDelivery#getURI error - {}", e.getMessage());
 		}
 		return null;
 	}

@@ -33,7 +33,7 @@ public class UDecimal {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDecimal#decimals(String) error {}", e.getMessage());
+			log.error("UDecimal#decimals(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -54,7 +54,7 @@ public class UDecimal {
 			return decimalPart.toString().length();
 			
 		} catch (Exception e) {
-			log.error("UDecimal#decimals(BigDecimal) error {}", e.getMessage());
+			log.error("UDecimal#decimals(BigDecimal) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -70,7 +70,7 @@ public class UDecimal {
 			return decimalPart(doubleAsString);
 			
 		} catch (Exception e) {
-			log.error("UDecimal#decimalPart(Double) error {}", e.getMessage());
+			log.error("UDecimal#decimalPart(Double) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -86,7 +86,7 @@ public class UDecimal {
 			return decimalPart(bigDecimalAsString);
 			
 		} catch (Exception e) {
-			log.error("UDecimal#decimalPart(BigDecimal) error {}", e.getMessage());
+			log.error("UDecimal#decimalPart(BigDecimal) error - {}", e.getMessage());
 		}
 		return null;
 	}

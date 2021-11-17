@@ -415,7 +415,7 @@ public class UValidator {
 				return isMatch;
 				
 			} catch (Exception e) {
-				log.error("UValidator#validatePattern error {}", e.getMessage());
+				log.error("UValidator#validatePattern error - {}", e.getMessage());
 			}
 			return false;
 		}

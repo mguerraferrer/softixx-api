@@ -78,7 +78,7 @@ public class EnviayaShipment {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("EnviayaShipment toJsonString error {}", e.getMessage());
+			log.error("EnviayaShipment toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -90,7 +90,7 @@ public class EnviayaShipment {
             return mapper.readValue(json, EnviayaShipment.class);
     		
 		} catch (Exception e) {
-			log.error("EnviayaShipment fromJsonString error {}", e.getMessage());
+			log.error("EnviayaShipment fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -127,7 +127,7 @@ public class EnviayaShipment {
     	        return mapper.writeValueAsString(obj);
     			
     		} catch (Exception e) {
-    			log.error("EnviayaShipmentBooking toJsonString error {}", e.getMessage());
+    			log.error("EnviayaShipmentBooking toJsonString error - {}", e.getMessage());
     		}
         	return null;
         }
@@ -139,7 +139,7 @@ public class EnviayaShipment {
                 return mapper.readValue(json, EnviayaShipmentBooking.class);
         		
     		} catch (Exception e) {
-    			log.error("EnviayaShipmentBooking fromJsonString error {}", e.getMessage());
+    			log.error("EnviayaShipmentBooking fromJsonString error - {}", e.getMessage());
     		}
         	return null;
         }

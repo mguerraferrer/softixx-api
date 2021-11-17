@@ -14,7 +14,7 @@ public class UShort {
 			}
 
 		} catch (Exception e) {
-			log.error("UShort#value(String) error {}", e.getMessage());		
+			log.error("UShort#value(String) error - {}", e.getMessage());		
 		}
 		return null;
 	}
@@ -27,7 +27,7 @@ public class UShort {
 			}
 
 		} catch (Exception e) {
-			log.error("UShort#value(Short) error {}", e.getMessage());		
+			log.error("UShort#value(Short) error - {}", e.getMessage());		
 		}
 		return null;
 	}

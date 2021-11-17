@@ -8,6 +8,10 @@ import java.util.stream.Collectors;
 import lombok.val;
 
 public class UPaginate {
+	private UPaginate() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static final int DEFAULT_PAGE = 0;
 	public static final int DEFAULT_PAGE_SIZE = 10;
 	
@@ -23,7 +27,7 @@ public class UPaginate {
 		return pageSize.orElse(DEFAULT_PAGE_SIZE);
 	}
 	
-	public static List<?> paginate(final List<?> list, final int page, final int pageSize) {
+	public static <T> List<T> paginate(final List<T> list, final int page, final int pageSize) {
 		if(list != null && !list.isEmpty()) {
 			val offset = page * pageSize;
 			if (offset >= list.size()) {

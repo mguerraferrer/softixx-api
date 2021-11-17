@@ -22,7 +22,7 @@ public class PasswordValidator {
 			return encoder.matches(rawPassword, encodedPassword);
 			
 		} catch (Exception e) {
-			log.error("PasswordValidator#isMatch error {}", e.getMessage());
+			log.error("PasswordValidator#isMatch error - {}", e.getMessage());
 		}
 		return false;
 	}

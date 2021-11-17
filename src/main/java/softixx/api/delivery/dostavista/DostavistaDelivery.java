@@ -72,7 +72,7 @@ public abstract class DostavistaDelivery {
 			return response;
 			
 		} catch (Exception e) {
-			log.error("DostavistaDelivery#calculateOrder error {}", e.getMessage());
+			log.error("DostavistaDelivery#calculateOrder error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -87,7 +87,7 @@ public abstract class DostavistaDelivery {
 			return response;
 			
 		} catch (Exception e) {
-			log.error("DostavistaDelivery#calculateOrder error {}", e.getMessage());
+			log.error("DostavistaDelivery#calculateOrder error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -102,7 +102,7 @@ public abstract class DostavistaDelivery {
 			return response;
 			
 		} catch (Exception e) {
-			log.error("DostavistaDelivery#calculateOrder error {}", e.getMessage());
+			log.error("DostavistaDelivery#calculateOrder error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -160,7 +160,7 @@ public abstract class DostavistaDelivery {
 			return responseBody;
 			
 		} catch (Exception e) {
-			log.error("DostavistaDelivery#calculateOrder error {}", e.getMessage());
+			log.error("DostavistaDelivery#calculateOrder error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -201,7 +201,7 @@ public abstract class DostavistaDelivery {
 			return UriComponentsBuilder.fromUri(new URI(url)).build().encode().toUri();
 		
 		} catch (Exception e) {
-			log.error("DostavistaDelivery#getURI error {}", e.getMessage());
+			log.error("DostavistaDelivery#getURI error - {}", e.getMessage());
 		}
 		return null;
 	}

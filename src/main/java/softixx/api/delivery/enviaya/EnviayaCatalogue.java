@@ -37,7 +37,7 @@ public class EnviayaCatalogue {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("EnviayaCatalogue toJsonString error {}", e.getMessage());
+			log.error("EnviayaCatalogue toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -49,7 +49,7 @@ public class EnviayaCatalogue {
             return mapper.readValue(json, EnviayaCatalogue.class);
     		
 		} catch (Exception e) {
-			log.error("EnviayaCatalogue fromJsonString error {}", e.getMessage());
+			log.error("EnviayaCatalogue fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }

@@ -16,7 +16,7 @@ public class ULong {
 			}
 
 		} catch (Exception e) {
-			log.error("ULong#value(String) error {}", e.getMessage());
+			log.error("ULong#value(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -29,7 +29,7 @@ public class ULong {
 			}
 
 		} catch (Exception e) {
-			log.error("ULong#value(Integer) error {}", e.getMessage());
+			log.error("ULong#value(Integer) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -42,7 +42,7 @@ public class ULong {
 			}
 
 		} catch (Exception e) {
-			log.error("ULong#value(Long) error {}", e.getMessage());
+			log.error("ULong#value(Long) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -55,7 +55,7 @@ public class ULong {
 			}
 
 		} catch (Exception e) {
-			log.error("ULong#value(BigInteger) error {}", e.getMessage());
+			log.error("ULong#value(BigInteger) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -68,7 +68,7 @@ public class ULong {
 			}
 
 		} catch (Exception e) {
-			log.error("ULong#value(Number) error {}", e.getMessage());
+			log.error("ULong#value(Number) error - {}", e.getMessage());
 		}
 		return null;
 	}

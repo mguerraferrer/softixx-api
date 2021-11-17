@@ -34,7 +34,7 @@ public class EnviayaTracking {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("EnviayaTracking toJsonString error {}", e.getMessage());
+			log.error("EnviayaTracking toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -46,7 +46,7 @@ public class EnviayaTracking {
             return mapper.readValue(json, EnviayaTracking.class);
     		
 		} catch (Exception e) {
-			log.error("EnviayaTracking fromJsonString error {}", e.getMessage());
+			log.error("EnviayaTracking fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -92,7 +92,7 @@ public class EnviayaTracking {
     	        return mapper.writeValueAsString(obj);
     			
     		} catch (Exception e) {
-    			log.error("EnviayaTrackingResponse toJsonString error {}", e.getMessage());
+    			log.error("EnviayaTrackingResponse toJsonString error - {}", e.getMessage());
     		}
         	return null;
         }
@@ -104,7 +104,7 @@ public class EnviayaTracking {
                 return mapper.readValue(json, EnviayaTrackingResponse.class);
         		
     		} catch (Exception e) {
-    			log.error("EnviayaTrackingResponse fromJsonString error {}", e.getMessage());
+    			log.error("EnviayaTrackingResponse fromJsonString error - {}", e.getMessage());
     		}
         	return null;
         }

@@ -95,7 +95,7 @@ public class UPaginator<T> {
 			return this.pageJson; 
 			
 		} catch (Exception e) {
-			log.error("UPaginator#populatePage error {}", e.getMessage());
+			log.error("UPaginator#populatePage error - {}", e.getMessage());
 		}		
 		return null;
 	}
@@ -155,7 +155,7 @@ public class UPaginator<T> {
 			return this.pageJson; 
 			
 		} catch (Exception e) {
-			log.error("UPaginator#populatePage error {}", e.getMessage());
+			log.error("UPaginator#populatePage error - {}", e.getMessage());
 		}		
 		return null;
 	}

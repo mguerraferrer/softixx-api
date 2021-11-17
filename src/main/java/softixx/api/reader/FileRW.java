@@ -45,7 +45,7 @@ public abstract class FileRW {
 			fileInfo.setTotalLines(entries.size());
 			
 		} catch (Exception e) {
-			log.error("FileRW#parseFile error {}", e.getMessage());
+			log.error("FileRW#parseFile error - {}", e.getMessage());
 			fileInfo.addMessage(fileInfo.getFileName(), e.getMessage(), FileInfoBean.FAIL);
 		} finally {
 			try {
@@ -59,7 +59,7 @@ public abstract class FileRW {
 				}
 				
 			} catch (Exception e1) {
-				log.error("FileRW#parseFile error {}", e1.getMessage());
+				log.error("FileRW#parseFile error - {}", e1.getMessage());
 				fileInfo.addMessage(fileInfo.getFileName(), e1.getMessage(), FileInfoBean.FAIL);
 			}
 		}

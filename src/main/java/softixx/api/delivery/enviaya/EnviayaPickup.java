@@ -46,7 +46,7 @@ public class EnviayaPickup {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("EnviayaPickup toJsonString error {}", e.getMessage());
+			log.error("EnviayaPickup toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -58,7 +58,7 @@ public class EnviayaPickup {
             return mapper.readValue(json, EnviayaPickup.class);
     		
 		} catch (Exception e) {
-			log.error("EnviayaPickup fromJsonString error {}", e.getMessage());
+			log.error("EnviayaPickup fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -87,7 +87,7 @@ public class EnviayaPickup {
     	        return mapper.writeValueAsString(obj);
     			
     		} catch (Exception e) {
-    			log.error("EnviayaPickupResponse toJsonString error {}", e.getMessage());
+    			log.error("EnviayaPickupResponse toJsonString error - {}", e.getMessage());
     		}
         	return null;
         }
@@ -99,7 +99,7 @@ public class EnviayaPickup {
                 return mapper.readValue(json, EnviayaPickupResponse.class);
         		
     		} catch (Exception e) {
-    			log.error("EnviayaPickupResponse fromJsonString error {}", e.getMessage());
+    			log.error("EnviayaPickupResponse fromJsonString error - {}", e.getMessage());
     		}
         	return null;
         }

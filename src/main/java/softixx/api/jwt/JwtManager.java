@@ -57,7 +57,7 @@ public class JwtManager {
 	        return jwtBuilder.compact();
 			
 		} catch (Exception e) {
-			log.error("JwtManager#createJWT error {}", e.getMessage());
+			log.error("JwtManager#createJWT error - {}", e.getMessage());
 		}
         return null;
     }

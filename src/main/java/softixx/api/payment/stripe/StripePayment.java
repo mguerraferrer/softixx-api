@@ -1,8 +1,5 @@
 package softixx.api.payment.stripe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.stripe.Stripe;
@@ -21,6 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+import softixx.api.exception.StripePaymentException;
 import softixx.api.util.UCalculation;
 import softixx.api.util.UValidator;
 
@@ -31,11 +30,10 @@ import softixx.api.util.UValidator;
  * @author Maikel Guerra Ferrer
  * @since 1.2.0
  */
+@Slf4j
 public abstract class StripePayment {
-	private static final Logger log = LoggerFactory.getLogger(StripePayment.class);
-	
 	private StripeConfiguration stripeConfiguration;
-	private Boolean showLogs;
+	private boolean showLogs;
 	private static Gson gson = new Gson();
 	private String errorCode;
 	private String errorMessage;
@@ -68,11 +66,11 @@ public abstract class StripePayment {
 	 * @return String with the information of the payment intent
 	 * @see StripeData
 	 */
-	protected String paymentIntent(final StripeData data) throws Exception {
+	protected String paymentIntent(final StripeData data) throws StripePaymentException {
 		try {
 			
 			if(data == null) {
-				throw new Exception("Error: stripeDataBean is null!");
+				throw new StripePaymentException("Error: stripeDataBean is null!");
 			}
 			
 			//##### Initialization Stripe
@@ -90,18 +88,17 @@ public abstract class StripePayment {
 			val response = gson.toJson(clientSecret);
 			
 			if(this.showLogs) {
-				log.info("Stripe paymentIntent success");
-				log.info("Stripe paymentIntent response > {}", response);
+				log.info("--- StripePayment#paymentIntent - Payment intent was successfully generated");
+				log.info("--- StripePayment#paymentIntent - Payment intent response [{}]", response);
 			}
 			
 			return response;
 			
 		} catch (Exception e) {
 			if (this.showLogs) {
-				e.printStackTrace();
-				log.error("Stripe paymentIntent error > {}", e.getMessage());
+				log.error("--- StripePayment#paymentIntent error - {}", e.getMessage());
 			}
-			throw new Exception(e.getMessage());
+			throw new StripePaymentException(e.getMessage());
 		}
 	}
 	
@@ -138,44 +135,44 @@ public abstract class StripePayment {
 		} catch (CardException e) {
 			// CardException - Since it's a decline, CardException will be caught
 			if (this.showLogs) {
-				log.error("Stripe charge CardException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [CardException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (RateLimitException e) {
 			// Too many requests made to the API too quickly
 			if (this.showLogs) {
-				log.error("Stripe charge RateLimitException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [RateLimitException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (InvalidRequestException e) {
 			// Invalid parameters were supplied to Stripe's API
 			if (this.showLogs) {
-				log.error("Stripe charge InvalidRequestException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [InvalidRequestException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (AuthenticationException e) {
 			// Authentication with Stripe's API failed (maybe you changed API keys recently)
 			if (this.showLogs) {
-				log.error("Stripe charge AuthenticationException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [AuthenticationException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (ApiConnectionException e) {
 			// Network communication with Stripe failed
 			if (this.showLogs) {
-				log.error("Stripe charge ApiConnectionException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [ApiConnectionException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (StripeException e) {
 			// Display a very generic error to the user, and maybe send yourself an email
 			if (this.showLogs) {
-				log.error("Stripe charge StripeException > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [StripeException] - {}", e.getMessage());
 			}
 			stripeCatchError(e);
 		} catch (Exception e) {
 			// Something else happened, completely unrelated to Stripe
 			if (this.showLogs) {
 				errorMessage = e.getMessage();
-				log.error("Stripe charge Exception > {}", e.getMessage());
+				log.error("--- StripePayment#charge error [Exception] - {}", e.getMessage());
 			}
 		}
 		
@@ -196,31 +193,29 @@ public abstract class StripePayment {
 	 * @see StripePaymentIntentResponse
 	 * @throws Exception
 	 */
-	protected StripePaymentIntentResponse paymentResponse(final String json) throws Exception {
+	protected StripePaymentIntentResponse paymentResponse(final String json) throws StripePaymentException {
 		if(json == null) {
-			throw new Exception("Error: json data is null!");
+			throw new StripePaymentException("Error: json data is null!");
 		}
 		
 		try {
 			
 			val objectMapper = new ObjectMapper();
-			val stripeResponse = objectMapper.readValue(json, StripePaymentIntentResponse.class);
-			return stripeResponse;
+			return objectMapper.readValue(json, StripePaymentIntentResponse.class);
 			
 		} catch (Exception e) {
 			if (this.showLogs) {
-				e.printStackTrace();
-				log.error("Stripe paymentResponse error > {}", e.getMessage());
+				log.error("--- StripePayment#paymentResponse error - {}", e.getMessage());
 			}
-			throw new Exception(e.getMessage());
+			throw new StripePaymentException(e.getMessage());
 		}
 		
 	}
 	
 	private void stripeCatchError(StripeException e) {
 		if (this.showLogs) {
-			log.error("Stripe catch error message > {}", e.getCode());
-			log.error("Stripe catch error message > {}", e.getMessage());
+			log.error("--- StripePayment#stripeCatchError - Stripe catch error message [{}]", e.getCode());
+			log.error("--- StripePayment#stripeCatchError - Stripe catch error message [{}]", e.getMessage());
 		}
 		this.errorCode = e.getCode();
 		this.errorMessage = e.getMessage();

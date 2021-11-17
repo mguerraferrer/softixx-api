@@ -28,7 +28,7 @@ public class UDouble {
 			}
 
 		} catch (Exception e) {
-			log.error("UDouble#dValue(String) error {}", e.getMessage());
+			log.error("UDouble#dValue(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -44,7 +44,7 @@ public class UDouble {
 			}
 
 		} catch (Exception e) {
-			log.error("UDouble#dValueWithoutDecimals error {}", e.getMessage());
+			log.error("UDouble#dValueWithoutDecimals error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -58,7 +58,7 @@ public class UDouble {
 			}
 
 		} catch (Exception e) {
-			log.error("UDouble#dValue(Integer) error {}", e.getMessage());
+			log.error("UDouble#dValue(Integer) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -71,7 +71,7 @@ public class UDouble {
 			}
 
 		} catch (Exception e) {
-			log.error("UDouble#dValue(BigDecimal) error {}", e.getMessage());
+			log.error("UDouble#dValue(BigDecimal) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -88,7 +88,7 @@ public class UDouble {
 			}
 
 		} catch (Exception e) {
-			log.error("UDouble#dValue(Double) error {}", e.getMessage());
+			log.error("UDouble#dValue(Double) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -108,7 +108,7 @@ public class UDouble {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDouble#integerPart error {}", e.getMessage());
+			log.error("UDouble#integerPart error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -123,7 +123,7 @@ public class UDouble {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDouble#round error {}", e.getMessage());
+			log.error("UDouble#round error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -150,7 +150,7 @@ public class UDouble {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDouble#roundCommision error {}", e.getMessage());
+			log.error("UDouble#roundCommision error - {}", e.getMessage());
 		}
 		return null;
 	}

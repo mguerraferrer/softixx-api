@@ -39,7 +39,7 @@ public class UDateTime {
 	public static String CURRENT_YEAR_2D = currentYear2D();
 	public static String CURRENT_TIMESTAMP = currentTimestamp(Formatter.DATE_TIME_FULL_FORMAT);
 	
-	private static final String LOG_LOCAL_TIME_ERROR = "UDateTime#localTime error {}";
+	private static final String LOG_LOCAL_TIME_ERROR = "UDateTime#localTime error - {}";
 
 	public enum Formatter {
 		DATE_SIMPLE_FORMAT("dd/MM/yyyy"),
@@ -945,7 +945,7 @@ public class UDateTime {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDateTime error {}", e);
+			log.error("UDateTime error - {}", e);
 		}
 		return UValue.EMPTY;
 	}

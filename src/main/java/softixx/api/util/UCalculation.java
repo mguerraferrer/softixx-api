@@ -20,7 +20,7 @@ public class UCalculation {
 			return value;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#percentage error {}", e.getMessage());
+			log.error("UCalculation#percentage error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -33,7 +33,7 @@ public class UCalculation {
 			return value;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#percentage error {}", e.getMessage());
+			log.error("UCalculation#percentage error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -45,7 +45,7 @@ public class UCalculation {
 			return value;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#percentage error {}", e.getMessage());
+			log.error("UCalculation#percentage error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -62,7 +62,7 @@ public class UCalculation {
 			return total;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#total error {}", e.getMessage());
+			log.error("UCalculation#total error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -83,7 +83,7 @@ public class UCalculation {
 			return total;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#total error {}", e.getMessage());
+			log.error("UCalculation#total error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -108,7 +108,7 @@ public class UCalculation {
 			return total;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#total error {}", e.getMessage());
+			log.error("UCalculation#total error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -127,7 +127,7 @@ public class UCalculation {
 			return total;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#total error {}", e.getMessage());
+			log.error("UCalculation#total error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -150,7 +150,7 @@ public class UCalculation {
 			return total;
 			
 		} catch (Exception e) {
-			log.error("UCalculation#total error {}", e.getMessage());
+			log.error("UCalculation#total error - {}", e.getMessage());
 		}
 		return null;
 	}

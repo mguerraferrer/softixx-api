@@ -32,7 +32,7 @@ public class UDao {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDao#close error {}", e.getMessage());
+			log.error("UDao#close error - {}", e.getMessage());
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class UDao {
 			}
 			
 		} catch (Exception e) {
-			log.error("UDao#showMetadata error {}", e.getMessage());
+			log.error("UDao#showMetadata error - {}", e.getMessage());
 		}
 	}
 	

@@ -40,7 +40,7 @@ public class DostavistaFindOrder {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("DostavistaFindOrder#toJsonString error {}", e.getMessage());
+			log.error("DostavistaFindOrder#toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -52,7 +52,7 @@ public class DostavistaFindOrder {
             return mapper.readValue(json, DostavistaFindOrder.class);
     		
 		} catch (Exception e) {
-			log.error("DostavistaFindOrder#fromJsonString error {}", e.getMessage());
+			log.error("DostavistaFindOrder#fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }

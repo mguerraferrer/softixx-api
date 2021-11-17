@@ -25,7 +25,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(String) error {}", e.getMessage());
+			log.error("UInteger#value(String) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -38,7 +38,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(Integer) error {}", e.getMessage());
+			log.error("UInteger#value(Integer) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -51,7 +51,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(Double) error {}", e.getMessage());
+			log.error("UInteger#value(Double) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -64,7 +64,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(Long) error {}", e.getMessage());
+			log.error("UInteger#value(Long) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -77,7 +77,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(BigInteger) error {}", e.getMessage());
+			log.error("UInteger#value(BigInteger) error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -90,7 +90,7 @@ public class UInteger {
 			}
 
 		} catch (Exception e) {
-			log.error("UInteger#value(Number) error {}", e.getMessage());
+			log.error("UInteger#value(Number) error - {}", e.getMessage());
 		}
 		return null;
 	}

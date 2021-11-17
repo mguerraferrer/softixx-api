@@ -1,6 +1,5 @@
 package softixx.api.util;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -11,11 +10,6 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.sun.mail.util.BASE64DecoderStream;
-import com.sun.mail.util.BASE64EncoderStream;
-
-import lombok.val;
-
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+
+import com.sun.mail.util.BASE64DecoderStream;
+import com.sun.mail.util.BASE64EncoderStream;
+
+import lombok.val;
 
 public class UCrypto {
 	private static final Logger log = LoggerFactory.getLogger(UCrypto.class);
@@ -47,7 +46,7 @@ public class UCrypto {
 			return KeyGenerators.string().generateKey();
 
 		} catch (Exception e) {
-			log.error("UCrypto#salt error {}", e.getMessage());
+			log.error("UCrypto#salt error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -65,7 +64,7 @@ public class UCrypto {
 			}
 			
 		} catch (Exception e) {
-			log.error("UCrypto#idEncode error {}", e.getMessage());
+			log.error("UCrypto#idEncode error - {}", e.getMessage());
 		}
 	    return null;
 	}
@@ -78,7 +77,7 @@ public class UCrypto {
 			}
 			
 		} catch (Exception e) {
-			log.error("UCrypto#idDecode error {}", e.getMessage());
+			log.error("UCrypto#idDecode error - {}", e.getMessage());
 		}
 	    return null;
 	}
@@ -92,7 +91,7 @@ public class UCrypto {
 			}
 			
 		} catch (Exception e) {
-			log.error("UCrypto#idDecode error {}", e.getMessage());
+			log.error("UCrypto#idDecode error - {}", e.getMessage());
 		}
 	    return null;
 	}
@@ -106,7 +105,7 @@ public class UCrypto {
 			}
 			
 		} catch (Exception e) {
-			log.error("UCrypto#idDecode error {}", e.getMessage());
+			log.error("UCrypto#idDecode error - {}", e.getMessage());
 		}
 	    return null;
 	}
@@ -143,7 +142,7 @@ public class UCrypto {
 			return Encryptors.text(CRYPT, SALT).encrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#textEncryptor error {}", e.getMessage());
+			log.error("UCrypto#textEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -154,7 +153,7 @@ public class UCrypto {
 			return Encryptors.text(CRYPT, salt).encrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#textEncryptor error {}", e.getMessage());
+			log.error("UCrypto#textEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -165,7 +164,7 @@ public class UCrypto {
 			return Encryptors.text(CRYPT, SALT).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#textDecryptor error {}", e.getMessage());
+			log.error("UCrypto#textDecryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -176,7 +175,7 @@ public class UCrypto {
 			return Encryptors.text(CRYPT, salt).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#textDecryptor error {}", e.getMessage());
+			log.error("UCrypto#textDecryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -187,7 +186,7 @@ public class UCrypto {
 			return Encryptors.delux(CRYPT, SALT).encrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#deluxEncryptor error {}", e.getMessage());
+			log.error("UCrypto#deluxEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -198,7 +197,7 @@ public class UCrypto {
 			return Encryptors.delux(CRYPT, salt).encrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#deluxEncryptor error {}", e.getMessage());
+			log.error("UCrypto#deluxEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -209,7 +208,7 @@ public class UCrypto {
 			return Encryptors.delux(CRYPT, SALT).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#deluxDecryptor error {}", e.getMessage());
+			log.error("UCrypto#deluxDecryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -220,7 +219,7 @@ public class UCrypto {
 			return Encryptors.delux(CRYPT, salt).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#deluxDecryptor error {}", e.getMessage());
+			log.error("UCrypto#deluxDecryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -231,7 +230,7 @@ public class UCrypto {
 			return Encryptors.standard(CRYPT, SALT).encrypt(value.getBytes(StandardCharsets.UTF_8));
 
 		} catch (Exception e) {
-			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
+			log.error("UCrypto#bytesEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -242,7 +241,7 @@ public class UCrypto {
 			return Encryptors.standard(CRYPT, salt).encrypt(value.getBytes(StandardCharsets.UTF_8));
 
 		} catch (Exception e) {
-			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
+			log.error("UCrypto#bytesEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -253,7 +252,7 @@ public class UCrypto {
 			return Encryptors.standard(CRYPT, SALT).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
+			log.error("UCrypto#bytesEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -264,7 +263,7 @@ public class UCrypto {
 			return Encryptors.standard(CRYPT, salt).decrypt(value);
 
 		} catch (Exception e) {
-			log.error("UCrypto#bytesEncryptor error {}", e.getMessage());
+			log.error("UCrypto#bytesEncryptor error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -322,7 +321,7 @@ public class UCrypto {
 				secretKey = KeyGenerator.getInstance(ALGORITHM_DES).generateKey();
 				
 			} catch (NoSuchAlgorithmException e) {
-				log.error("UCrypto#loadKey error {}", e.getMessage());
+				log.error("UCrypto#loadKey error - {}", e.getMessage());
 			}
 		}
 	}
@@ -349,7 +348,7 @@ public class UCrypto {
 			return new String(enc);
 			
 		} catch (Exception e) {
-			log.error("UCrypto#encryptWithDES error {}", e.getMessage());
+			log.error("UCrypto#encryptWithDES error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -374,7 +373,7 @@ public class UCrypto {
 			return new String(utf8, "UTF8");
 
 		} catch (Exception e) {
-			log.error("UCrypto#decryptWithDES error {}", e.getMessage());
+			log.error("UCrypto#decryptWithDES error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -391,7 +390,7 @@ public class UCrypto {
 			}
 			
 		} catch (Exception e) {
-			log.error("UCrypto#encryptWithJasypt error {}", e.getMessage());
+			log.error("UCrypto#encryptWithJasypt error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -404,7 +403,7 @@ public class UCrypto {
 			return textEncryptor.decrypt(value);
 			
 		} catch (Exception e) {
-			log.error("UCrypto#decryptWithJasypt error {}", e.getMessage());
+			log.error("UCrypto#decryptWithJasypt error - {}", e.getMessage());
 		}
 		return null;
 	}

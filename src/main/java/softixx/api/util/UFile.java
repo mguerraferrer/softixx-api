@@ -38,7 +38,7 @@ public class UFile {
 			});
 			return fileNames;
 		} catch (Exception e) {
-			log.error("UFile#fileNameList error {}", e.getMessage());
+			log.error("UFile#fileNameList error - {}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
@@ -118,7 +118,7 @@ public class UFile {
 			}
 			
 		} catch (Exception e) {
-			log.error("UFile#isValid error {}", e.getMessage());
+			log.error("UFile#isValid error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -138,7 +138,7 @@ public class UFile {
 			}
 			
 		} catch (Exception e) {
-			log.error("UFile#multipartFileToFile error {}", e.getMessage());
+			log.error("UFile#multipartFileToFile error - {}", e.getMessage());
 		}
 	    return null;
 	}
@@ -202,7 +202,7 @@ public class UFile {
 	        return tempFile;
 	        
 		} catch (Exception e) {
-			log.error("UFile#inputStreamToFile error {}", e.getMessage());
+			log.error("UFile#inputStreamToFile error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -215,7 +215,7 @@ public class UFile {
 			return bytes;
 			
 		} catch (Exception e) {
-			log.error("UFile#inputStreamToByte error {}", e.getMessage());
+			log.error("UFile#inputStreamToByte error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -250,7 +250,7 @@ public class UFile {
 			return path.toFile();
 			
 		} catch (Exception e) {
-			log.error("UFile#pathToFile error {}", e.getMessage());
+			log.error("UFile#pathToFile error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -261,7 +261,7 @@ public class UFile {
 			return Paths.get(filePath);
 			
 		} catch (Exception e) {
-			log.error("UFile#getPath error {}", e.getMessage());
+			log.error("UFile#getPath error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -272,7 +272,7 @@ public class UFile {
 			return new String(Files.readAllBytes(Paths.get(path)));
 			
 		} catch (Exception e) {
-			log.error("UFile#readFileAsString error {}", e.getMessage());
+			log.error("UFile#readFileAsString error - {}", e.getMessage());
 		}
 		return null;
 	}

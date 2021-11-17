@@ -35,7 +35,7 @@ public class UJson {
 			}
 
 		} catch (IOException e) {
-			log.error("UJson#isJSONValid error {}", e.getMessage());
+			log.error("UJson#isJSONValid error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -53,7 +53,7 @@ public class UJson {
 			return sw.toString();
 
 		} catch (Exception e) {
-			log.error("UJson#serialize error {}", e.getMessage());
+			log.error("UJson#serialize error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -72,7 +72,7 @@ public class UJson {
 			return stringWriter.toString();
 
 		} catch (Exception e) {
-			log.error("UJson#serialize error {}", e.getMessage());
+			log.error("UJson#serialize error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -85,7 +85,7 @@ public class UJson {
 			obj = objMapper.readValue(content, clazz);
 
 		} catch (Exception e) {
-			log.error("UJson#jsonToObject error {}", e.getMessage());
+			log.error("UJson#jsonToObject error - {}", e.getMessage());
 		}
 		return obj;
 	}
@@ -100,7 +100,7 @@ public class UJson {
 			// List<T> list = mapper.readValue(content, new TypeReference<List<T>>(){});
 
 		} catch (Exception e) {
-			log.error("UJson#jsonToList error {}", e.getMessage());
+			log.error("UJson#jsonToList error - {}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
@@ -115,7 +115,7 @@ public class UJson {
 			});
 
 		} catch (Exception e) {
-			log.error("UJson#jsonToObjectArray error {}", e.getMessage());
+			log.error("UJson#jsonToObjectArray error - {}", e.getMessage());
 		}
 		return obj;
 	}
@@ -128,7 +128,7 @@ public class UJson {
 			obj = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
 
 		} catch (Exception e) {
-			log.error("UJson#jsonToObjectArray error {}", e.getMessage());
+			log.error("UJson#jsonToObjectArray error - {}", e.getMessage());
 		}
 		return obj;
 	}

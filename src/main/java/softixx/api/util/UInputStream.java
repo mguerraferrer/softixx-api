@@ -19,7 +19,7 @@ public class UInputStream {
 			}
 
 		} catch (Exception e) {
-			log.error("UInputStream#convertToByte error {}", e.getMessage());
+			log.error("UInputStream#convertToByte error - {}", e.getMessage());
 		}
 		return new byte[0];
 	}

@@ -23,7 +23,7 @@ public class UBase64 {
 			}
 
 		} catch (Exception e) {
-			log.error("UBase64#b64Encode error {}", e.getMessage());
+			log.error("UBase64#b64Encode error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -37,7 +37,7 @@ public class UBase64 {
 			}
 			
 		} catch (Exception e) {
-			log.error("UBase64#encodeToString [Blob] error {}", e.getMessage());
+			log.error("UBase64#encodeToString [Blob] error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -61,7 +61,7 @@ public class UBase64 {
 			}
 
 		} catch (Exception e) {
-			log.error("UBase64#encodeToString [byte] error {}", e.getMessage());
+			log.error("UBase64#encodeToString [byte] error - {}", e.getMessage());
 		}
 		return str;
 	}
@@ -75,7 +75,7 @@ public class UBase64 {
 			}
 
 		} catch (Exception e) {
-			log.error("UBase64#b64Decode error {}", e.getMessage());
+			log.error("UBase64#b64Decode error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -88,7 +88,7 @@ public class UBase64 {
 			}
 
 		} catch (Exception e) {
-			log.error("UBase64#byteFromBase64 error {}", e.getMessage());
+			log.error("UBase64#byteFromBase64 error - {}", e.getMessage());
 		}
 		return null;
 	}

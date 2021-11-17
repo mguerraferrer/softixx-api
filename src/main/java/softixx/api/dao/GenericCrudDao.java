@@ -129,7 +129,7 @@ public abstract class GenericCrudDao<T, ID> {
 			return this.preparedStatement;
 			
 		} catch (Exception e) {
-			log.error("GenericCrudDao#getPreparedStatement error {}", e.getMessage());
+			log.error("GenericCrudDao#getPreparedStatement error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -142,13 +142,13 @@ public abstract class GenericCrudDao<T, ID> {
 					conn.close();
 				}
 			} catch (Exception e) {
-				log.error("GenericCrudDao#safeClose error {}", e.getMessage());
+				log.error("GenericCrudDao#safeClose error - {}", e.getMessage());
 			}
 			
 			try {
 				this.preparedStatement.close();
 			} catch (Exception e) {
-				log.error("GenericCrudDao#safeClose error {}", e.getMessage());
+				log.error("GenericCrudDao#safeClose error - {}", e.getMessage());
 			}
 		}		
 	}
@@ -168,7 +168,7 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataAccessException e) {
-			log.error("GenericCrudDao#execute error {}", e.getMessage());
+			log.error("GenericCrudDao#execute error - {}", e.getMessage());
 		}
 	}
 	
@@ -208,7 +208,7 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 			
 		} catch (Exception e) {
-			log.error("GenericCrudDao#query error {}", e.getMessage());
+			log.error("GenericCrudDao#query error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -249,7 +249,7 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 			
 		} catch (Exception e) {
-			log.error("GenericCrudDao#queryList error {}", e.getMessage());
+			log.error("GenericCrudDao#queryList error - {}", e.getMessage());
 		}
 		return new ArrayList<>();
 	}
@@ -289,7 +289,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -324,7 +324,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -366,7 +366,7 @@ public abstract class GenericCrudDao<T, ID> {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 			return Optional.empty();
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 			return Optional.empty();
 		}
 	}
@@ -403,7 +403,7 @@ public abstract class GenericCrudDao<T, ID> {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 			return Optional.empty();
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 			return Optional.empty();
 		}
 	}
@@ -436,7 +436,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -466,7 +466,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#findOne {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findOne error {}", e.getMessage());
+			log.error("GenericCrudDao#findOne error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -500,7 +500,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#exists {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#exists error {}", e.getMessage());
+			log.error("GenericCrudDao#exists error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -532,9 +532,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		}
 		return new ArrayList<T>();
 	}
@@ -564,9 +564,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		}
 		return new ArrayList<T>();
 	}
@@ -599,9 +599,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		}
 		return new ArrayList<T>();
 	}
@@ -632,9 +632,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAll error {}", e.getMessage());
+			log.error("GenericCrudDao#findAll error - {}", e.getMessage());
 		}
 		return new ArrayList<T>();
 	}
@@ -712,9 +712,9 @@ public abstract class GenericCrudDao<T, ID> {
 			return this.findAll(isConditional);
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAllOrderBy error {}", e.getMessage());
+			log.error("GenericCrudDao#findAllOrderBy error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAllOrderBy error {}", e.getMessage());
+			log.error("GenericCrudDao#findAllOrderBy error - {}", e.getMessage());
 		}
 		
 		return new ArrayList<T>();
@@ -765,9 +765,9 @@ public abstract class GenericCrudDao<T, ID> {
 			return this.findAll(isConditional);
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#findAllOrderBy error {}", e.getMessage());
+			log.error("GenericCrudDao#findAllOrderBy error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findAllOrderBy error {}", e.getMessage());
+			log.error("GenericCrudDao#findAllOrderBy error - {}", e.getMessage());
 		}
 		
 		return new ArrayList<T>();
@@ -835,9 +835,9 @@ public abstract class GenericCrudDao<T, ID> {
 			return new PageBean<>(content, dataLimit);
 			
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#paginate error {}", e.getMessage());
+			log.error("GenericCrudDao#paginate error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#paginate error {}", e.getMessage());
+			log.error("GenericCrudDao#paginate error - {}", e.getMessage());
 		}
 		
 		return new PageBean<>();
@@ -873,9 +873,9 @@ public abstract class GenericCrudDao<T, ID> {
 			return new PageBean<T>(pageableQuery, this.pageable);
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#pageable error {}", e.getMessage());
+			log.error("GenericCrudDao#pageable error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#pageable error {}", e.getMessage());
+			log.error("GenericCrudDao#pageable error - {}", e.getMessage());
 		}
 		return new PageBean<T>();
 	}
@@ -911,7 +911,7 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (Exception e) {
-			log.error("GenericCrudDao#findLast error {}", e.getMessage());
+			log.error("GenericCrudDao#findLast error - {}", e.getMessage());
 		}
 		return null;
 	}
@@ -942,9 +942,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#insert error {}", e.getMessage());
+			log.error("GenericCrudDao#insert error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#insert error {}", e.getMessage());
+			log.error("GenericCrudDao#insert error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -982,9 +982,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#insert error {}", e.getMessage());
+			log.error("GenericCrudDao#insert error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#insert error {}", e.getMessage());
+			log.error("GenericCrudDao#insert error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -1031,9 +1031,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#update error {}", e.getMessage());
+			log.error("GenericCrudDao#update error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#update error {}", e.getMessage());
+			log.error("GenericCrudDao#update error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -1071,9 +1071,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#persist error {}", e.getMessage());
+			log.error("GenericCrudDao#persist error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#persist error {}", e.getMessage());
+			log.error("GenericCrudDao#persist error - {}", e.getMessage());
 		}
 		return false;
 	}
@@ -1123,9 +1123,9 @@ public abstract class GenericCrudDao<T, ID> {
 			}
 
 		} catch (DataRetrievalFailureException e) {
-			log.error("GenericCrudDao#save error {}", e.getMessage());
+			log.error("GenericCrudDao#save error - {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#save error {}", e.getMessage());
+			log.error("GenericCrudDao#save error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}
@@ -1275,7 +1275,7 @@ public abstract class GenericCrudDao<T, ID> {
 		} catch (EmptyResultDataAccessException e) {
 			log.info("GenericCrudDao#find {}", e.getMessage());
 		} catch (Exception e) {
-			log.error("GenericCrudDao#find error {}", e.getMessage());
+			log.error("GenericCrudDao#find error - {}", e.getMessage());
 		}
 		return Optional.empty();
 	}

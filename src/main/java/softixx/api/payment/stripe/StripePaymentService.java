@@ -2,6 +2,8 @@ package softixx.api.payment.stripe;
 
 import org.springframework.stereotype.Service;
 
+import softixx.api.exception.StripePaymentException;
+
 /**
  * Service that manages the Stripe's operations
  *
@@ -11,6 +13,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StripePaymentService extends StripePayment {
+	
+	public StripePaymentService() {
+		super();
+	}
 
 	@Override
 	public void stripeConfig(final String apiPublicKey, final String apiSecretKey) {
@@ -18,7 +24,7 @@ public class StripePaymentService extends StripePayment {
 	}
 	
 	@Override
-	public String paymentIntent(final StripeData dataBean) throws Exception {
+	public String paymentIntent(final StripeData dataBean) throws StripePaymentException {
 		return super.paymentIntent(dataBean);
 	}
 	
@@ -28,7 +34,7 @@ public class StripePaymentService extends StripePayment {
 	}
 
 	@Override
-	public StripePaymentIntentResponse paymentResponse(final String json) throws Exception {
+	public StripePaymentIntentResponse paymentResponse(final String json) throws StripePaymentException {
 		return super.paymentResponse(json);
 	}
 

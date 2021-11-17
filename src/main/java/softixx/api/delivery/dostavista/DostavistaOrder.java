@@ -98,7 +98,7 @@ public class DostavistaOrder {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("DostavistaOrder#toJsonString error {}", e.getMessage());
+			log.error("DostavistaOrder#toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -110,7 +110,7 @@ public class DostavistaOrder {
             return mapper.readValue(json, DostavistaOrder.class);
     		
 		} catch (Exception e) {
-			log.error("DostavistaOrder#fromJsonString error {}", e.getMessage());
+			log.error("DostavistaOrder#fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }

@@ -19,6 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.val;
 
 public class UPassword {
+	private UPassword() {
+		throw new IllegalStateException("Utility class");
+	}
 
     private static final int PWD_LENGTH = 2;
 

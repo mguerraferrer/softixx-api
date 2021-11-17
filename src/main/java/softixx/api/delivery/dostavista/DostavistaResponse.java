@@ -31,7 +31,7 @@ public class DostavistaResponse {
 	        return mapper.writeValueAsString(obj);
 			
 		} catch (Exception e) {
-			log.error("DostavistaResponse#toJsonString error {}", e.getMessage());
+			log.error("DostavistaResponse#toJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
@@ -43,7 +43,7 @@ public class DostavistaResponse {
             return mapper.readValue(json, DostavistaResponse.class);
     		
 		} catch (Exception e) {
-			log.error("DostavistaResponse#fromJsonString error {}", e.getMessage());
+			log.error("DostavistaResponse#fromJsonString error - {}", e.getMessage());
 		}
     	return null;
     }
