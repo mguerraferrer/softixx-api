@@ -1197,7 +1197,22 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val dateOneLocalDate = localDate(dateOne);
 				val dateTwoLocaldate = localDate(dateTwo);
-				return dateOneLocalDate.isAfter(dateTwoLocaldate) || dateOneLocalDate.isEqual(dateTwoLocaldate);
+				if (dateOneLocalDate != null && dateTwoLocaldate != null) {
+					return dateOneLocalDate.isAfter(dateTwoLocaldate) || dateOneLocalDate.isEqual(dateTwoLocaldate);
+				}
+			}
+
+		} catch (Exception e) {
+			log.error("UDateTime#isAfterOrEqualLocalDate error > {}", e.getMessage());
+		}
+		return false;
+	}
+	
+	public static boolean isAfterOrEqualLocalDate(final LocalDate ldOne, final LocalDate ldTwo) {
+		try {
+
+			if (ldOne != null && ldTwo != null) {
+				return ldOne.isAfter(ldTwo) || ldOne.isEqual(ldTwo);
 			}
 
 		} catch (Exception e) {
