@@ -46,6 +46,19 @@ public class WQueuedEmail {
 				.build();
 	}
 	
+	public static WQueuedEmail populate(final String recipient, final String subject, final String body, final Map<String, String> ctxMap) {
+		return WQueuedEmail
+				.builder()
+		    	.recipient(recipient)
+		    	.subject(subject)
+		    	.body(body)
+		    	.ctxMap(ctxMap)
+		    	.ctx(ctx(ctxMap))
+		    	.clearRecipients()
+		    	.recipients(Arrays.asList(recipient))
+				.build();
+	}
+	
 	public static String ctx(Map<String, String> ctxMap) {
 		if(ctxMap == null || ctxMap.isEmpty()) {
 			return null;
