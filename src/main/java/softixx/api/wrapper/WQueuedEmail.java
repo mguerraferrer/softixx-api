@@ -32,19 +32,18 @@ public class WQueuedEmail {
 	private List<Object> objList;
 	
 	public static WQueuedEmail populate(final Object user, final String notificationType, final String recipient, final String subject, final String body, final Map<String, String> ctxMap) {
-		val wQueuedEmail = WQueuedEmail
-							.builder()
-							.user(user)
-					    	.notificationType(notificationType)
-					    	.recipient(recipient)
-					    	.subject(subject)
-					    	.body(body)
-					    	.ctxMap(ctxMap)
-					    	.ctx(ctx(ctxMap))
-					    	.clearRecipients()
-					    	.recipients(Arrays.asList(recipient))
-							.build();
-		return wQueuedEmail;
+		return WQueuedEmail
+				.builder()
+				.user(user)
+		    	.notificationType(notificationType)
+		    	.recipient(recipient)
+		    	.subject(subject)
+		    	.body(body)
+		    	.ctxMap(ctxMap)
+		    	.ctx(ctx(ctxMap))
+		    	.clearRecipients()
+		    	.recipients(Arrays.asList(recipient))
+				.build();
 	}
 	
 	public static String ctx(Map<String, String> ctxMap) {
