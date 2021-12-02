@@ -23,17 +23,55 @@ import softixx.api.validation.constraint.NotNullOrEmptyValidator;
  *
  */
 @Documented
-@Constraint(validatedBy = NotNullOrEmptyValidator.class)
+@Constraint(validatedBy = { NotNullOrEmptyValidator.class })
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 public @interface ValidNotNullOrEmpty {
-	
+	/**
+	 * @return the error message template
+	 */
 	String message() default UValidator.REQUIRED;
-	
+
+	/**
+	 * @return the name of the field in case it is necessary to use it in the error
+	 *         message. Ex: The {field} field has an invalid format
+	 */
 	String field() default "";
 
-	Class<?>[] groups() default { };
+	/**
+	 * @return the name of the api field in case it is necessary to use it in the
+	 *         error response
+	 */
+	String apiField() default "";
 
-	Class<? extends Payload>[] payload() default { };
+	/**
+	 * @return if true, the apiField instead of the field. <br>
+	 *         Ex: If the field is myField and the apiField is my_field, then
+	 *         my_field is returned.
+	 */
+	boolean showOnlyApiField() default false;
+
+	/**
+	 * @return the groups the constraint belongs to
+	 */
+	Class<?>[] groups() default {};
+
+	/**
+	 * @return the payload associated to the constraint
+	 */
+	Class<? extends Payload>[] payload() default {};
 	
+	/**
+	 * Defines several {@link ValidNotNullOrEmpty} annotations on the same element.
+	 *
+	 * @see ValidNotNullOrEmpty
+	 */
+	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+	@Retention(RUNTIME)
+	@Documented
+	@interface List {
+
+		ValidNotNullOrEmpty[] value();
+	}
+
 }

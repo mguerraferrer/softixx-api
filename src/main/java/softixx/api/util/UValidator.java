@@ -359,6 +359,32 @@ public class UValidator {
 	}
 	
 	/**
+	 * Evaluates if Object... is non-null
+	 * 
+	 * @param args Object...
+	 * @return True if Object... is non-null, otherwise false
+	 */
+	public static boolean isNotEmptyArgs(final Object... args) {
+		if (Objects.nonNull(args)) {
+			val nonNullArgs = Arrays.stream(args)
+									.filter(Objects::nonNull)
+									.filter(UValidator::filterArgs)
+									.count();
+			return nonNullArgs > 0;
+		}
+		return false;
+	}
+	
+	private static boolean filterArgs(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		
+		val str = obj.toString().trim();
+		return isNotEmpty(str);
+	}
+	
+	/**
 	 * Evaluates if MapSqlParameterSource is non-null
 	 * @param namedParams MapSqlParameterSource
 	 * @return True if MapSqlParameterSource is non-null, otherwise false
@@ -595,6 +621,28 @@ public class UValidator {
 		}
         return formattedDate != null;
 	}
+	
+	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime) {
+		if (UValidator.isEmpty(date) || UValidator.isEmpty(format)) {
+			return true;
+		}
+		return futureOrPresentValidator(date, format, validateTime);
+	}
+	
+	private static boolean futureOrPresentValidator(final String date, final String format, boolean validateTime) {
+		try {
+			
+			val parsedDate = UDateTime.parseDate(date, format);
+			if (parsedDate != null) {
+				if (!validateTime) {
+					return UDateTime.isAfterOrEqualLocalDate(parsedDate, new Date());
+				}
+				return UDateTime.isAfterOrEqualLocalDateTime(parsedDate, new Date()); 
+			}
+			
+		} catch (Exception ignore) {}
+		return false;
+	}
 
 	public static boolean validateDecimal(final String number) {
 		return decimalValidator(number);
@@ -752,13 +800,13 @@ public class UValidator {
 	};
 	
 	public static boolean validatePhoneMx(final String phone) {
-		val pattern = Pattern.compile(UPattern.PHONE_MX);
+		val pattern = Pattern.compile(UPattern.PHONE_MX_PATTERN);
         val matcher = pattern.matcher(phone);
         return matcher.matches();
 	}
 	
 	public static boolean validateZipCodeMx(final String zipCode) {
-		val pattern = Pattern.compile(UPattern.ZIP_CODE_MX);
+		val pattern = Pattern.compile(UPattern.ZIP_CODE_MX_PATTERN);
         val matcher = pattern.matcher(zipCode);
         return matcher.matches();
 	}

@@ -42,18 +42,57 @@ public class UDateTime {
 	private static final String LOG_LOCAL_TIME_ERROR = "UDateTime#localTime error - {}";
 
 	public enum Formatter {
+		/**
+		 * Format: <b>dd/MM/yyyy</b>
+		 */
 		DATE_SIMPLE_FORMAT("dd/MM/yyyy"),
+		/**
+		 * Format: <b>dd.MM.yyyy</b>
+		 */
 		DATE_SIMPLE_DOT_FORMAT("dd.MM.yyyy"),
+		/**
+		 * Format: <b>yyyy-MM-dd</b>
+		 */
 		DATE_DB_FORMAT("yyyy-MM-dd"),
+		/**
+		 * Format: <b>yyyy-MM-dd HH:mm</b>
+		 */
 		DATE_TIME_SIMPLE_FORMAT("yyyy-MM-dd HH:mm"),
+		/**
+		 * Forat: <b>yyyy-MM-dd HH:mm:ss</b>
+		 */
 		DATE_TIME_FULL_FORMAT("yyyy-MM-dd HH:mm:ss"),
+		/**
+		 * Format: <b>yyyy-MM-dd'T'HH:mm:ss</b>
+		 */
 		DATE_TIME_T_FORMAT("yyyy-MM-dd'T'HH:mm:ss"),
+		/**
+		 * Format: <b>dd/MM/yyyy HH:mm:ss</b>
+		 */
 		DATE_TIME_FORMAT("dd/MM/yyyy HH:mm:ss"),
+		/**
+		 * Format: <b>dd/MM/yyyy hh:mm:ss a</b>
+		 */
 		DATE_TIME_MERIDIAN_FORMAT("dd/MM/yyyy hh:mm:ss a"),
+		/**
+		 * Format: <b>HH:mm:ss</b>
+		 */
 		TIME("HH:mm:ss"),
+		/**
+		 * Format: <b>hh:mm a</b>
+		 */
 		T12H("hh:mm a"),
+		/**
+		 * Format: <b>hh:mm:ss a</b>
+		 */
 		T12H_FULL("hh:mm:ss a"),
+		/**
+		 * Format: <b>HH:mm</b>
+		 */
 		T24H("HH:mm"),
+		/**
+		 * Format: <b>HH:mm:ss</b>
+		 */
 		T24H_FULL("HH:mm:ss");
 
 		private String format;
@@ -302,15 +341,30 @@ public class UDateTime {
 	 * @see Formatter
 	 */
 	public static Date parseDate(final String dateStr, final Formatter formatter) {
+		if (formatter != null) {
+			return parseDate(dateStr, formatter.format);
+		}
+		return null;
+	}
+	
+	/**
+	 * Parses a date with a specific format
+	 * 
+	 * @param dateStr   String date
+	 * @param format 	Formatter to be used
+	 * @return A Date parsed from the string
+	 * @see Formatter
+	 */
+	public static Date parseDate(final String dateStr, final String format) {
 		try {
 
-			if (UValidator.isNotEmpty(dateStr) && formatter != null) {
-				val sdf = new SimpleDateFormat(formatter.format);
+			if (UValidator.isNotEmpty(dateStr) && UValidator.isNotEmpty(format)) {
+				val sdf = new SimpleDateFormat(format);
 				return sdf.parse(dateStr);
 			}
 
 		} catch (ParseException e) {
-			log.error("UDateTime#parseDate error > {}", e.getMessage());
+			log.error("--- UDateTime#parseDate error {}", e);
 		}
 		return null;
 	}

@@ -13,16 +13,20 @@ import lombok.val;
  * @author Maikel Guerra Ferrer - mguerraferrer@gmail.com
  *
  */
-public class NotNullOrEmptyValidator implements ConstraintValidator<ValidNotNullOrEmpty, String> {
+public class NotNullOrEmptyValidator implements ConstraintValidator<ValidNotNullOrEmpty, Object> {
 	
 	@Override
-	public boolean isValid(String text, ConstraintValidatorContext context) {
-		if(ObjectUtils.isEmpty(text)) {
+	public boolean isValid(Object obj, ConstraintValidatorContext context) {
+		if(ObjectUtils.isEmpty(obj)) {
 			return false;
 		}
 		
-		val str = text.trim();
-		return StringUtils.hasLength(str);
+		if (obj instanceof String) {
+			val str = obj.toString().trim();
+			return StringUtils.hasLength(str);
+		}
+		
+		return true;
 	}
 
 }

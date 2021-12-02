@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -24,6 +24,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Data;
 import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+import softixx.api.custom.RestErrorMessage;
+import softixx.api.custom.RestResponse;
 import softixx.api.enums.EApiGeneric;
 import softixx.api.enums.EIziToastPosition;
 import softixx.api.enums.ENotificationType;
@@ -42,7 +45,7 @@ import softixx.api.wrapper.WResponse.ResponseJSON;
 import softixx.api.wrapper.WResponse.ResponseJSON.ResponseError;
 import softixx.api.wrapper.WResponse.ResponseJSON.ResponseMessage;
 
-@Component
+@Slf4j
 public class UResponse {
 	private static String REQUIRED_MESSAGE;
 	private static String NOT_EMPTY_MESSAGE;
@@ -83,9 +86,61 @@ public class UResponse {
 	private static Map<String, Integer> customErrorHierarchy;
 	private static boolean isCustomizedHierarchy = false;
 	
+	private UResponse() {
+		throw new IllegalStateException("Utility class");
+	}
+	
 	public static void instance(Map<String, Integer> errorHierarchy) {
 		customErrorHierarchy = errorHierarchy;
 		isCustomizedHierarchy = true;
+	}
+	
+	public static RestResponse restResponse(BindingResult bindingResult) {
+		try {
+			
+			val errors = bindingResult.getAllErrors().stream()
+													 .filter(FieldError.class::isInstance)
+													 .map(FieldError.class::cast)
+													 .filter(Objects::nonNull)
+													 .map(RestErrorMessage::new)
+													 .filter(Objects::nonNull)
+													 .collect(Collectors.toList());
+			
+			if (UValidator.isNotEmpty(errors)) {
+				return RestResponse
+						.builder()
+						.errors(errors)
+						.build();
+			}
+			
+		} catch (Exception e) {
+			log.error("ResponseUtil#restResponse error {}", e);
+		}
+		return null;
+	}
+	
+	public static RestResponse restResponse(JResponse response) {
+		return new RestResponse(response);
+	}
+	
+	public static RestResponse restResponse(Object data) {
+		return new RestResponse(data);
+	}
+	
+	public static RestResponse restResponse(List<ErrorMessage> errors) {
+		return new RestResponse(errors);
+	}
+	
+	public static ResponseEntity<RestResponse> badRequest(RestResponse rs) {
+		return responseError(HttpStatus.BAD_REQUEST, rs);
+	}
+	
+	public static ResponseEntity<RestResponse> internalServerError(RestResponse rs) {
+		return responseError(HttpStatus.INTERNAL_SERVER_ERROR, rs);
+	}
+	
+	public static ResponseEntity<RestResponse> responseError(HttpStatus status, RestResponse rs) {
+		return ResponseEntity.status(status).body(rs);
 	}
 	
 	public static WResponse response(String message) {

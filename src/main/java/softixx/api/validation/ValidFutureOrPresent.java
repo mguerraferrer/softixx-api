@@ -9,7 +9,6 @@ import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -17,34 +16,21 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 import softixx.api.util.UValidator;
-import softixx.api.validation.ValidPattern.List;
-import softixx.api.validation.constraint.PatternValidator;
+import softixx.api.validation.constraint.FutureOrPresentValidator;
 
 /**
- * The annotated {@code CharSequence} must match the specified regular
- * expression. The regular expression follows the Java regular expression
- * conventions see {@link java.util.regex.Pattern}.
- * <p>
- * Accepts {@code CharSequence}. {@code null} elements are considered valid.
- * 
  * @author Maikel Guerra Ferrer - mguerraferrer@gmail.com
  *
  */
+@Documented
+@Constraint(validatedBy = { FutureOrPresentValidator.class })
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
-@Documented
-@Constraint(validatedBy = PatternValidator.class)
-@Repeatable(List.class)
-public @interface ValidPattern {
-	/**
-	 * @return the regular expression to match
-	 */
-	String regexp();
-
+public @interface ValidFutureOrPresent {
 	/**
 	 * @return the error message template
 	 */
-	String message() default UValidator.INVALID_FIELD;
+	String message() default UValidator.INVALID_DATE_OUT_RANGE;
 
 	/**
 	 * @return the name of the field in case it is necessary to use it in the error
@@ -66,11 +52,14 @@ public @interface ValidPattern {
 	boolean showOnlyApiField() default false;
 
 	/**
-	 * @return the format considered as valid in case it is necessary to use it in
-	 *         the error message. Ex: The {field} field has an invalid format.
-	 *         Consider as valid format {format}
+	 * @return if true, the time will be considered for parsing the date
 	 */
-	String format() default "";
+	boolean parseTime() default false;
+
+	/**
+	 * @return the format to be used to parse a date. Default is "yyyy-MM-dd"
+	 */
+	String format() default "yyyy-MM-dd";
 
 	/**
 	 * @return the groups the constraint belongs to
@@ -83,14 +72,15 @@ public @interface ValidPattern {
 	Class<? extends Payload>[] payload() default {};
 
 	/**
-	 * Defines several {@link ValidPattern} annotations on the same element.
+	 * Defines several {@link ValidFutureOrPresent} annotations on the same element.
 	 *
-	 * @see ValidPattern
+	 * @see ValidFutureOrPresent
 	 */
 	@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 	@Retention(RUNTIME)
 	@Documented
 	@interface List {
-		ValidPattern[] value();
+		ValidFutureOrPresent[] value();
 	}
+
 }
