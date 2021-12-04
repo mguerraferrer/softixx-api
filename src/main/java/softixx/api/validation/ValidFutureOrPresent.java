@@ -60,6 +60,11 @@ public @interface ValidFutureOrPresent {
 	 * @return the format to be used to parse a date. Default is "yyyy-MM-dd"
 	 */
 	String format() default "yyyy-MM-dd";
+	
+	/**
+	 * @return if true, the UTC date wil be used to validate
+	 */
+	boolean useUtc() default false;
 
 	/**
 	 * @return the groups the constraint belongs to

@@ -17,11 +17,13 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import lombok.val;
@@ -986,6 +988,13 @@ public class UDateTime {
 		return null;
 	}
 	
+	public static String sanitizeDate(final String dateStr) {
+		if(UValidator.isNotEmpty(dateStr)) {
+			return dateStr.toUpperCase();
+		}
+		return UValue.EMPTY;
+	}
+	
 	public static String sanitizeTime(final String dateStr) {
 		try {
 			
@@ -1793,9 +1802,9 @@ public class UDateTime {
 
 	/**
 	 * Returns the UTC date
-	 * @return The UTC date
+	 * @return the UTC date
 	 */
-	public static Date UTC() {
+	public static Date dateUTC() {
 		try {
 
 			val zdt = ZonedDateTime.now(ZoneOffset.UTC);
@@ -1803,11 +1812,156 @@ public class UDateTime {
 			return Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 
 		} catch (Exception e) {
-			log.error("UDateTime#UTC error > {}", e.getMessage());
+			log.error("UDateTime#dateUTC error > {}", e.getMessage());
 		}
 		return null;
 	}
+	
+	/**
+	 * Returns the UTC {@code LocalDateTime}
+	 * @return the UTC {@code LocalDateTime}
+	 */
+	public static LocalDateTime localDateTimeUTC() {
+		try {
 
+			val zdt = ZonedDateTime.now(ZoneOffset.UTC);
+			return zdt.toLocalDateTime();
+
+		} catch (Exception e) {
+			log.error("UDateTime#localDateTimeUTC error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the UTC {@code LocalDate}
+	 * @return the UTC {@code LocalDate}
+	 */
+	public static LocalDate localDateUTC() {
+		try {
+
+			val zdt = ZonedDateTime.now(ZoneOffset.UTC);
+			return zdt.toLocalDate();
+
+		} catch (Exception e) {
+			log.error("UDateTime#localDateUTC error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns the UTC {@code LocalDate}
+	 * @return the UTC {@code LocalDate}
+	 */
+	public static LocalTime localTimeUTC() {
+		try {
+
+			val zdt = ZonedDateTime.now(ZoneOffset.UTC);
+			return zdt.toLocalTime();
+
+		} catch (Exception e) {
+			log.error("UDateTime#localTimeUTC error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
+	public static Date convertToUTC(Date date) {
+		val ldt = localDateTime(date);
+		if (ldt != null) {
+			val utc = convertToUTC(ldt);
+			if (utc != null) {
+				return date(utc);
+			}
+		}
+		return null;
+	}
+	
+	public static LocalDateTime convertToUTC(LocalDateTime ldt) {
+		if (ldt != null) {
+			return ldt.atZone(ZoneId.systemDefault())
+					  .withZoneSameInstant(ZoneOffset.UTC)
+					  .toLocalDateTime();
+		}
+		return null;
+	}
+	
+	public static LocalDate convertToUTC(LocalDate ld) {
+		if (ld != null) {
+			val ldt = localDateTime(ld);
+			if (ldt != null) {
+				return ldt.atZone(ZoneId.systemDefault())
+						  .withZoneSameInstant(ZoneOffset.UTC)
+						  .toLocalDate();
+			}
+		}
+		return null;
+	}
+	
+	public static Date convertFromUTC(Date date) {
+		val timeZone = getTimeZone(formatDate(Formatter.DATE_TIME_T_FORMAT));
+		return convertFromUTC(date, timeZone);
+	}
+	
+	public static Date convertFromUTC(Date date, String timeZone) {
+		val ldt = localDateTime(date);
+		if (ldt != null && timeZone != null) {
+			return Date.from(ldt.atZone(ZoneOffset.UTC)
+					   .withZoneSameInstant(ZoneId.of(timeZone))
+					   .toInstant());
+		}
+		return null;
+	}
+	
+	public static LocalDate convertFromUTC(LocalDate ld) {
+		val timeZone = getTimeZone(formatDate(Formatter.DATE_TIME_T_FORMAT));
+		return convertFromUTC(ld, timeZone);
+	}
+	
+	public static LocalDate convertFromUTC(LocalDate ld, String timeZone) {
+		val ldt = localDateTime(ld);
+		if (ldt != null && timeZone != null) {
+			return ldt.atZone(ZoneOffset.UTC)
+					  .withZoneSameInstant(ZoneId.of(timeZone))
+					  .toLocalDate();
+		}
+		return null;
+	}
+	
+	public static LocalDateTime convertFromUTC(LocalDateTime ldt) {
+		val timeZone = getTimeZone(formatDate(Formatter.DATE_TIME_T_FORMAT));
+		return convertFromUTC(ldt, timeZone);
+	}
+	
+	public static LocalDateTime convertFromUTC(LocalDateTime ldt, String timeZone) {
+		if (ldt != null && timeZone != null) {
+			return ldt.atZone(ZoneOffset.UTC)
+					  .withZoneSameInstant(ZoneId.of(timeZone))
+					  .toLocalDateTime();
+		}
+		return null;
+	}
+	
+	public static String getTimeZone(final String date) {
+		try {
+			
+			val sanitizedDate = sanitizeDate(date);
+			if (UValidator.isNotEmpty(sanitizedDate)) {
+				
+				val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.systemDefault());
+				val zonedDateTime = ZonedDateTime.parse(sanitizedDate, formatter);
+				val timeZone = TimeZone.getTimeZone(zonedDateTime.getZone());
+				return Arrays.stream(TimeZone.getAvailableIDs(timeZone.getRawOffset()))
+							 .findFirst()
+							 .map(item -> item)
+							 .orElse(UValue.EMPTY);
+			}
+			
+		} catch (Exception e) {
+			log.error("UDateTime#getTimeZone error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
 	/**
 	 * Returns true if the given year is a leap year
 	 * @param year - Four-number year

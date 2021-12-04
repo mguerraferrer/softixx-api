@@ -51,13 +51,14 @@ public class RestErrorMessage implements Serializable {
 				var showOnlyApiField = false;
 				
 				val size = args.length;
-				if (size == 4 && UValidator.isNotEmptyArgs(args[3])) {
+				showOnlyApiField = Boolean.valueOf(args[size - 1].toString());
+				/*if (size == 4 && UValidator.isNotEmptyArgs(args[3])) {
 					showOnlyApiField = Boolean.valueOf(args[3].toString());
 				} else if (size == 5 && UValidator.isNotEmptyArgs(args[4])) {
 					showOnlyApiField = Boolean.valueOf(args[4].toString());
 				} else if (size == 6 && UValidator.isNotEmptyArgs(args[5])) {
 					showOnlyApiField = Boolean.valueOf(args[5].toString());
-				}
+				}*/
 				
 				if (showOnlyApiField) {
 					var apiField = args[1].toString();

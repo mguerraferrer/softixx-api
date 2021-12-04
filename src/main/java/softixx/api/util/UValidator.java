@@ -622,25 +622,33 @@ public class UValidator {
         return formattedDate != null;
 	}
 	
-	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime) {
+	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime, boolean useUtc) {
 		if (UValidator.isEmpty(date) || UValidator.isEmpty(format)) {
 			return true;
 		}
-		return futureOrPresentValidator(date, format, validateTime);
+		return futureOrPresentValidator(date, format, validateTime, useUtc);
 	}
 	
-	private static boolean futureOrPresentValidator(final String date, final String format, boolean validateTime) {
+	private static boolean futureOrPresentValidator(final String date, final String format, boolean validateTime, boolean useUtc) {
 		try {
 			
-			val parsedDate = UDateTime.parseDate(date, format);
+			var parsedDate = UDateTime.parseDate(date, format);
 			if (parsedDate != null) {
-				if (!validateTime) {
-					return UDateTime.isAfterOrEqualLocalDate(parsedDate, new Date());
+				var compareDate = new Date();
+				if (useUtc) {
+					compareDate = UDateTime.dateUTC();
+					parsedDate = UDateTime.convertToUTC(parsedDate);
 				}
-				return UDateTime.isAfterOrEqualLocalDateTime(parsedDate, new Date()); 
+				
+				if (!validateTime) {
+					return UDateTime.isAfterOrEqualLocalDate(parsedDate, compareDate);
+				}
+				return UDateTime.isAfterOrEqualLocalDateTime(parsedDate, compareDate); 
 			}
 			
-		} catch (Exception ignore) {}
+		} catch (Exception e) {
+			log.error("--- UValidator#error#futureOrPresentValidator error - {}", e.getMessage());
+		}
 		return false;
 	}
 
