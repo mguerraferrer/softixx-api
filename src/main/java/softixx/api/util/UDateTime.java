@@ -225,8 +225,10 @@ public class UDateTime {
 	 */
 	public static String formatDate(final Formatter formatter) {
 		try {
-
-			return formatDate(new Date(), formatter);
+			
+			if (formatter != null) {
+				return formatDate(new Date(), formatter);
+			}
 
 		} catch (Exception e) {
 			log.error("UDateTime#formatDate error > {}", e.getMessage());

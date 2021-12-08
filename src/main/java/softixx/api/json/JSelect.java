@@ -84,4 +84,8 @@ public class JSelect {
 		}
 		return OPTION_START + id + "\">" + value + OPTION_END;
 	}
+	
+	public static String option(String value) {
+		return OPTION_START + value + "\">" + value + OPTION_END;
+	}
 }
