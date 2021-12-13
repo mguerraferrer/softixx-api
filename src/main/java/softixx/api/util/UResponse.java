@@ -324,7 +324,7 @@ public class UResponse {
 		return ResponseEntity.status(HttpStatus.OK).body(genericResponse);
 	}
 
-	public static ResponseEntity<Object> response(final Object object) {
+	public static <T> ResponseEntity<T> response(T object) {
 		return new ResponseEntity<>(object, new HttpHeaders(), HttpStatus.OK);
 	}
 	
