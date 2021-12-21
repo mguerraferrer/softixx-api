@@ -73,6 +73,13 @@ public class JResponse {
 		return response;
 	}
 	
+	public static JResponse errorInstance(JNotification notification) {
+		val response = new JResponse();
+		response.setNotification(notification);
+		response.setError(true);
+		return response;
+	}
+	
 	public static JResponse errorInstance(final List<JError> errors) {
 		val response = new JResponse();
 		response.setError(true);

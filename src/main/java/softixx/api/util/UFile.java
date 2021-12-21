@@ -1,6 +1,7 @@
 package softixx.api.util;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -143,12 +144,23 @@ public class UFile {
 	    return null;
 	}
 	
-	public static InputStream multipartFileToInputStream (final MultipartFile multipart) throws IOException {
+	public static InputStream multipartFileToInputStream(final MultipartFile multipart) throws IOException {
 		val isValid = isValid(multipart); 
 		if(!isValid) {
 			return null;
 		}
 		return multipart.getInputStream();
+	}
+	
+	public static InputStream byteToInputStream(byte[] initialArray) {
+		try {
+			
+			return new ByteArrayInputStream(initialArray);
+			
+		} catch (Exception e) {
+			log.error("UFile#byteToInputStream error - {}", e.getMessage());
+		}
+		return null;
 	}
 	
 	public static File byteToFile(byte[] data) throws IOException {
