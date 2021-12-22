@@ -64,7 +64,7 @@ public @interface ValidFutureOrPresent {
 	/**
 	 * @return if true, the UTC date wil be used to validate
 	 */
-	boolean useUtc() default false;
+	boolean dateUtc() default false;
 
 	/**
 	 * @return the groups the constraint belongs to

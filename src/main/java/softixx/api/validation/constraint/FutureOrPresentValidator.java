@@ -17,13 +17,13 @@ public class FutureOrPresentValidator implements ConstraintValidator<ValidFuture
 	
 	private String format;
 	private boolean parseTime;
-	private boolean useUtc;
+	private boolean dateUtc;
 	
 	@Override
 	public void initialize(ValidFutureOrPresent constraintAnnotation) {
 		format = constraintAnnotation.format();
 		parseTime = constraintAnnotation.parseTime();
-		useUtc = constraintAnnotation.useUtc();
+		dateUtc = constraintAnnotation.dateUtc();
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ public class FutureOrPresentValidator implements ConstraintValidator<ValidFuture
 		}
 		
 		val str = value.trim();
-		return UValidator.validateFutureOrPresent(str, format, parseTime, useUtc);
+		return UValidator.validateFutureOrPresent(str, format, parseTime, dateUtc);
 	}
 
 }

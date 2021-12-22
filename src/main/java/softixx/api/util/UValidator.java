@@ -622,20 +622,20 @@ public class UValidator {
         return formattedDate != null;
 	}
 	
-	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime, boolean useUtc) {
+	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime, boolean dateUtc) {
 		if (UValidator.isEmpty(date) || UValidator.isEmpty(format)) {
 			return true;
 		}
-		return futureOrPresentValidator(date, format, validateTime, useUtc);
+		return futureOrPresentValidator(date, format, validateTime, dateUtc);
 	}
 	
-	private static boolean futureOrPresentValidator(final String date, final String format, boolean validateTime, boolean useUtc) {
+	private static boolean futureOrPresentValidator(final String date, final String format, boolean validateTime, boolean dateUtc) {
 		try {
 			
 			var parsedDate = UDateTime.parseDate(date, format);
 			if (parsedDate != null) {
 				var compareDate = new Date();
-				if (useUtc) {
+				if (dateUtc) {
 					compareDate = UDateTime.dateUTC();
 					parsedDate = UDateTime.convertToUTC(parsedDate);
 				}
