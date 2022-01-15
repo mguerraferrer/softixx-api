@@ -368,7 +368,7 @@ public class UDateTime {
 			}
 
 		} catch (ParseException e) {
-			log.error("--- UDateTime#parseDate error {}", e);
+			log.error("--- UDateTime#parseDate error - {}", e);
 		}
 		return null;
 	}

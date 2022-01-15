@@ -5,7 +5,7 @@
 
 	<groupId>com.github.mguerraferrer</groupId>
 	<artifactId>softixx-api</artifactId>
-	<version>1.2.0</version>
+	<version>1.2.1</version>
 	<name>SoftIXX API</name>
 	<description>SoftIXX API JAVA-15 Project</description>
 

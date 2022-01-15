@@ -114,7 +114,7 @@ public class UResponse {
 			}
 			
 		} catch (Exception e) {
-			log.error("ResponseUtil#restResponse error {}", e);
+			log.error("ResponseUtil#restResponse error - {}", e);
 		}
 		return null;
 	}
