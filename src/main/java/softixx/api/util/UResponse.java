@@ -658,6 +658,10 @@ public class UResponse {
 			}
 		}
 		
+		if (key == null) {
+			key = i18nMessage(msg);
+		}
+		
     	val errorMessage = new ErrorMessage();
     	errorMessage.setError(key);
     	errorMessage.setAlternativeError(alternative);
@@ -706,7 +710,7 @@ public class UResponse {
 		return errorMessage;
     }
     
-    private static  String i18nMessage(String key) {
+    private static String i18nMessage(String key) {
     	return UMessage.getMessage(key);
 	}
 

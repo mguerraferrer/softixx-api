@@ -14,6 +14,13 @@ public class UPattern implements Serializable {
 	public static final String ALPHABETIC_WITH_SPACE_PATTERN = "^[a-zA-ZáéíñóúüÁÉÍÑÓÚÜ\\s]*$";
 	public static final String NUMBER_PATTERN = "\\d+";
 	public static final String NUMBER_POSITIVE_PATTERN = "^[0-9]\\d*$";
+	
+	/**
+	 * Pattern for the validation of positive numbers greater than 0.<br>
+	 * <b>Consider as valid:</b> 1, 2, 50, 100<br>
+	 * <b>Consider as invalid:</b> -1, -5, 0
+	 */
+	public static final String NUMBER_POSITIVE_GT_CERO_PATTERN = "^[1-9]\\d*$";
 	public static final String NUMBER_WITH_SPACE_PATTERN = "^[0-9\\s]*$";
 	
 	/**
@@ -63,6 +70,31 @@ public class UPattern implements Serializable {
 	 * DateTime pattern for <b>yyyy-MM-ddTHH:mm:ss</b> format
 	 */
 	public static final String DATE_TIME_24H_T_FULL_PATTERN = "^((19|20)\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])('T'|T)(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])$";
+	
+	/**
+	 * Date pattern for <b>dd/MM/yyyy</b> format
+	 */
+	public static final String DATE_CUSTOM_PATTERN = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((19|20)\\d\\d)$";
+	
+	/**
+	 * DateTime pattern for <b>dd/MM/yyyy HH:mm</b> format
+	 */
+	public static final String DATE_TIME_24H_CUSTOM_PATTERN = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((19|20)\\d\\d)(\\s)(2[0-3]|[01][0-9]):([0-5][0-9])$";
+	
+	/**
+	 * DateTime pattern for <b>dd/MM/yyyy HH:mm:ss</b> format
+	 */
+	public static final String DATE_TIME_24H_FULL_CUSTOM_PATTERN = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((19|20)\\d\\d)(\\s)(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])$";
+	
+	/**
+	 * DateTime pattern for <b>yyyy-MM-ddTHH:mm</b> format
+	 */
+	public static final String DATE_TIME_24H_T_CUSTOM_PATTERN = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((19|20)\\d\\d)('T'|T)(2[0-3]|[01][0-9]):([0-5][0-9])$";
+	
+	/**
+	 * DateTime pattern for <b>yyyy-MM-ddTHH:mm:ss</b> format
+	 */
+	public static final String DATE_TIME_24H_T_FULL_CUSTOM_PATTERN = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((19|20)\\d\\d)('T'|T)(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])$";
 	
 	/**
 	 * DateTime pattern for <b>yyyy.MM.dd HH.mm.ss</b> format

@@ -1,98 +1,153 @@
 package softixx.api.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import lombok.NoArgsConstructor;
 import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 import softixx.api.bean.DataLimitBean;
 import softixx.api.bean.PageBean;
+import softixx.api.json.JPagination;
 import softixx.api.json.JPagination.JPage;
+import softixx.api.json.JResponse;
 
-@NoArgsConstructor
-public class UPaginator<T> {
-	private static final Logger log = LoggerFactory.getLogger(UPaginator.class);
-
-	protected Page<T> page;
-	protected List<T> content;
-	protected JPage<T> pageJson;
-	
-	public JPage<T> page(final PageBean<T> pageBean) {
-		this.page = pageBean.getPage();
-		this.content = pageBean.getContent();
-		return populatePage();
+@Slf4j
+public class UPaginator {
+	private UPaginator() {
+		throw new IllegalStateException("Utility class");
 	}
 	
-	public JPage<T> customPage(final PageBean<T> pageBean) {
-		this.content = pageBean.getContent();
-		return populatePage(pageBean.getDataLimitBean());
+	public static <T> JPagination<T> paginationJson(final JPage<T> pageJson, final JResponse response) {
+		val paginationJson = new JPagination<T>();
+		return paginationJson.paginationJson(pageJson, response);
 	}
 	
-	public JPage<T> populatePage(final Page<T> page) {
+	public <T> JPage<T> page(final PageBean<T> pageBean) {
+		return populatePage(pageBean.getPage(), pageBean.getContent());
+	}
+	
+	public static <T> JPage<T> customPage(final PageBean<T> pageBean) {
+		if (pageBean == null) {
+			return new JPage<>();
+		}
+		return populatePage(pageBean.getDataLimitBean(), pageBean.getContent());
+	}
+	
+	public static <T> JPage<T> populatePage(final Page<T> page) {
 		if(page == null) {
-			this.page = Page.empty();
+			return new JPage<>();
 		}
-		
-		this.page = page;
-		this.content = page.getContent();
-		return populatePage();
+		return populatePage(page, page.getContent());
 	}
 	
-	@SuppressWarnings("unchecked")
-	public JPage<T> populatePage(final List<T> content, final Pageable pageable) {
-		this.page = UPage.toPage(content, pageable);
-		this.content = page.getContent();
-		return populatePage();
+	public static <T> JPage<T> populatePage(final List<T> content, final Pageable pageable) {
+		val page = UPage.toPage(content, pageable);
+		return populatePage(page, page.getContent());
 	}
 	
-	public Page<T> getPage() {
-		if(this.page == null) {
-            return Page.empty();
-        }
-		return this.page;
-	}
-	
-	public List<T> content() {
-		if(this.content == null) {
-			this.content = new ArrayList<>();
+	public static <T> String pageRecords(final Page<T> page) {
+		String pageRecords = null;
+		if(page.getTotalElements() <= page.getSize()) {
+			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
+			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
+			pageRecords = UMessage.getMessage(message, params);
+		} else {
+			var init = 1;
+			var number = page.getNumber();
+			var numberOfElements = page.getNumberOfElements();
+			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
+			
+			if(totalElements > page.getSize() && number > 0) {
+				init = page.getSize() * number + 1;
+				if(number + 1 == page.getTotalPages()) {
+					numberOfElements = totalElements;
+				} else {
+					number ++;
+					numberOfElements *= number;
+				}
+			}
+			
+			val params = new Object[] {init, numberOfElements, totalElements};
+			pageRecords = UMessage.getMessage("paginate.text.result.info.size", params);
 		}
-		return this.content;
+		return pageRecords;
 	}
 	
-	public JPage<T> getPageJson() {
-		return this.pageJson;
+	public static <T> String pageRecords(final JPage<T> page) {
+		String pageRecords = null;
+		if(page.getTotalElements() <= page.getSize()) {
+			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
+			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
+			pageRecords = UMessage.getMessage(message, params);
+		} else {
+			var init = 1;
+			var number = page.getNumber();
+			var numberOfElements = page.getNumberOfElements();
+			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
+			
+			if(totalElements > page.getSize() && number > 0) {
+				init = page.getSize() * number + 1;
+				if(number + 1 == page.getTotalPages()) {
+					numberOfElements = totalElements;
+				} else {
+					number ++;
+					numberOfElements *= number;
+				}
+			}
+			
+			val params = new Object[] {init, numberOfElements, totalElements};
+			pageRecords = UMessage.getMessage("paginate.text.result.info.size", params);
+		}
+		return pageRecords;
 	}
 	
-	private JPage<T> populatePage() {
+	public static <T> String pageInfo(final Page<T> page) {
+		var pageInfo = "";
+		if(page.hasContent()) {
+			val pageNumber = page.getNumber() + 1;
+			val params = new Object[] {pageNumber, page.getTotalPages()};
+			pageInfo = UMessage.getMessage("paginate.text.info", params);
+		}
+		return pageInfo;
+	}
+	
+	public static <T> String pageInfo(final JPage<T> page) {
+		var pageInfo = "";
+		if(page.hasContent()) {
+			val pageNumber = page.getNumber() + 1;
+			val params = new Object[] {pageNumber, page.getTotalPages()};
+			pageInfo = UMessage.getMessage("paginate.text.info", params);
+		}
+		return pageInfo;
+	}
+	
+	private static <T> JPage<T> populatePage(Page<T> page, List<T> content) {
 		try {
 		
-			this.pageJson = new JPage<T>();
-			this.pageJson.setFirst(this.page.isFirst());
-			this.pageJson.setHasContent(this.page.hasContent());
-			this.pageJson.setHasNext(this.page.hasNext());
-			this.pageJson.setHasPrevious(this.page.hasPrevious());
-			this.pageJson.setLast(this.page.isLast());
-			this.pageJson.setNumber(this.page.getNumber());
-			this.pageJson.setNumberOfElements(this.page.getNumberOfElements());
-			this.pageJson.setTotalElements(UInteger.value(ULong.value(this.page.getTotalElements())));
-			this.pageJson.setSize(this.page.getSize());
-			this.pageJson.setTotalPages(this.page.getTotalPages());
-			this.pageJson.setContent(this.content);
+			val pageJson = new JPage<T>();
+			pageJson.setFirst(page.isFirst());
+			pageJson.setHasContent(page.hasContent());
+			pageJson.setHasNext(page.hasNext());
+			pageJson.setHasPrevious(page.hasPrevious());
+			pageJson.setLast(page.isLast());
+			pageJson.setNumber(page.getNumber());
+			pageJson.setNumberOfElements(page.getNumberOfElements());
+			pageJson.setTotalElements(UInteger.value(ULong.value(page.getTotalElements())));
+			pageJson.setSize(page.getSize());
+			pageJson.setTotalPages(page.getTotalPages());
+			pageJson.setContent(content);
 			
 			//##### Registros
-			String pageRecords = pageRecords(this.page);
-			this.pageJson.setPageRecords(pageRecords);
+			val pageRecords = pageRecords(page);
+			pageJson.setPageRecords(pageRecords);
 			
 			//##### Páginas
-			val pageInfo = pageInfo(this.page);
-			this.pageJson.setPageInfo(pageInfo);
+			val pageInfo = pageInfo(page);
+			pageJson.setPageInfo(pageInfo);
 			
-			return this.pageJson; 
+			return pageJson; 
 			
 		} catch (Exception e) {
 			log.error("UPaginator#populatePage error - {}", e.getMessage());
@@ -100,14 +155,56 @@ public class UPaginator<T> {
 		return null;
 	}
 	
-	private JPage<T> populatePage(final DataLimitBean bean) {
+	private static <T> JPage<T> populatePage(final DataLimitBean bean, List<T> content) {
 		try {
 			
 			val totalRows = bean.getTotalRows();
 			val page = bean.getPage();
 			val pageSize = bean.getLimit();
 			
-			var totalPages = 0;
+			val totalPages = determineTotalPages(totalRows, pageSize);
+			
+			val isFirst = (page == 0 || totalPages == 1);
+			val isLast = (totalPages == 1 || page + 1 == totalPages); 
+			val hasContent = !content.isEmpty();
+			val hasNext = hasContent && !isLast;
+			val hasPrevious = hasContent && !isFirst;
+			val pageNumber = page;
+			val numberOfElements = content.size();
+			
+			val pageJson = new JPage<T>();
+			pageJson.setFirst(isFirst);
+			pageJson.setHasContent(hasContent);
+			pageJson.setHasNext(hasNext);
+			pageJson.setHasPrevious(hasPrevious);
+			pageJson.setLast(isLast);
+			pageJson.setNumber(pageNumber);
+			pageJson.setNumberOfElements(numberOfElements);
+			pageJson.setTotalElements(totalRows);
+			pageJson.setSize(pageSize);
+			pageJson.setTotalPages(totalPages);
+			pageJson.setContent(content);
+			
+			//##### Registros
+			val pageRecords = pageRecords(pageJson);
+			pageJson.setPageRecords(pageRecords);
+			
+			//##### Páginas
+			val pageInfo = pageInfo(pageJson);
+			pageJson.setPageInfo(pageInfo);
+			
+			return pageJson; 
+			
+		} catch (Exception e) {
+			log.error("UPaginator#populatePage error - {}", e.getMessage());
+		}		
+		return null;
+	}
+	
+	private static int determineTotalPages(int totalRows, int pageSize) {
+		var totalPages = 0;
+		try {
+			
 			if(totalRows > 0) {
 				if(totalRows <= pageSize) {
 					totalPages = 1;
@@ -123,124 +220,10 @@ public class UPaginator<T> {
 				}
 			}
 			
-			val isFirst = (page == 0 || totalPages == 1);
-			val isLast = (totalPages == 1 || page + 1 == totalPages); 
-			val hasContent = !this.content.isEmpty();
-			val hasNext = hasContent && !isLast;
-			val hasPrevious = hasContent && !isFirst;
-			val pageNumber = page;
-			val numberOfElements = this.content.size();
-			
-			this.pageJson = new JPage<>();
-			this.pageJson.setFirst(isFirst);
-			this.pageJson.setHasContent(hasContent);
-			this.pageJson.setHasNext(hasNext);
-			this.pageJson.setHasPrevious(hasPrevious);
-			this.pageJson.setLast(isLast);
-			this.pageJson.setNumber(pageNumber);
-			this.pageJson.setNumberOfElements(numberOfElements);
-			this.pageJson.setTotalElements(totalRows);
-			this.pageJson.setSize(pageSize);
-			this.pageJson.setTotalPages(totalPages);
-			this.pageJson.setContent(this.content);
-			
-			//##### Registros
-			String pageRecords = pageRecords(this.pageJson);
-			this.pageJson.setPageRecords(pageRecords);
-			
-			//##### Páginas
-			val pageInfo = pageInfo(this.pageJson);
-			this.pageJson.setPageInfo(pageInfo);
-			
-			return this.pageJson; 
-			
 		} catch (Exception e) {
-			log.error("UPaginator#populatePage error - {}", e.getMessage());
-		}		
-		return null;
+			log.error("--- UPaginator#determineTotalPages - error {}", e.getMessage());
+		}
+		return totalPages;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static String pageRecords(final Page page) {
-		String pageRecords = null;
-		if(page.getTotalElements() <= page.getSize()) {
-			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
-			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
-			pageRecords = UMessage.getMessage(message, params);
-		} else {
-			var init = 1;
-			var number = page.getNumber();
-			var numberOfElements = page.getNumberOfElements();
-			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
-			
-			if(totalElements > page.getSize()) {
-				if(number > 0) {
-					init = page.getSize() * number + 1;
-					if(number + 1 == page.getTotalPages()) {
-						numberOfElements = totalElements;
-					} else {
-						number ++;
-						numberOfElements *= number;
-					}
-				}
-			}
-			
-			val params = new Object[] {init, numberOfElements, totalElements};
-			pageRecords = UMessage.getMessage("paginate.text.result.info.size", params);
-		}
-		return pageRecords;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public static String pageRecords(final JPage page) {
-		String pageRecords = null;
-		if(page.getTotalElements() <= page.getSize()) {
-			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
-			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
-			pageRecords = UMessage.getMessage(message, params);
-		} else {
-			var init = 1;
-			var number = page.getNumber();
-			var numberOfElements = page.getNumberOfElements();
-			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
-			
-			if(totalElements > page.getSize()) {
-				if(number > 0) {
-					init = page.getSize() * number + 1;
-					if(number + 1 == page.getTotalPages()) {
-						numberOfElements = totalElements;
-					} else {
-						number ++;
-						numberOfElements *= number;
-					}
-				}
-			}
-			
-			val params = new Object[] {init, numberOfElements, totalElements};
-			pageRecords = UMessage.getMessage("paginate.text.result.info.size", params);
-		}
-		return pageRecords;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public static String pageInfo(final Page page) {
-		String pageInfo = "";
-		if(page.hasContent()) {
-			val pageNumber = page.getNumber() + 1;
-			val params = new Object[] {pageNumber, page.getTotalPages()};
-			pageInfo = UMessage.getMessage("paginate.text.info", params);
-		}
-		return pageInfo;
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public static String pageInfo(final JPage page) {
-		String pageInfo = "";
-		if(page.hasContent()) {
-			val pageNumber = page.getNumber() + 1;
-			val params = new Object[] {pageNumber, page.getTotalPages()};
-			pageInfo = UMessage.getMessage("paginate.text.info", params);
-		}
-		return pageInfo;
-	}
 }

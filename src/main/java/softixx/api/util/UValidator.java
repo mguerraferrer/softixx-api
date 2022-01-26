@@ -622,6 +622,43 @@ public class UValidator {
         return formattedDate != null;
 	}
 	
+	public static boolean validateDateRange(final String from, final String to, final String format, boolean validateTime, boolean dateUtc, boolean inclusive) {
+		if (UValidator.isEmpty(from) || UValidator.isEmpty(to) || UValidator.isEmpty(format)) {
+			return true;
+		}
+		return dateRangeValidator(from, to, format, validateTime, dateUtc, inclusive);
+	}
+	
+	private static boolean dateRangeValidator(final String from, final String to, final String format, boolean validateTime, boolean dateUtc, boolean inclusive) {
+		try {
+			
+			var parsedFrom = UDateTime.parseDate(from, format);
+			var parsedTo = UDateTime.parseDate(to, format);
+			if (parsedFrom != null && parsedTo != null) {
+				if (dateUtc) {
+					parsedFrom = UDateTime.convertToUTC(parsedFrom);
+					parsedTo = UDateTime.convertToUTC(parsedTo);
+				}
+				
+				if (!validateTime) {
+					if (inclusive) {
+						return UDateTime.isAfterOrEqualLocalDate(parsedTo, parsedFrom);
+					}
+					return UDateTime.isAfterLocalDate(parsedTo, parsedFrom);
+				}
+				
+				if (inclusive) {
+					return UDateTime.isAfterOrEqualLocalDateTime(parsedTo, parsedFrom);
+				}
+				return UDateTime.isAfterLocalDateTime(parsedTo, parsedFrom);
+			}
+			
+		} catch (Exception e) {
+			log.error("--- UValidator#error#dateRangeValidator error - {}", e.getMessage());
+		}
+		return false;
+	}
+	
 	public static boolean validateFutureOrPresent(final String date, final String format, boolean validateTime, boolean dateUtc) {
 		if (UValidator.isEmpty(date) || UValidator.isEmpty(format)) {
 			return true;

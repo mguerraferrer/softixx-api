@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
@@ -12,13 +11,14 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.Calendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UDao {
-	private static final Logger log = LoggerFactory.getLogger(UDao.class);
+	private UDao() {
+		throw new IllegalStateException("Utility class");
+	}
 	
 	public static void close(Statement stm, ResultSet rs) {
 		try {
@@ -42,13 +42,13 @@ public class UDao {
 			if(rs != null) {
 				rs.setFetchDirection(ResultSet.FETCH_FORWARD);
 				
-				ResultSetMetaData rsmd = rs.getMetaData();
-				int columnCount = rsmd.getColumnCount();
+				val rsmd = rs.getMetaData();
+				val columnCount = rsmd.getColumnCount();
 				
 				while(rs.next()) {
-					for (int i = 1; i <= columnCount; i++) {
+					for (var i = 1; i <= columnCount; i++) {
 						val columnValue = rs.getString(i);
-						System.out.println(rsmd.getColumnName(i) + " ["+rsmd.getColumnType(i)+" | "+rsmd.getColumnTypeName(i)+"] " + columnValue);
+						log.info("{} [{} | {}] {}", rsmd.getColumnName(i), rsmd.getColumnType(i), rsmd.getColumnTypeName(i), columnValue);
 					}
 				}
 			}
@@ -61,11 +61,11 @@ public class UDao {
 	public static String getString(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			String val = rs.getString(columnIndex);
+			val value = rs.getString(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getString [WARNING] ColumnIndex {} not found", columnIndex);
@@ -76,11 +76,11 @@ public class UDao {
 	public static String getString(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			String val = rs.getString(columnName);
+			val value = rs.getString(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getString [WARNING] Column {} not found", columnName);
@@ -99,11 +99,11 @@ public class UDao {
 	public static Boolean getBoolean(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			boolean val = rs.getBoolean(columnIndex);
+			val value = rs.getBoolean(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Boolean.valueOf(val);
+			return Boolean.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getBoolean [WARNING] ColumnIndex {} not found", columnIndex);
@@ -114,11 +114,11 @@ public class UDao {
 	public static Boolean getBoolean(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			boolean val = rs.getBoolean(columnName);
+			val value = rs.getBoolean(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Boolean.valueOf(val);
+			return Boolean.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getBoolean [WARNING] Column {} not found", columnName);
@@ -137,11 +137,11 @@ public class UDao {
 	public static Long getLong(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			long val = rs.getLong(columnIndex);
+			val value = rs.getLong(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Long.valueOf(val);
+			return Long.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getLong [WARNING] ColumnIndex {} not found", columnIndex);
@@ -152,11 +152,11 @@ public class UDao {
 	public static Long getLong(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			long val = rs.getLong(columnName);
+			val value = rs.getLong(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Long.valueOf(val);
+			return Long.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getLong [WARNING] Column {} not found", columnName);
@@ -203,11 +203,11 @@ public class UDao {
 	public static Double getDouble(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			double val = rs.getDouble(columnIndex);
+			val value = rs.getDouble(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Double.valueOf(val);
+			return Double.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getDouble [WARNING] ColumnIndex {} not found", columnIndex);
@@ -218,11 +218,11 @@ public class UDao {
 	public static Double getDouble(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			double val = rs.getDouble(columnName);
+			val value = rs.getDouble(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Double.valueOf(val);
+			return Double.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getDouble [WARNING] Column {} not found", columnName);
@@ -270,11 +270,11 @@ public class UDao {
 	public static Integer getInteger(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			int val = rs.getInt(columnIndex);
+			val value = rs.getInt(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Integer.valueOf(val);
+			return Integer.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getInteger [WARNING] ColumnIndex {} not found", columnIndex);
@@ -285,11 +285,11 @@ public class UDao {
 	public static Integer getInteger(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			int val = rs.getInt(columnName);
+			val value = rs.getInt(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Integer.valueOf(val);
+			return Integer.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getInteger [WARNING] Column {} not found", columnName);
@@ -336,11 +336,11 @@ public class UDao {
 	public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			float val = rs.getFloat(columnIndex);
+			val value = rs.getFloat(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Float.valueOf(val);
+			return Float.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getFloat [WARNING] ColumnIndex {} not found", columnIndex);
@@ -351,11 +351,11 @@ public class UDao {
 	public static Float getFloat(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			float val = rs.getFloat(columnName);
+			val value = rs.getFloat(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return Float.valueOf(val);
+			return Float.valueOf(value);
 			
 		} catch (Exception e) {
 			log.warn("UDao#getFloat [WARNING] Column {} not found", columnName);
@@ -402,11 +402,11 @@ public class UDao {
 	public static BigDecimal getBigDecimal(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			BigDecimal val = rs.getBigDecimal(columnIndex);
+			val value = rs.getBigDecimal(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getBigDecimal [WARNING] ColumnIndex {} not found", columnIndex);
@@ -417,11 +417,11 @@ public class UDao {
 	public static BigDecimal getBigDecimal(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			BigDecimal val = rs.getBigDecimal(columnName);
+			val value = rs.getBigDecimal(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getBigDecimal [WARNING] Column {} not found", columnName);
@@ -468,11 +468,11 @@ public class UDao {
 	public static Date getDate(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			Date val = rs.getDate(columnIndex);
+			val value = rs.getDate(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getDate [WARNING] ColumnIndex {} not found", columnIndex);
@@ -483,11 +483,11 @@ public class UDao {
 	public static Date getDate(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			Date val = rs.getDate(columnName);
+			val value = rs.getDate(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getDate [WARNING] Column {} not found", columnName);
@@ -506,11 +506,11 @@ public class UDao {
 	public static Time getTime(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			Time val = rs.getTime(columnIndex);
+			val value = rs.getTime(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getTime [WARNING] ColumnIndex {} not found", columnIndex);
@@ -521,11 +521,11 @@ public class UDao {
 	public static Time getTime(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			Time val = rs.getTime(columnName);
+			val value = rs.getTime(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getTime [WARNING] Column {} not found", columnName);
@@ -544,11 +544,11 @@ public class UDao {
 	public static Timestamp getTimestamp(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			Timestamp val = rs.getTimestamp(columnIndex);
+			val value = rs.getTimestamp(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getTimestamp [WARNING] ColumnIndex {} not found", columnIndex);
@@ -559,11 +559,11 @@ public class UDao {
 	public static Timestamp getTimestamp(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			Timestamp val = rs.getTimestamp(columnName);
+			val value = rs.getTimestamp(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}
-			return val;
+			return value;
 			
 		} catch (Exception e) {
 			log.warn("UDao#getTimestamp [WARNING] Column {} not found", columnName);
@@ -575,7 +575,7 @@ public class UDao {
 		if(javaDate == null) {
 			stm.setNull(index, Types.TIMESTAMP);
 		} else {
-			Timestamp timestamp = UDateTime.timestamp(javaDate);
+			val timestamp = UDateTime.timestamp(javaDate);
 			stm.setTimestamp(index, timestamp);
 		}
 	}
@@ -584,7 +584,7 @@ public class UDao {
 		try {
 			
 			Calendar calendar = null;
-			Timestamp timestamp = rs.getTimestamp(columnIndex); 
+			val timestamp = rs.getTimestamp(columnIndex); 
 			if(rs.wasNull()) {
 				return null;
 			}
@@ -603,7 +603,7 @@ public class UDao {
 		try {
 			
 			Calendar calendar = null;
-			Timestamp timestamp = rs.getTimestamp(columnName); 
+			val timestamp = rs.getTimestamp(columnName); 
 			if(rs.wasNull()) {
 				return null;
 			}
@@ -621,7 +621,7 @@ public class UDao {
 	public static java.util.Date getJavaDate(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			Date slqDate = rs.getDate(columnIndex);
+			val slqDate = rs.getDate(columnIndex);
 			if(rs.wasNull()) {
 				return null;
 			}
@@ -636,7 +636,7 @@ public class UDao {
 	public static java.util.Date getJavaDate(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			Date slqDate = rs.getDate(columnName);
+			val slqDate = rs.getDate(columnName);
 			if(rs.wasNull()) {
 				return null;
 			}

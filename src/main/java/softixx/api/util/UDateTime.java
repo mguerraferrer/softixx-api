@@ -114,9 +114,26 @@ public class UDateTime {
 	 * @return The day-of-month, from 1 to 31
 	 */
 	private static Integer currentDay() {
-		val ld = LocalDate.now();
-		return ld.getDayOfMonth();
+		return LocalDate.now().getDayOfMonth();
 	}
+	
+	/**
+	 * Returns the last day of the current month
+	 * @param ld {@code LocalDate}
+	 * @return the last day of the month
+	 */
+	public static LocalDate lastDayOfCurrentMonth() {
+        return lastDayOfCurrentMonth(LocalDate.now());
+    }
+	
+	/**
+	 * Returns the last day of the month
+	 * @param ld {@code LocalDate}
+	 * @return the last day of the month
+	 */
+	public static LocalDate lastDayOfCurrentMonth(LocalDate ld) {
+        return ld.with(TemporalAdjusters.lastDayOfMonth());
+    }
 
 	/**
 	 * Returns current month
@@ -124,8 +141,7 @@ public class UDateTime {
 	 * @return The month-of-year, from 1 to 12
 	 */
 	private static Integer currentMonth() {
-		val ld = LocalDate.now();
-		return ld.getMonthValue();
+		return LocalDate.now().getMonthValue();
 	}
 
 	/**
@@ -134,8 +150,7 @@ public class UDateTime {
 	 * @return The actual year
 	 */
 	private static Integer currentYear() {
-		val ld = LocalDate.now();
-		return ld.getYear();
+		return LocalDate.now().getYear();
 	}
 
 	/**
@@ -162,7 +177,7 @@ public class UDateTime {
 			String timestamp = null;
 			switch (formatter) {
 			case DATE_TIME_FORMAT, DATE_TIME_FULL_FORMAT:
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern(formatter.format);
+				val dtf = DateTimeFormatter.ofPattern(formatter.format);
 				timestamp = dtf.format(LocalDateTime.now());
 			default:
 				break;
@@ -400,7 +415,9 @@ public class UDateTime {
 
 			if (date != null) {
 				val ld = localDate(date);
-				return ld.getDayOfMonth();
+				if (ld != null) {
+					return ld.getDayOfMonth();
+				}
 			}
 
 		} catch (Exception e) {
@@ -420,7 +437,9 @@ public class UDateTime {
 			
 			if(date != null) {
 				val ldt = localDate(date);
-				return ldt.getMonthValue();
+				if (ldt != null) {
+					return ldt.getMonthValue();
+				}
 			}
 			
 		} catch (Exception e) {
@@ -535,7 +554,9 @@ public class UDateTime {
 
 			if (date != null) {
 				val ld = localDate(date);
-				return ld.getYear();
+				if (ld != null) {
+					return ld.getYear();
+				}
 			}
 
 		} catch (Exception e) {
@@ -554,7 +575,9 @@ public class UDateTime {
 
 			if (date != null) {
 				val ld = localDate(date);
-				return ld.format(DateTimeFormatter.ofPattern("yy"));
+				if (ld != null) {
+					return ld.format(DateTimeFormatter.ofPattern("yy"));
+				}
 			}
 
 		} catch (Exception e) {
@@ -653,8 +676,7 @@ public class UDateTime {
 				
 				val params = new String[] { UMessage.getMessage(day), dayOfMonth.toString(), UMessage.getMessage(month),
 						year.toString() };
-				val customMessage = CustomMessage.builder().key("date.text.date.full").params(params).build();
-				return customMessage;
+				return CustomMessage.builder().key("date.text.date.full").params(params).build();
 			}
 			
 		} catch (Exception e) {
@@ -665,18 +687,19 @@ public class UDateTime {
 
 	public static CustomMessage shortDate() {
 		val localDate = localDate(new Date());
-
-		Integer day = localDate.getDayOfMonth();
-		val dayOfMonth = day >= 10 ? day.toString() : "0" + day;
-
-		Integer month = localDate.getMonthValue();
-		val monthStr = month >= 10 ? month.toString() : "0" + month;
-
-		Integer year = localDate.getYear();
-
-		val params = new String[] { dayOfMonth, monthStr, year.toString() };
-		val customMessage = CustomMessage.builder().key("date.text.date.short").params(params).build();
-		return customMessage;
+		if (localDate != null) {
+			Integer day = localDate.getDayOfMonth();
+			val dayOfMonth = day >= 10 ? day.toString() : "0" + day;
+	
+			Integer month = localDate.getMonthValue();
+			val monthStr = month >= 10 ? month.toString() : "0" + month;
+	
+			Integer year = localDate.getYear();
+	
+			val params = new String[] { dayOfMonth, monthStr, year.toString() };
+			return CustomMessage.builder().key("date.text.date.short").params(params).build();
+		}
+		return null;
 	}
 
 	public static DayOfWeek dayOfWeek(final String day) {
@@ -733,7 +756,9 @@ public class UDateTime {
 
 			if (date != null) {
 				val localDate = localDate(date);
-				return localDate.getDayOfWeek().name();
+				if (localDate != null) {
+					return localDate.getDayOfWeek().name();
+				}
 			}
 
 		} catch (Exception e) {
@@ -747,7 +772,9 @@ public class UDateTime {
 
 			if (date != null) {
 				val localDate = localDate(date);
-				return localDate.getDayOfWeek();
+				if (localDate != null) {
+					return localDate.getDayOfWeek();
+				}
 			}
 
 		} catch (Exception e) {
@@ -861,8 +888,7 @@ public class UDateTime {
 				val lastDay = date(lastDayOfMonth);
 				val lastDayFormatted = sdf.format(lastDay);
 
-				val dateMonthRange = firstDayFormatted + separator + lastDayFormatted;
-				return dateMonthRange;
+				return firstDayFormatted + separator + lastDayFormatted;
 			}
 
 		} catch (Exception e) {
@@ -889,8 +915,7 @@ public class UDateTime {
 				val today = date(todayOfMonth);
 				val lastDayFormatted = sdf.format(today);
 
-				val dateMonthRange = firstDayFormatted + separator + lastDayFormatted;
-				return dateMonthRange;
+				return firstDayFormatted + separator + lastDayFormatted;
 			}
 
 		} catch (Exception e) {
@@ -980,8 +1005,10 @@ public class UDateTime {
 
 			if (date != null) {
 				val calendar = dateToCalendar(date);
-				return LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
-						calendar.get(Calendar.SECOND));
+				if (calendar != null) {
+					return LocalTime.of(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
+							calendar.get(Calendar.SECOND));
+				}
 			}
 
 		} catch (Exception e) {
@@ -1068,8 +1095,7 @@ public class UDateTime {
 
 			if (UValidator.isNotEmpty(date) && formatter != null) {
 				val format = DateTimeFormatter.ofPattern(formatter.format);
-				val ldt = LocalDateTime.parse(date, format);
-				return ldt;
+				return LocalDateTime.parse(date, format);
 			}
 
 		} catch (Exception e) {
@@ -1180,7 +1206,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val dateOneLocalDate = localDate(dateOne);
 				val dateTwoLocaldate = localDate(dateTwo);
-				return dateOneLocalDate.isAfter(dateTwoLocaldate);
+				if (dateOneLocalDate != null && dateTwoLocaldate != null) {
+					return dateOneLocalDate.isAfter(dateTwoLocaldate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1208,7 +1236,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val dateOneLocalDate = localDate(dateOne);
 				val dateTwoLocaldate = localDate(dateTwo);
-				return dateOneLocalDate.isEqual(dateTwoLocaldate);
+				if (dateOneLocalDate != null && dateTwoLocaldate != null) {
+					return dateOneLocalDate.isEqual(dateTwoLocaldate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1236,7 +1266,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val dateOneLocalDate = localDate(dateOne);
 				val dateTwoLocaldate = localDate(dateTwo);
-				return dateOneLocalDate.isBefore(dateTwoLocaldate) || dateOneLocalDate.isEqual(dateTwoLocaldate);
+				if (dateOneLocalDate != null && dateTwoLocaldate != null) {
+					return dateOneLocalDate.isBefore(dateTwoLocaldate) || dateOneLocalDate.isEqual(dateTwoLocaldate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1292,7 +1324,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val timeOne = localTime(dateOne);
 				val timeTwo = localTime(dateTwo);
-				return timeOne.isBefore(timeTwo);
+				if (timeOne != null && timeTwo != null) {
+					return timeOne.isBefore(timeTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1307,7 +1341,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val timeOne = localTime(dateOne);
 				val timeTwo = localTime(dateTwo);
-				return timeOne.isAfter(timeTwo);
+				if (timeOne != null && timeTwo != null) {
+					return timeOne.isAfter(timeTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1322,7 +1358,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val timeOne = localTime(dateOne);
 				val timeTwo = localTime(dateTwo);
-				return timeOne.equals(timeTwo);
+				if (timeOne != null && timeTwo != null) {
+					return timeOne.equals(timeTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1337,7 +1375,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val timeOne = localTime(dateOne);
 				val timeTwo = localTime(dateTwo);
-				return (timeOne.isBefore(timeTwo) || timeOne.equals(timeTwo));
+				if (timeOne != null && timeTwo != null) {
+					return (timeOne.isBefore(timeTwo) || timeOne.equals(timeTwo));
+				}
 			}
 
 		} catch (Exception e) {
@@ -1352,7 +1392,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val timeOne = localTime(dateOne);
 				val timeTwo = localTime(dateTwo);
-				return (timeOne.isAfter(timeTwo) || timeOne.equals(timeTwo));
+				if (timeOne != null && timeTwo != null) {
+					return (timeOne.isAfter(timeTwo) || timeOne.equals(timeTwo));
+				}
 			}
 
 		} catch (Exception e) {
@@ -1367,7 +1409,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val ldtOne = localDateTime(dateOne);
 				val ldtTwo = localDateTime(dateTwo);
-				return ldtOne.isBefore(ldtTwo);
+				if (ldtOne != null && ldtTwo != null) {
+					return ldtOne.isBefore(ldtTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1395,7 +1439,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val ldtOne = localDateTime(dateOne);
 				val ldtTwo = localDateTime(dateTwo);
-				return ldtOne.isAfter(ldtTwo);
+				if (ldtOne != null && ldtTwo != null) {
+					return ldtOne.isAfter(ldtTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1423,7 +1469,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val ldtOne = localDateTime(dateOne);
 				val ldtTwo = localDateTime(dateTwo);
-				return ldtOne.equals(ldtTwo);
+				if (ldtOne != null && ldtTwo != null) {
+					return ldtOne.equals(ldtTwo);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1438,7 +1486,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val ldtOne = localDateTime(dateOne);
 				val ldtTwo = localDateTime(dateTwo);
-				return (ldtOne.isBefore(ldtTwo) || ldtOne.equals(ldtTwo));
+				if (ldtOne != null && ldtTwo != null) {
+					return (ldtOne.isBefore(ldtTwo) || ldtOne.equals(ldtTwo));
+				}
 			}
 
 		} catch (Exception e) {
@@ -1466,7 +1516,9 @@ public class UDateTime {
 			if (dateOne != null && dateTwo != null) {
 				val ldtOne = localDateTime(dateOne);
 				val ldtTwo = localDateTime(dateTwo);
-				return (ldtOne.isAfter(ldtTwo) || ldtOne.equals(ldtTwo));
+				if (ldtOne != null && ldtTwo != null) {
+					return (ldtOne.isAfter(ldtTwo) || ldtOne.equals(ldtTwo));
+				}
 			}
 
 		} catch (Exception e) {
@@ -1561,8 +1613,10 @@ public class UDateTime {
 
 			if (dateOne != null && dateTwo != null) {
 				val duration = duration(dateOne, dateTwo);
-				Long durationInDays = duration.toDays();
-				return durationInDays.intValue();
+				if (duration != null) {
+					Long durationInDays = duration.toDays();
+					return durationInDays.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1587,16 +1641,18 @@ public class UDateTime {
 				var count = 0;
 
 				Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-				while (start.isBefore(stop)) {
-					if (!weekend.contains(start.getDayOfWeek())) {
-						//##### It is not weekend
-						count++;
+				if (start != null && stop != null) {
+					while (start.isBefore(stop)) {
+						if (!weekend.contains(start.getDayOfWeek())) {
+							//##### It is not weekend
+							count++;
+						}
+	
+						//##### Increment a day
+						start = start.plusDays(1);
 					}
-
-					//##### Increment a day
-					start = start.plusDays(1);
+					return count;
 				}
-				return (int) count;
 			}
 
 		} catch (Exception e) {
@@ -1616,8 +1672,10 @@ public class UDateTime {
 
 			if (dateOne != null && dateTwo != null) {
 				val duration = duration(dateOne, dateTwo);
-				Long durationInHours = duration.toHours();
-				return durationInHours.intValue();
+				if (duration != null) {
+					Long durationInHours = duration.toHours();
+					return durationInHours.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1637,8 +1695,10 @@ public class UDateTime {
 
 			if (dateOne != null && dateTwo != null) {
 				val duration = duration(dateOne, dateTwo);
-				Long durationInMinutes = duration.toMinutes();
-				return durationInMinutes.intValue();
+				if (duration != null) {
+					Long durationInMinutes = duration.toMinutes();
+					return durationInMinutes.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1658,8 +1718,10 @@ public class UDateTime {
 
 			if (dateOne != null && dateTwo != null) {
 				val duration = duration(dateOne, dateTwo);
-				Long durationInMinutes = duration.toSeconds();
-				return durationInMinutes.intValue();
+				if (duration != null) {
+					Long durationInMinutes = duration.toSeconds();
+					return durationInMinutes.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1679,8 +1741,10 @@ public class UDateTime {
 
 			if (dateOne != null && dateTwo != null) {
 				val duration = duration(dateOne, dateTwo);
-				Long durationInMilliseconds = duration.toMillis();
-				return durationInMilliseconds.intValue();
+				if (duration != null) {
+					Long durationInMilliseconds = duration.toMillis();
+					return durationInMilliseconds.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1712,7 +1776,10 @@ public class UDateTime {
 					case "nanos" -> duration.toNanos();
 					default -> null;
 				};
-				return durationValue.intValue();
+				
+				if (durationValue != null) {
+					return durationValue.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1742,7 +1809,10 @@ public class UDateTime {
 					case "nanos" -> duration.toNanos();
 					default -> null;
 				};
-				return durationValue.intValue();
+				
+				if (durationValue != null) {
+					return durationValue.intValue();
+				}
 			}
 
 		} catch (Exception e) {
@@ -1802,6 +1872,100 @@ public class UDateTime {
 		return null;
 	}
 
+	//===================================
+	//===== MxCity's dates ==============
+	//===================================
+	public static TimeZone timeZoneMxCity() {
+		return TimeZone.getTimeZone("America/Mexico_City");
+	}
+	
+	public static ZoneId zoneIdMxCity() {
+		val timeZoneMxCity = timeZoneMxCity();
+		if (timeZoneMxCity != null) {
+			return timeZoneMxCity.toZoneId();
+		}
+		return null;
+	}
+	
+	public static Date dateMxCity() {
+		try {
+
+			val zoneId = zoneIdMxCity();
+			return Date.from(LocalDateTime.now().atZone(zoneId).toInstant());
+
+		} catch (Exception e) {
+			log.error("UDateTime#dateMxCity error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
+	public static Date dateMxCity(Date date) {
+		val ldtMx = localDateTimeMxCity(date);
+		if (ldtMx != null) {
+			val zoneId = zoneIdMxCity();
+			return Date.from(ldtMx.atZone(zoneId).toInstant());
+		}
+		return null;
+	}
+	
+	public static LocalDateTime localDateTimeMxCity() {
+		val zoneId = zoneIdMxCity();
+		return LocalDateTime.now(zoneId);
+	}
+	
+	public static LocalDateTime localDateTimeMxCity(Date date) {
+		if (date != null) {
+			val ldt = localDateTime(date);
+			return localDateTimeMxCity(ldt);
+		}
+		return null;
+	}
+	
+	public static LocalDateTime localDateTimeMxCity(LocalDateTime ldt) {
+		if (ldt != null) {
+			val zoneId = zoneIdMxCity();
+			return ldt.atZone(zoneId)
+					  .withZoneSameInstant(zoneId)
+					  .toLocalDateTime();
+		}
+		return null;
+	}
+	
+	public static LocalDate localDateMxCity() {
+		val zoneId = zoneIdMxCity();
+		return LocalDate.now(zoneId);
+	}
+	
+	public static LocalDate localDateMxCity(LocalDate ld) {
+		if (ld != null) {
+			val ldt = localDateTime(ld);
+			val ldtMx = localDateTimeMxCity(ldt);
+			if (ldtMx != null) {
+				return ldtMx.toLocalDate();
+			}
+		}
+		return null;
+	}
+	
+	public static LocalTime localTimeMxCity() {
+		val zoneId = zoneIdMxCity();
+		return LocalTime.now(zoneId);
+	}
+	
+	public static LocalTime localTimeMxCity(LocalTime lt) {
+		if (lt != null) {
+			val ldt = localDateTime(LocalDate.now(), lt);
+			val ldtMx = localDateTimeMxCity(ldt);
+			if (ldtMx != null) {
+				return ldtMx.toLocalTime();
+			}
+		}
+		return null;
+	}
+	
+	//===================================
+	//===== UTC's dates ==============
+	//===================================
 	/**
 	 * Returns the UTC date
 	 * @return the UTC date
@@ -1993,8 +2157,10 @@ public class UDateTime {
 
 			if (date != null && years != null) {
 				val currentTime = localDate(date);
-				val nextDate = currentTime.plusYears(years);
-				return date(nextDate);
+				if (currentTime != null) {
+					val nextDate = currentTime.plusYears(years);
+					return date(nextDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2031,8 +2197,10 @@ public class UDateTime {
 
 			if (date != null && years != null) {
 				val currentTime = localDate(date);
-				val beforeDate = currentTime.minusYears(years);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusYears(years);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2070,8 +2238,10 @@ public class UDateTime {
 
 			if (date != null && months != null) {
 				val currentTime = localDate(date);
-				val nextDate = currentTime.plusMonths(months);
-				return date(nextDate);
+				if (currentTime != null) {
+					val nextDate = currentTime.plusMonths(months);
+					return date(nextDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2108,8 +2278,10 @@ public class UDateTime {
 
 			if (date != null && months != null) {
 				val currentTime = localDate(date);
-				val beforeDate = currentTime.minusMonths(months);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusMonths(months);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2147,8 +2319,10 @@ public class UDateTime {
 
 			if (date != null && days != null) {
 				val currentTime = localDateTime(date);
-				val nextDate = currentTime.plusDays(days);
-				return date(nextDate);
+				if (currentTime != null) {
+					val nextDate = currentTime.plusDays(days);
+					return date(nextDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2185,8 +2359,10 @@ public class UDateTime {
 
 			if (date != null && days != null) {
 				val currentTime = localDate(date);
-				val beforeDate = currentTime.minusDays(days);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusDays(days);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2224,8 +2400,10 @@ public class UDateTime {
 
 			if (date != null && hours != null) {
 				val currentTime = localDateTime(date);
-				val nextTime = currentTime.plusHours(hours);
-				return date(nextTime);
+				if (currentTime != null) {
+					val nextTime = currentTime.plusHours(hours);
+					return date(nextTime);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2244,8 +2422,10 @@ public class UDateTime {
 
 			if (hours != null) {
 				val currentTime = localDateTime(new Date());
-				val nextTime = currentTime.plusHours(hours);
-				return date(nextTime);
+				if (currentTime != null) {
+					val nextTime = currentTime.plusHours(hours);
+					return date(nextTime);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2264,8 +2444,10 @@ public class UDateTime {
 
 			if (date != null && hours != null) {
 				val currentTime = localDateTime(date);
-				val beforeDate = currentTime.minusHours(hours);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusHours(hours);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2303,8 +2485,10 @@ public class UDateTime {
 
 			if (date != null && minutes != null) {
 				val currentTime = localDateTime(date);
-				val nextTime = currentTime.plusMinutes(minutes);
-				return date(nextTime);
+				if (currentTime != null) {
+					val nextTime = currentTime.plusMinutes(minutes);
+					return date(nextTime);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2341,8 +2525,10 @@ public class UDateTime {
 
 			if (date != null && minutes != null) {
 				val currentTime = localDateTime(date);
-				val beforeDate = currentTime.minusMinutes(minutes);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusMinutes(minutes);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2380,8 +2566,10 @@ public class UDateTime {
 
 			if (date != null && seconds != null) {
 				val currentTime = localDateTime(date);
-				val nextTime = currentTime.plusSeconds(seconds);
-				return date(nextTime);
+				if (currentTime != null) {
+					val nextTime = currentTime.plusSeconds(seconds);
+					return date(nextTime);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2418,8 +2606,10 @@ public class UDateTime {
 
 			if (date != null && seconds != null) {
 				val currentTime = localDateTime(date);
-				val beforeDate = currentTime.minusSeconds(seconds);
-				return date(beforeDate);
+				if (currentTime != null) {
+					val beforeDate = currentTime.minusSeconds(seconds);
+					return date(beforeDate);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2546,8 +2736,10 @@ public class UDateTime {
 
 			if (date != null) {
 				val localDate = localDate(date);
-				Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-				return weekend.contains(localDate.getDayOfWeek());
+				if (localDate != null) {
+					Set<DayOfWeek> weekend = EnumSet.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+					return weekend.contains(localDate.getDayOfWeek());
+				}
 			}
 
 		} catch (Exception e) {
@@ -2561,8 +2753,10 @@ public class UDateTime {
 
 			if (date != null) {
 				val time = formatDate(date, Formatter.T12H);
-				val splitted = time.split(":");
-				return UInteger.value(splitted[0]);
+				if (time != null) {
+					val splitted = time.split(":");
+					return UInteger.value(splitted[0]);
+				}
 			}
 
 		} catch (Exception e) {
@@ -2587,35 +2781,37 @@ public class UDateTime {
 
 			if (date != null) {
 				val localDate = localDate(date);
-				val dayOfWeek = localDate.getDayOfWeek().getValue();
-
-				LocalDate nextWeek = null;
-				switch (dayOfWeek) {
-				case 1:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-					break;
-				case 2:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
-					break;
-				case 3:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
-					break;
-				case 4:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
-					break;
-				case 5:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-					break;
-				case 6:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
-					break;
-				case 7:
-					nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
-					break;
-				default:
-					break;
+				if (localDate != null) {
+					val dayOfWeek = localDate.getDayOfWeek().getValue();
+	
+					LocalDate nextWeek = null;
+					switch (dayOfWeek) {
+					case 1:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+						break;
+					case 2:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+						break;
+					case 3:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+						break;
+					case 4:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.THURSDAY));
+						break;
+					case 5:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
+						break;
+					case 6:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+						break;
+					case 7:
+						nextWeek = localDate.with(TemporalAdjusters.next(DayOfWeek.SUNDAY));
+						break;
+					default:
+						break;
+					}
+					return nextWeek;
 				}
-				return nextWeek;
 			}
 
 		} catch (Exception e) {
@@ -2629,7 +2825,9 @@ public class UDateTime {
 
 			if (date != null && dayOfWeek != null) {
 				val localDate = localDate(date);
-				return localDate.with(TemporalAdjusters.previous(dayOfWeek));
+				if (localDate != null) {
+					return localDate.with(TemporalAdjusters.previous(dayOfWeek));
+				}
 			}
 
 		} catch (Exception e) {
@@ -2643,7 +2841,9 @@ public class UDateTime {
 
 			if (date != null && dayOfWeek != null) {
 				val localDate = localDate(date);
-				return localDate.with(TemporalAdjusters.next(dayOfWeek));
+				if (localDate != null) {
+					return localDate.with(TemporalAdjusters.next(dayOfWeek));
+				}
 			}
 
 		} catch (Exception e) {
@@ -2755,7 +2955,9 @@ public class UDateTime {
 			
 			if (javaDate != null) {
 				val calendar = UDateTime.dateToCalendar(javaDate);
-				return new java.sql.Timestamp(calendar.getTimeInMillis());
+				if (calendar != null) {
+					return new java.sql.Timestamp(calendar.getTimeInMillis());
+				}
 			}
 			
 		} catch (Exception e) {
@@ -2768,8 +2970,7 @@ public class UDateTime {
 		try {
 			
 			if (javaLd != null) {
-				val timestamp = java.sql.Timestamp.valueOf(javaLd.atStartOfDay()); 
-				return timestamp;
+				return java.sql.Timestamp.valueOf(javaLd.atStartOfDay()); 
 			}
 			
 		} catch (Exception e) {
@@ -2782,8 +2983,7 @@ public class UDateTime {
 		try {
 			
 			if (javaLdt != null) {
-				val timestamp = java.sql.Timestamp.valueOf(javaLdt); 
-				return timestamp;
+				return java.sql.Timestamp.valueOf(javaLdt); 
 			}
 			
 		} catch (Exception e) {

@@ -9,13 +9,13 @@ import org.springframework.data.domain.Pageable;
 
 import lombok.val;
 
-public class UPage<T> {
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Page toPage(final List list, final Pageable pageable) {
-		if(list.isEmpty() || pageable == null) {
-			return Page.empty();
-		} else if (pageable.getOffset() >= list.size()) {
+public class UPage {
+	private UPage() {
+		throw new IllegalStateException("Utility class");
+	}
+	
+	public static <T> Page<T> toPage(final List<T> list, final Pageable pageable) {
+		if(list.isEmpty() || pageable == null || pageable.getOffset() >= list.size()) {
 			return Page.empty();
 		}
 		
@@ -23,27 +23,25 @@ public class UPage<T> {
 		int endIndex = (int) ((pageable.getOffset() + pageable.getPageSize()) > list.size() ? list.size() : pageable.getOffset() + pageable.getPageSize());
 		
 		val subList = list.subList(startIndex, endIndex);
-		return new PageImpl(subList, pageable, list.size());
+		return new PageImpl<>(subList, pageable, list.size());
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
-	public static int totalPages(final List list, final int page, final int pageSize) {
+	public static <T> int totalPages(final List<T> list, final int page, final int pageSize) {
 		val pageable = PageRequest.of(page, pageSize);
 		val pageImpl = toPage(list, pageable);
 		return pageImpl.getTotalPages();
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
-	public static boolean isFirstPage(final List list, final int page, final int pageSize) {
+	public static <T> boolean isFirstPage(final List<T> list, final int page, final int pageSize) {
 		val pageable = PageRequest.of(page, pageSize);
 		val pageImpl = toPage(list, pageable);
 		return pageImpl.isFirst();
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
-	public static boolean isLastPage(final List list, final int page, final int pageSize) {
+	public static <T> boolean isLastPage(final List<T> list, final int page, final int pageSize) {
 		val pageable = PageRequest.of(page, pageSize);
 		val pageImpl = toPage(list, pageable);
 		return pageImpl.isLast();
 	}
+	
 }

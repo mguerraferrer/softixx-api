@@ -13,8 +13,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class UMessage {
 	@Autowired
 	private MessageSource messageSource;
@@ -31,15 +33,27 @@ public class UMessage {
 	}
 	
 	public static String getMessage(final String key, @Nullable Object[] params) {
-		if(UValidator.isNotEmpty(key)) {
-			return accessor.getMessage(key, params, LocaleContextHolder.getLocale());
+		try {
+			
+			if(UValidator.isNotEmpty(key)) {
+				return accessor.getMessage(key, params, LocaleContextHolder.getLocale());
+			}
+			
+		} catch (Exception e) {
+			log.error("--- UMessage#getMessage error - {}", e.getMessage());
 		}
 		return null;
 	}
 	
 	public static String getMessage(final CustomMessage customMessage) {
-		if(UValidator.isNotNull(customMessage)) {
-			return accessor.getMessage(customMessage.getKey(), customMessage.getParams(), LocaleContextHolder.getLocale());
+		try {
+			
+			if(UValidator.isNotNull(customMessage)) {
+				return accessor.getMessage(customMessage.getKey(), customMessage.getParams(), LocaleContextHolder.getLocale());
+			}
+			
+		} catch (Exception e) {
+			log.error("--- UMessage#getMessage error - {}", e.getMessage());
 		}
 		return null;
 	}
