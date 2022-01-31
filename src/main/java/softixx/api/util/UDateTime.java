@@ -927,7 +927,9 @@ public class UDateTime {
 	//###########################################
 	//##### LocalDate (java.time.LocalDate) #####
 	//###########################################
-	
+	public static LocalDate localDate() {
+		return LocalDate.now();
+	}
 	/**
 	 * Returns a LocalDate (java.time.LocalDate)
 	 * @param stringDate - String date
@@ -1000,6 +1002,10 @@ public class UDateTime {
 		return null;
 	}
 
+	public static LocalTime localTime() {
+		return LocalTime.now();
+	}
+	
 	public static LocalTime localTime(final Date date) {
 		try {
 
@@ -1057,7 +1063,7 @@ public class UDateTime {
 	}
 
 	public static LocalDateTime localDateTime() {
-		return localDateTime(new Date());
+		return LocalDateTime.now();
 	}
 
 	public static LocalDateTime localDateTime(final Date date) {
@@ -1871,12 +1877,53 @@ public class UDateTime {
 		}
 		return null;
 	}
-
+	
+	public static LocalDateTime localDateTime(LocalDateTime ldt, String timeZoneFrom, String timeZoneTarget) {
+		val zdt = zonedDateTime(ldt, timeZoneFrom, timeZoneTarget);
+		if (zdt != null) {
+			return zdt.toLocalDateTime();
+		}
+		return null;
+	}
+	
+	public static LocalDate localDateTime(LocalDate ld, String timeZoneFrom, String timeZoneTarget) {
+		val ldt = localDateTime(ld);
+		val zdt = zonedDateTime(ldt, timeZoneFrom, timeZoneTarget);
+		if (zdt != null) {
+			return zdt.toLocalDate();
+		}
+		return null;
+	}
+	
+	public static LocalTime localTime(LocalDate lt, String timeZoneFrom, String timeZoneTarget) {
+		val ldt = localDateTime(lt);
+		val zdt = zonedDateTime(ldt, timeZoneFrom, timeZoneTarget);
+		if (zdt != null) {
+			return zdt.toLocalTime();
+		}
+		return null;
+	}
+	
+	private static ZonedDateTime zonedDateTime(LocalDateTime ldt, String timeZoneFrom, String timeZoneTarget) {
+		try {
+			
+			if (ldt != null && timeZoneFrom != null && timeZoneTarget != null) {
+				val zdt = ldt.atZone(ZoneId.of(timeZoneFrom));
+				return zdt.withZoneSameInstant(ZoneId.of(timeZoneTarget));
+			}
+			
+		} catch (Exception e) {
+			log.error("UDateTime#zonedDateTime error > {}", e.getMessage());
+		}
+		return null;
+	}
+	
 	//===================================
 	//===== MxCity's dates ==============
 	//===================================
 	public static TimeZone timeZoneMxCity() {
-		return TimeZone.getTimeZone("America/Mexico_City");
+		//return TimeZone.getTimeZone("America/Mexico_City");
+		return TimeZone.getTimeZone("Mexico/General");
 	}
 	
 	public static ZoneId zoneIdMxCity() {

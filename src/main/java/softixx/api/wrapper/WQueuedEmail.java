@@ -1,19 +1,19 @@
 package softixx.api.wrapper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.Singular;
 import lombok.val;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class WQueuedEmail {
 	
@@ -29,7 +29,13 @@ public class WQueuedEmail {
 	private Map<String, String> ctxMap;
 	private String ctx;
 	@Singular("objList")
-	private List<Object> objList;
+	private List<?> objList;
+	
+	public WQueuedEmail() {
+		this.recipients = new ArrayList<>();
+		this.ctxMap = new HashMap<>();
+		this.objList = new ArrayList<>();
+	}
 	
 	public static WQueuedEmail populate(final Object user, final String notificationType, final String recipient, final String subject, final String body, final Map<String, String> ctxMap) {
 		return WQueuedEmail

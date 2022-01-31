@@ -30,14 +30,14 @@ public class UPaginator {
 	
 	public static <T> JPage<T> customPage(final PageBean<T> pageBean) {
 		if (pageBean == null) {
-			return new JPage<>();
+			return JPage.empty();
 		}
 		return populatePage(pageBean.getDataLimitBean(), pageBean.getContent());
 	}
 	
 	public static <T> JPage<T> populatePage(final Page<T> page) {
 		if(page == null) {
-			return new JPage<>();
+			return JPage.empty();
 		}
 		return populatePage(page, page.getContent());
 	}

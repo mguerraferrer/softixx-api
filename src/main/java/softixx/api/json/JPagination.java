@@ -1,5 +1,6 @@
 package softixx.api.json;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AccessLevel;
@@ -37,7 +38,7 @@ public class JPagination<T> {
 		private int numberOfElements;
 		private int totalElements;
 		@Getter(AccessLevel.PUBLIC)
-		private Boolean hasContent;
+		private boolean hasContent;
 		@Singular("content")
 		private List<T> content;
 		private List<?> customContent;
@@ -54,6 +55,13 @@ public class JPagination<T> {
 		
 		public boolean hasNext() {
 			return this.hasNext;
+		}
+		
+		public static <T> JPage<T> empty() {
+			JPage<T> empty = new JPage<>();
+			empty.setContent(new ArrayList<>());
+			empty.setCustomContent(new ArrayList<>());
+			return empty;
 		}
 	}
 	
