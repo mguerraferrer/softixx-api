@@ -36,18 +36,18 @@ public class FileBean {
 	protected List<String> entries;
 	
 	public void addHeaders(final List<String> headers) {
-		if(headers == null || headers.isEmpty()) {
+		if (headers == null || headers.isEmpty()) {
 			throw new Error("The header is required");
 		}
 		this.headers = headers;
 	}
 	
 	public void addFile(final MultipartFile multipart) {
-		if(!UFile.isValid(multipart)) {
+		if (!UFile.isValid(multipart)) {
 			throw new Error("The file is invalid or corrupt");
 		}
 		
-		if(!isValidExtension(multipart)) {
+		if (!isValidExtension(multipart)) {
 			throw new Error("Invalid extension. The allowed extensions are csv and txt");
 		}
 		
@@ -62,11 +62,11 @@ public class FileBean {
 	}
 	
 	public void addFile(final File file) {
-		if(file == null) {
+		if (file == null) {
 			throw new Error("The file is invalid or corrupt");
 		}
 		
-		if(!isValidExtension(file)) {
+		if (!isValidExtension(file)) {
 			throw new Error("Invalid extension. The allowed extensions are csv and txt");
 		}
 		
@@ -85,11 +85,11 @@ public class FileBean {
 	}
 	
 	public void addDelimiter(final String delimiter) {
-		if(delimiter == null) {
+		if (delimiter == null) {
 			this.delimiter = DELIMITER_COMMA;
 		} else {
 			val isValidSeparator = UStream.exists(getAllowedDelimiters(), delimiter);
-			if(isValidSeparator) {
+			if (isValidSeparator) {
 				this.delimiter = DELIMITER_COMMA;
 			} else {
 				this.delimiter = delimiter;
@@ -98,11 +98,11 @@ public class FileBean {
 	}
 	
 	public void addSeparator(final String separator) {
-		if(separator == null) {
+		if (separator == null) {
 			this.separator = null;
 		} else {
 			val isValidSeparator = UStream.exists(getAllowedSeparators(), separator);
-			if(isValidSeparator) {
+			if (isValidSeparator) {
 				this.separator = SEPARATOR_N;
 			} else {
 				this.separator = null;
@@ -111,7 +111,7 @@ public class FileBean {
 	}
 	
 	public void addSkipLines(final Integer skipLines) {
-		if(skipLines == null || skipLines < 0) {
+		if (skipLines == null || skipLines < 0) {
 			this.skipLines = 1;
 		}
 		this.skipLines = skipLines;
@@ -126,14 +126,14 @@ public class FileBean {
 	}
 	
 	public String getDelimiter() {
-		if(UValidator.isEmpty(this.delimiter)) {
+		if (UValidator.isEmpty(this.delimiter)) {
 			this.delimiter = DELIMITER_COMMA;
 		}
 		return this.delimiter;
 	}
 	
 	public String getSeparator() {
-		if(UValidator.isEmpty(this.separator)) {
+		if (UValidator.isEmpty(this.separator)) {
 			this.separator = SEPARATOR_N;
 		}
 		return this.separator;

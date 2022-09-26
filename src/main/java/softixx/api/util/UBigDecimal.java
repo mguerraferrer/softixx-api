@@ -166,7 +166,7 @@ public class UBigDecimal {
 	public static String integerPart(final BigDecimal value) {
 		try {
 			
-			if(UValidator.isNull(value)) {
+			if (UValidator.isNull(value)) {
 				return null;
 			}
 			

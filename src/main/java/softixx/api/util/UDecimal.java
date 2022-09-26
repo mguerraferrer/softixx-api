@@ -12,7 +12,7 @@ public class UDecimal {
 	private static final Logger log = LoggerFactory.getLogger(UDecimal.class);
 
 	public static String decimal(String str) {
-		if(UValidator.isEmpty(str) || str.equals("0") || str.equals("0.0") || str.startsWith(".0")) {
+		if (UValidator.isEmpty(str) || str.equals("0") || str.equals("0.0") || str.startsWith(".0")) {
 			str = "0.00";
 		}
 		return str.trim();
@@ -21,9 +21,9 @@ public class UDecimal {
 	public static Integer decimals(final String value){
 		try {
 			
-			if(UValidator.isNotEmpty(value)) {
+			if (UValidator.isNotEmpty(value)) {
 				int pos = value.indexOf(".");
-				if(pos <= 0) {
+				if (pos <= 0) {
 					return 0;
 				}
 				
@@ -41,14 +41,14 @@ public class UDecimal {
 	public static Integer decimals(final BigDecimal value){
 		try {
 			
-			if(UValidator.isNull(value) || value.scale() == 0) {
+			if (UValidator.isNull(value) || value.scale() == 0) {
 				return 0;
 			}
 			
 			BigDecimal bgDecimalPart = value.subtract(value.setScale(0, RoundingMode.FLOOR)).movePointRight(value.scale());
 			Integer decimalPart = bgDecimalPart.intValue();
 			
-			if(decimalPart == 0) {
+			if (decimalPart == 0) {
 				return 2;
 			}
 			return decimalPart.toString().length();
@@ -62,7 +62,7 @@ public class UDecimal {
 	public static String decimalPart(final Double value) {
 		try {
 			
-			if(UValidator.isNull(value)) {
+			if (UValidator.isNull(value)) {
 				return ".00";
 			}
 			
@@ -78,7 +78,7 @@ public class UDecimal {
 	public static String decimalPart(final BigDecimal value) {
 		try {
 			
-			if(UValidator.isNull(value)) {
+			if (UValidator.isNull(value)) {
 				return ".00";
 			}
 			
@@ -99,7 +99,7 @@ public class UDecimal {
 		//System.out.println("Decimal Part: " + doubleAsString.substring(indexOfDecimal));
 		
 		val result = value.substring(indexOfDecimal);
-		if(UValidator.isNull(result) || result.equals(".0")) {
+		if (UValidator.isNull(result) || result.equals(".0")) {
 			return ".00";
 		}
 		return result;

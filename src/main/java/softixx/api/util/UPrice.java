@@ -24,7 +24,7 @@ public class UPrice {
 	private static String price(Double price, Integer minDecimals, Integer maxDecimals, boolean comma) {
 		try {
 			
-			if(!UValidator.isNull(price)) {
+			if (!UValidator.isNull(price)) {
 				DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 				dfs.setDecimalSeparator('.');
 				dfs.setGroupingSeparator(',');

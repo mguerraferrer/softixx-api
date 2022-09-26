@@ -23,11 +23,11 @@ public class UDao {
 	public static void close(Statement stm, ResultSet rs) {
 		try {
 			
-			if(rs != null) {
+			if (rs != null) {
 				rs.close();
 			}
 			
-			if(stm != null) {
+			if (stm != null) {
 				stm.close();
 			}
 			
@@ -39,7 +39,7 @@ public class UDao {
 	public static void showMetadata(ResultSet rs) {
 		try {
 			
-			if(rs != null) {
+			if (rs != null) {
 				rs.setFetchDirection(ResultSet.FETCH_FORWARD);
 				
 				val rsmd = rs.getMetaData();
@@ -62,7 +62,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getString(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -77,7 +77,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getString(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -89,7 +89,7 @@ public class UDao {
 	}
 	
 	public static void setString(PreparedStatement stm, int index, String value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.VARCHAR);
 		} else {
 			stm.setString(index, value);
@@ -100,7 +100,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getBoolean(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Boolean.valueOf(value);
@@ -115,7 +115,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getBoolean(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Boolean.valueOf(value);
@@ -127,7 +127,7 @@ public class UDao {
 	}
 	
 	public static void setBoolean(PreparedStatement stm, int index, Boolean value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.BOOLEAN);
 		} else {
 			stm.setBoolean(index, value);
@@ -138,7 +138,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getLong(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Long.valueOf(value);
@@ -153,7 +153,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getLong(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Long.valueOf(value);
@@ -167,7 +167,7 @@ public class UDao {
 	public static Long getLongOrNull(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnIndex) == null) {
+			if (rs.getObject(columnIndex) == null) {
 				return null;
 			}
 			return getLong(rs, columnIndex);
@@ -181,7 +181,7 @@ public class UDao {
 	public static Long getLongOrNull(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnName) == null) {
+			if (rs.getObject(columnName) == null) {
 				return null;
 			}
 			return getLong(rs, columnName);
@@ -193,7 +193,7 @@ public class UDao {
 	}
 	
 	public static void setLong(PreparedStatement stm, int index, Long value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.INTEGER);
 		} else {
 			stm.setObject(index, value);
@@ -204,7 +204,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getDouble(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Double.valueOf(value);
@@ -219,7 +219,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getDouble(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Double.valueOf(value);
@@ -233,7 +233,7 @@ public class UDao {
 	public static Double getDoubleOrNull(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnIndex) == null) {
+			if (rs.getObject(columnIndex) == null) {
 				return null;
 			}
 			return getDouble(rs, columnIndex);
@@ -247,7 +247,7 @@ public class UDao {
 	public static Double getDoubleOrNull(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnName) == null) {
+			if (rs.getObject(columnName) == null) {
 				return null;
 			}
 			return getDouble(rs, columnName);
@@ -260,7 +260,7 @@ public class UDao {
 	}
 	
 	public static void setDouble(PreparedStatement stm, int index, Double value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.DOUBLE);
 		} else {
 			stm.setObject(index, value);
@@ -271,7 +271,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getInt(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Integer.valueOf(value);
@@ -286,7 +286,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getInt(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Integer.valueOf(value);
@@ -300,7 +300,7 @@ public class UDao {
 	public static Integer getIntegerOrNull(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnIndex) == null) {
+			if (rs.getObject(columnIndex) == null) {
 				return null;
 			}
 			return getInteger(rs, columnIndex);
@@ -314,7 +314,7 @@ public class UDao {
 	public static Integer getIntegerOrNull(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnName) == null) {
+			if (rs.getObject(columnName) == null) {
 				return null;
 			}
 			return getInteger(rs, columnName);
@@ -326,7 +326,7 @@ public class UDao {
 	}
 	
 	public static void setInteger(PreparedStatement stm, int index, Integer value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.INTEGER);
 		} else {
 			stm.setObject(index, value);
@@ -337,7 +337,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getFloat(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Float.valueOf(value);
@@ -352,7 +352,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getFloat(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return Float.valueOf(value);
@@ -366,7 +366,7 @@ public class UDao {
 	public static Float getFloatOrNull(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnIndex) == null) {
+			if (rs.getObject(columnIndex) == null) {
 				return null;
 			}
 			return getFloat(rs, columnIndex);
@@ -380,7 +380,7 @@ public class UDao {
 	public static Float getFloatOrNull(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnName) == null) {
+			if (rs.getObject(columnName) == null) {
 				return null;
 			}
 			return getFloat(rs, columnName);
@@ -392,7 +392,7 @@ public class UDao {
 	}
 	
 	public static void setFloat(PreparedStatement stm, int index, Float value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.FLOAT);
 		} else {
 			stm.setObject(index, value);
@@ -403,7 +403,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getBigDecimal(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -418,7 +418,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getBigDecimal(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -432,7 +432,7 @@ public class UDao {
 	public static BigDecimal getBigDecimalOrNull(ResultSet rs, int columnIndex) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnIndex) == null) {
+			if (rs.getObject(columnIndex) == null) {
 				return null;
 			}
 			return getBigDecimal(rs, columnIndex);
@@ -446,7 +446,7 @@ public class UDao {
 	public static BigDecimal getBigDecimalOrNull(ResultSet rs, String columnName) throws SQLException {
 		try {
 			
-			if(rs.getObject(columnName) == null) {
+			if (rs.getObject(columnName) == null) {
 				return null;
 			}
 			return getBigDecimal(rs, columnName);
@@ -458,7 +458,7 @@ public class UDao {
 	}
 	
 	public static void setBigDecimal(PreparedStatement stm, int index, BigDecimal value) throws SQLException {
-		if(value == null) {
+		if (value == null) {
 			stm.setNull(index, Types.NUMERIC);
 		} else {
 			stm.setObject(index, value);
@@ -469,7 +469,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getDate(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -484,7 +484,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getDate(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -496,7 +496,7 @@ public class UDao {
 	}
 	
 	public static void setDate(PreparedStatement stm, int index, Date sqlDate) throws SQLException {
-		if(sqlDate == null) {
+		if (sqlDate == null) {
 			stm.setNull(index, Types.DATE);
 		} else {
 			stm.setDate(index, sqlDate);
@@ -507,7 +507,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getTime(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -522,7 +522,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getTime(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -534,7 +534,7 @@ public class UDao {
 	}
 	
 	public static void setTime(PreparedStatement stm, int index, Time sqlTime) throws SQLException {
-		if(sqlTime == null) {
+		if (sqlTime == null) {
 			stm.setNull(index, Types.TIME);
 		} else {
 			stm.setTime(index, sqlTime);
@@ -545,7 +545,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getTimestamp(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -560,7 +560,7 @@ public class UDao {
 		try {
 			
 			val value = rs.getTimestamp(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return value;
@@ -572,7 +572,7 @@ public class UDao {
 	}
 	
 	public static void setTimestamp(PreparedStatement stm, int index, java.util.Date javaDate) throws SQLException {
-		if(javaDate == null) {
+		if (javaDate == null) {
 			stm.setNull(index, Types.TIMESTAMP);
 		} else {
 			val timestamp = UDateTime.timestamp(javaDate);
@@ -585,7 +585,7 @@ public class UDao {
 			
 			Calendar calendar = null;
 			val timestamp = rs.getTimestamp(columnIndex); 
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			
@@ -604,7 +604,7 @@ public class UDao {
 			
 			Calendar calendar = null;
 			val timestamp = rs.getTimestamp(columnName); 
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			
@@ -622,7 +622,7 @@ public class UDao {
 		try {
 			
 			val slqDate = rs.getDate(columnIndex);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return UDateTime.date(slqDate);
@@ -637,7 +637,7 @@ public class UDao {
 		try {
 			
 			val slqDate = rs.getDate(columnName);
-			if(rs.wasNull()) {
+			if (rs.wasNull()) {
 				return null;
 			}
 			return UDateTime.date(slqDate);

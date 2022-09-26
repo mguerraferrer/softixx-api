@@ -112,14 +112,14 @@ public abstract class DostavistaDelivery {
 			
 			var params = "";
 			var and = false;
-			if(UValidator.isNotNull(findOrder.getOrderId())) {
+			if (UValidator.isNotNull(findOrder.getOrderId())) {
 				params = "?order_id=" + findOrder.getOrderId();
 				and = true;
 			}
 			
 			val status = findOrder.getStatus();
-			if(UValidator.isNotNull(status)) {
-				if(DostavistaStatuses.isValidOrderStatus(status)) {
+			if (UValidator.isNotNull(status)) {
+				if (DostavistaStatuses.isValidOrderStatus(status)) {
 					params += (and ? "&status=" : "?status=") + status;
 					and = true;
 				} else {
@@ -127,19 +127,19 @@ public abstract class DostavistaDelivery {
 				}
 			}
 			
-			if(UValidator.isNotNull(findOrder.getOffset())) {
+			if (UValidator.isNotNull(findOrder.getOffset())) {
 				params += (and ? "&offset=" : "?offset=") + findOrder.getOffset();
 				and = true;
 			}
 			
-			if(UValidator.isNotNull(findOrder.getCount())) {
+			if (UValidator.isNotNull(findOrder.getCount())) {
 				params += (and ? "&count=" : "?count=") + findOrder.getCount();
 				and = true;
 			}
 			
 			val url = this.baseUrl + "/orders" + params;
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("DostavistaDelivery#orderList url {}", url);
 			}
 			
@@ -152,7 +152,7 @@ public abstract class DostavistaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("DostavistaDelivery#orderList responseStatusCode {}", responseStatusCode);
 				log.info("DostavistaDelivery#orderList responseBody {}", responseBody);
 			}
@@ -166,7 +166,7 @@ public abstract class DostavistaDelivery {
 	}
 	
 	private DostavistaResponse dostavistaRequest(final String url, final String requestJson) {
-		if(this.showLogs) {
+		if (this.showLogs) {
 			log.info("DostavistaDelivery#dostavistaRequest url {}", url);
 			log.info("DostavistaDelivery#dostavistaRequest request {}", requestJson);
 		}
@@ -180,7 +180,7 @@ public abstract class DostavistaDelivery {
 		val responseStatusCode = response.getStatusCode();
 		val responseBody = response.getBody();
 		
-		if(this.showLogs) {
+		if (this.showLogs) {
 			log.info("DostavistaDelivery#dostavistaRequest responseStatusCode {}", responseStatusCode);
 			log.info("DostavistaDelivery#dostavistaRequest responseBody {}", responseBody);
 		}

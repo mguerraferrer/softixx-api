@@ -16,35 +16,35 @@ public class UAge {
 	
 	public static String age(LocalDate birthDate) {
 		String age = "-";
-		if(birthDate != null) {
+		if (birthDate != null) {
 			Period period = period(birthDate);
 			
 			String years = null; 
-			if(period.getYears() >= 1) {
+			if (period.getYears() >= 1) {
 				years = (period.getYears() == 1) ? "1 año" : period.getYears() + " años";
 			}
 			
 			String months = null;
-			if(period.getMonths() >= 1) {
+			if (period.getMonths() >= 1) {
 				months = (period.getMonths() == 1) ? "1 mes" : period.getMonths() + " meses";
 			}
 			
 			String days = null;
-			if(period.getDays() == 0) {
-				if(years == null && months == null) {
+			if (period.getDays() == 0) {
+				if (years == null && months == null) {
 					days = "Recién nacido";
 				}
-			} else if(period.getDays() == 1) {
+			} else if (period.getDays() == 1) {
 				days = "1 día";
 			} else {
 				days = period.getDays() + " días";
 			}
 			
-			if(years != null) {
+			if (years != null) {
 				return years;
-			} else if(months != null) {
+			} else if (months != null) {
 				return months;
-			} else if(days != null) {
+			} else if (days != null) {
 				return days;
 			}
 		}
@@ -53,46 +53,46 @@ public class UAge {
 	
 	public static String ageDetailed(LocalDate birthDate) {
 		String age = "-";
-		if(birthDate != null) {
+		if (birthDate != null) {
 			Period period = period(birthDate);
 			
 			String years = null; 
-			if(period.getYears() >= 1) {
+			if (period.getYears() >= 1) {
 				years = (period.getYears() == 1) ? "1 año" : period.getYears() + " años";
 			}
 			
 			String months = null;
-			if(period.getMonths() >= 1) {
+			if (period.getMonths() >= 1) {
 				months = (period.getMonths() == 1) ? "1 mes" : period.getMonths() + " meses";
 			}
 			
 			String days = null;
-			if(period.getDays() == 0) {
-				if(years == null && months == null) {
+			if (period.getDays() == 0) {
+				if (years == null && months == null) {
 					days = "Recién nacido";
 				}
-			} else if(period.getDays() == 1) {
+			} else if (period.getDays() == 1) {
 				days = "1 día";
 			} else {
 				days = period.getDays() + " días";
 			}
 			
-			if(years != null) {
-				if(months != null && days != null) {
+			if (years != null) {
+				if (months != null && days != null) {
 					age = years + ", " + months + " y " + days;
-				} else if(months != null && days == null) {
+				} else if (months != null && days == null) {
 					age = years + " y " + months;
-				} else if(months == null && days != null) {
+				} else if (months == null && days != null) {
 					age = years + " y " + days;
 				} else {
 					age = years;
 				}
 			} else {
-				if(months != null && days != null) {
+				if (months != null && days != null) {
 					age = months + " y " + days;
-				} else if(months != null && days == null) {
+				} else if (months != null && days == null) {
 					age = months;
-				} else if(months == null && days != null) {
+				} else if (months == null && days != null) {
 					age = days;
 				}
 			}

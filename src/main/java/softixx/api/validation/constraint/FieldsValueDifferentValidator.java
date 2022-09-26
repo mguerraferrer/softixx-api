@@ -27,7 +27,7 @@ public class FieldsValueDifferentValidator implements ConstraintValidator<ValidF
 		boolean valid = true;
 		if (fieldValue != null && fieldMatchValue != null) {
             valid = !fieldValue.equals(fieldMatchValue);
-            if(!valid) {
+            if (!valid) {
             	context.buildConstraintViolationWithTemplate(message)
             		   .addPropertyNode(fieldDifferent)
             		   .addConstraintViolation()

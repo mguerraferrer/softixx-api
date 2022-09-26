@@ -16,7 +16,7 @@ public class UPaginate {
 	public static final int DEFAULT_PAGE_SIZE = 10;
 	
 	public static int page(Optional<Integer> page) {
-		if(page.isPresent()) {
+		if (page.isPresent()) {
 			int pageNumber = page.get(); 
 			return pageNumber > 0 ? pageNumber - 1 : pageNumber;
 		}
@@ -28,7 +28,7 @@ public class UPaginate {
 	}
 	
 	public static <T> List<T> paginate(final List<T> list, final int page, final int pageSize) {
-		if(list != null && !list.isEmpty()) {
+		if (list != null && !list.isEmpty()) {
 			val offset = page * pageSize;
 			if (offset >= list.size()) {
 				return new ArrayList<>();

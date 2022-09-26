@@ -45,7 +45,7 @@ public class URandom {
     }
 
     public static String randomString(final List<String> source) {
-        if(!source.isEmpty()) {
+        if (!source.isEmpty()) {
             Random rand = new Random();
             int randomIndex = rand.nextInt(source.size());
             val randomElement = source.get(randomIndex);
@@ -55,7 +55,7 @@ public class URandom {
     }
 
     public static List<String> randomSeries(final List<String> source, final int randomSeriesLength) {
-        if(!source.isEmpty()) {
+        if (!source.isEmpty()) {
             Collections.shuffle(source);
             return source.subList(0, randomSeriesLength);
         }
@@ -63,7 +63,7 @@ public class URandom {
     }
     
     public static <T> T random(final List<T> source) {
-        if(!source.isEmpty()) {
+        if (!source.isEmpty()) {
             Random rand = new Random();
             int randomIndex = rand.nextInt(source.size());
             val randomElement = source.get(randomIndex);

@@ -58,7 +58,7 @@ public class UCrypto {
 	public static String idEncode(final Object id) {
 		try {
 			
-			if(UValidator.isNotNull(id)) {
+			if (UValidator.isNotNull(id)) {
 				val idStr = UValue.str(id.toString());
 				return UBase64.b64Encode(idStr);
 			}
@@ -72,7 +72,7 @@ public class UCrypto {
 	public static String idDecode(final String idStr) {
 		try {
 		
-			if(UValidator.isNotEmpty(idStr)) {
+			if (UValidator.isNotEmpty(idStr)) {
 				return UBase64.b64Decode(idStr);
 			}
 			
@@ -85,7 +85,7 @@ public class UCrypto {
 	public static Long idDecodeLong(final String idStr) {
 		try {
 		
-			if(UValidator.isNotEmpty(idStr)) {
+			if (UValidator.isNotEmpty(idStr)) {
 				val id = idDecode(idStr);
 				return ULong.value(id);
 			}
@@ -99,7 +99,7 @@ public class UCrypto {
 	public static Integer idDecodeInteger(final String idStr) {
 		try {
 		
-			if(UValidator.isNotEmpty(idStr)) {
+			if (UValidator.isNotEmpty(idStr)) {
 				val id = idDecode(idStr);
 				return UInteger.value(id);
 			}
@@ -113,7 +113,7 @@ public class UCrypto {
 	public static String textEncode(final String token) {
 		try {
 			
-			if(UValidator.isNotEmpty(token)) {
+			if (UValidator.isNotEmpty(token)) {
 				return UCrypto.encryptWithDES(UValue.str(token));
 			}
 			
@@ -126,7 +126,7 @@ public class UCrypto {
 	public static String textDecode(final String token) {
 		try {
 		
-			if(UValidator.isNotEmpty(token)) {
+			if (UValidator.isNotEmpty(token)) {
 			    return UCrypto.decryptWithDES(token);
 			}
 			
@@ -315,7 +315,7 @@ public class UCrypto {
 	}
 	
 	private static void loadKey() {
-		if(secretKey == null) {
+		if (secretKey == null) {
 			try {
 				
 				secretKey = KeyGenerator.getInstance(ALGORITHM_DES).generateKey();
@@ -331,7 +331,7 @@ public class UCrypto {
 
 			loadKey();
 			
-			if(ecipher == null) {
+			if (ecipher == null) {
 				ecipher = Cipher.getInstance(ALGORITHM_DES);
 				ecipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			}
@@ -358,7 +358,7 @@ public class UCrypto {
 			
 			loadKey();
 			
-			if(dcipher == null) {
+			if (dcipher == null) {
 				dcipher = Cipher.getInstance(ALGORITHM_DES);
 				dcipher.init(Cipher.DECRYPT_MODE, secretKey);
 			}
@@ -381,7 +381,7 @@ public class UCrypto {
 	public static String encryptWithJasypt(final Object value) {
 		try {
 			
-			if(UValidator.isNotNull(value)) {
+			if (UValidator.isNotNull(value)) {
 				val textEncryptor = new BasicTextEncryptor();
 				textEncryptor.setPasswordCharArray(CRYPT.toCharArray());
 				
@@ -408,7 +408,7 @@ public class UCrypto {
 		return null;
 	}
 
-	public static void main(String args[]) throws Exception {
+	/*public static void main(String args[]) throws Exception {
 		/*
 		 * Secret Key must be in the form of 16 byte like,
 		 *
@@ -417,7 +417,7 @@ public class UCrypto {
 		 *
 		 * below is the direct 16byte string we can use
 		 */
-		String secretKey = "mustbe16byteskey";
+		/*String secretKey = "mustbe16byteskey";
 		String encodedBase64Key = encodeKey(secretKey);
 		System.out.println("EncodedBase64Key = " + encodedBase64Key); // This need to be share between client and server
 
@@ -479,5 +479,5 @@ public class UCrypto {
 
 		String jasyptDecryption = decryptWithJasypt(jsyptEncryption);
 		System.out.println("jasyptDecryption = " + jasyptDecryption);
-	}
+	}*/
 }

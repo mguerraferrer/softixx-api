@@ -88,7 +88,7 @@ public class UPassword {
     }
     
     public static boolean passwordValidator(final String password) {
-    	if(UValidator.isNotEmpty(password)) {
+    	if (UValidator.isNotEmpty(password)) {
 	    	val validator = new PasswordValidator(Arrays.asList(
 	    		//##### Rule 1: Password length should be in between 8 and 16 characters
 	    		new LengthRule(8, 16),

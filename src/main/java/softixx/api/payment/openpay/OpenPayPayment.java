@@ -63,7 +63,7 @@ public abstract class OpenPayPayment {
 	protected OpenPayCustomerResponse createCustomer(final OpenPayCustomer bean) throws Exception {
 		try {
 			
-			if(UValidator.isNotNull(bean)) {
+			if (UValidator.isNotNull(bean)) {
 				val customer = this.openpayCustomer(bean);
 				val response = this.openpay.customers().create(customer);
 				return this.openpayCustomerResponse(response);
@@ -91,7 +91,7 @@ public abstract class OpenPayPayment {
 	protected OpenPayCustomerResponse updateCustomer(final OpenPayCustomer bean) throws Exception {
 		try {
 			
-			if(bean != null) {
+			if (bean != null) {
 				val customer = this.openpayCustomer(bean);
 				val response = this.openpay.customers().update(customer);
 				return this.openpayCustomerResponse(response);
@@ -118,7 +118,7 @@ public abstract class OpenPayPayment {
 	protected Boolean deleteCustomer(final OpenPayCustomer bean) throws Exception {
 		try {
 			
-			if(bean != null) {
+			if (bean != null) {
 				this.openpay.customers().delete(bean.getOpenpayId());
 				return true;
 			}
@@ -145,7 +145,7 @@ public abstract class OpenPayPayment {
 	protected OpenPayCardResponse createCard(final OpenPayCard bean) throws Exception {
 		try {
 			
-			if(bean != null) {
+			if (bean != null) {
 				val card = new Card();
 				card.holderName(bean.getHolderName());
 				card.cardNumber(bean.getCardNumber());
@@ -179,7 +179,7 @@ public abstract class OpenPayPayment {
 	protected OpenPayCardResponse createCard(final OpenPayCardSecure bean) throws Exception {
 		try {
 			
-			if(bean != null) {
+			if (bean != null) {
 				val card = new Card();
 				card.tokenId(bean.getTokenId());
 				card.setDeviceSessionId(bean.getDeviceSessionId());
@@ -209,7 +209,7 @@ public abstract class OpenPayPayment {
 	protected Boolean deleteCard(final OpenPayCard bean) throws Exception {
 		try {
 			
-			if(bean != null) {
+			if (bean != null) {
 				this.openpay.cards().delete(bean.getOpenpayId(), bean.getCardId());
 				return true;
 			}
@@ -236,7 +236,7 @@ public abstract class OpenPayPayment {
 	protected OpenPayCardPointsResponse checkCardPoints(final OpenPayCardPoints cardPoints) throws Exception {
 		try {
 			
-			if(cardPoints != null) {
+			if (cardPoints != null) {
 				val response = this.openpay.cards().points(cardPoints.getCustomerId(), cardPoints.getCardId());
 				return OpenPayCardPointsResponse.toBean(response);
 			}
@@ -264,7 +264,7 @@ public abstract class OpenPayPayment {
 		try {
 			
 			OpenPayChargeResponse response = null;
-			if(bean != null) {
+			if (bean != null) {
 				val chargeParams = new CreateCardChargeParams();
 				chargeParams.cardId(bean.getTokenId());
 				chargeParams.amount(bean.getAmount());
@@ -275,8 +275,8 @@ public abstract class OpenPayPayment {
 				chargeParams.sendEmail(bean.getSendEmail());
 				
 				var orderId = bean.getOrderId();
-				if(UValidator.isNotEmpty(orderId)) {
-					if(bean.getAutogenerateOrderId()) {
+				if (UValidator.isNotEmpty(orderId)) {
+					if (bean.getAutogenerateOrderId()) {
 						orderId = OpenPayCharge.orderId();
 					}
 					chargeParams.orderId(bean.getOrderId());
@@ -288,14 +288,14 @@ public abstract class OpenPayPayment {
 				val charge = this.openpay.charges().createCharge(chargeParams);
 				response = OpenPayChargeResponse.toBean(charge);
 				
-				if(charge.getStatus().equalsIgnoreCase("completed") && charge.getErrorMessage() == null) {
-					if(bean.getCreateCustomer()) {
+				if (charge.getStatus().equalsIgnoreCase("completed") && charge.getErrorMessage() == null) {
+					if (bean.getCreateCustomer()) {
 						try {
 							
 							val customer = this.createCustomer(bean.getCustomer());
-							if(customer != null) {
+							if (customer != null) {
 								response.setCustomerCreated(true);
-								if(bean.getCreateCard()) {
+								if (bean.getCreateCard()) {
 									val cardData = OpenPayCardSecure
 													.builder()
 													.openpayId(customer.getId())
@@ -303,7 +303,7 @@ public abstract class OpenPayPayment {
 													.tokenId(bean.getTokenId())
 													.build();
 									val card = this.createCard(cardData);
-									if(card != null) {
+									if (card != null) {
 										response.setCardCreated(true);
 									}
 								}
@@ -331,7 +331,7 @@ public abstract class OpenPayPayment {
 	}
 	
 	private Customer openpayCustomer(final OpenPayCustomer bean) {
-		if(bean != null) {
+		if (bean != null) {
 			val customer = new Customer();
 			customer.externalId(bean.getExternalId());
 			customer.name(bean.getName());
@@ -345,14 +345,14 @@ public abstract class OpenPayPayment {
 	}
 	
 	private OpenPayCustomerResponse openpayCustomerResponse(final Customer customer) throws Exception {
-		if(customer != null) {
+		if (customer != null) {
 			return OpenPayCustomerResponse.toBean(customer);
 		}
 		return null;
 	}
 	
 	private OpenPayCardResponse openpayCardResponse(final Card card) throws Exception {
-		if(card != null) {
+		if (card != null) {
 			return OpenPayCardResponse.toBean(card);
 		}
 		return null;

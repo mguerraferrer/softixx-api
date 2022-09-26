@@ -36,7 +36,7 @@ public class UPaginator {
 	}
 	
 	public static <T> JPage<T> populatePage(final Page<T> page) {
-		if(page == null) {
+		if (page == null) {
 			return JPage.empty();
 		}
 		return populatePage(page, page.getContent());
@@ -49,7 +49,7 @@ public class UPaginator {
 	
 	public static <T> String pageRecords(final Page<T> page) {
 		String pageRecords = null;
-		if(page.getTotalElements() <= page.getSize()) {
+		if (page.getTotalElements() <= page.getSize()) {
 			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
 			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
 			pageRecords = UMessage.getMessage(message, params);
@@ -59,9 +59,9 @@ public class UPaginator {
 			var numberOfElements = page.getNumberOfElements();
 			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
 			
-			if(totalElements > page.getSize() && number > 0) {
+			if (totalElements > page.getSize() && number > 0) {
 				init = page.getSize() * number + 1;
-				if(number + 1 == page.getTotalPages()) {
+				if (number + 1 == page.getTotalPages()) {
 					numberOfElements = totalElements;
 				} else {
 					number ++;
@@ -77,7 +77,7 @@ public class UPaginator {
 	
 	public static <T> String pageRecords(final JPage<T> page) {
 		String pageRecords = null;
-		if(page.getTotalElements() <= page.getSize()) {
+		if (page.getTotalElements() <= page.getSize()) {
 			Object[] params = new Integer[] {UInteger.value(ULong.value(page.getTotalElements()))};
 			val message = (page.getTotalElements() == 0) ? "paginate.text.result.empty" : "paginate.text.result.info";
 			pageRecords = UMessage.getMessage(message, params);
@@ -87,9 +87,9 @@ public class UPaginator {
 			var numberOfElements = page.getNumberOfElements();
 			var totalElements = UInteger.value(ULong.value(page.getTotalElements()));
 			
-			if(totalElements > page.getSize() && number > 0) {
+			if (totalElements > page.getSize() && number > 0) {
 				init = page.getSize() * number + 1;
-				if(number + 1 == page.getTotalPages()) {
+				if (number + 1 == page.getTotalPages()) {
 					numberOfElements = totalElements;
 				} else {
 					number ++;
@@ -105,7 +105,7 @@ public class UPaginator {
 	
 	public static <T> String pageInfo(final Page<T> page) {
 		var pageInfo = "";
-		if(page.hasContent()) {
+		if (page.hasContent()) {
 			val pageNumber = page.getNumber() + 1;
 			val params = new Object[] {pageNumber, page.getTotalPages()};
 			pageInfo = UMessage.getMessage("paginate.text.info", params);
@@ -115,7 +115,7 @@ public class UPaginator {
 	
 	public static <T> String pageInfo(final JPage<T> page) {
 		var pageInfo = "";
-		if(page.hasContent()) {
+		if (page.hasContent()) {
 			val pageNumber = page.getNumber() + 1;
 			val params = new Object[] {pageNumber, page.getTotalPages()};
 			pageInfo = UMessage.getMessage("paginate.text.info", params);
@@ -205,17 +205,17 @@ public class UPaginator {
 		var totalPages = 0;
 		try {
 			
-			if(totalRows > 0) {
-				if(totalRows <= pageSize) {
+			if (totalRows > 0) {
+				if (totalRows <= pageSize) {
 					totalPages = 1;
 				} else {
 					totalPages = totalRows / pageSize;
-					if(totalPages > 0 && totalRows % pageSize > 0) {
+					if (totalPages > 0 && totalRows % pageSize > 0) {
 						totalPages++;
 					}
 				}
 				
-				if(totalPages == 0 && totalRows > 0) {
+				if (totalPages == 0 && totalRows > 0) {
 					totalPages++;
 				}
 			}

@@ -135,10 +135,10 @@ public abstract class GenericCrudDao<T, ID> {
 	}
 	
 	protected void safeClose() {
-		if(this.preparedStatement != null) {
+		if (this.preparedStatement != null) {
 			try {
 				val conn = this.preparedStatement.getConnection();
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 				}
 			} catch (Exception e) {
@@ -197,7 +197,7 @@ public abstract class GenericCrudDao<T, ID> {
 				log.info("GenericCrudDao#query args: {}", printArgs(this.args));
 			}
 			
-			if(UValidator.isNotEmpty(this.query)) {
+			if (UValidator.isNotEmpty(this.query)) {
 				if (UValidator.isNotNullArgs(this.args)) {
 					return Optional.of(jdbcTemplate.queryForObject(this.query, this.rowMapper, this.args));
 				} else if (UValidator.isNotNullNamedParameters(this.namedParams)) {
@@ -238,7 +238,7 @@ public abstract class GenericCrudDao<T, ID> {
 				log.info("GenericCrudDao#queryList args: {}", printArgs(this.args));
 			}
 			
-			if(UValidator.isNotEmpty(this.query)) {
+			if (UValidator.isNotEmpty(this.query)) {
 				if (UValidator.isNotNullArgs(this.args)) {
 					return jdbcTemplate.query(this.query, this.rowMapper, this.args);
 				} else if (UValidator.isNotNullNamedParameters(this.namedParams)) {
@@ -426,7 +426,7 @@ public abstract class GenericCrudDao<T, ID> {
 
 			this.getSqlBeanData(bean);
 			this.query = QueryableBean.QUERY_FIND_BY_ID;
-			if(UValidator.isNotEmpty(this.join)) {
+			if (UValidator.isNotEmpty(this.join)) {
 				this.query = QueryableBean.QUERY_FIND_BY_ID_JOIN;
 			}
 			sanitizeQuery();
@@ -798,7 +798,7 @@ public abstract class GenericCrudDao<T, ID> {
 			var isConditional = false;
 			var isWhere = false;
 
-			if(UValidator.isEmpty(this.query)) {
+			if (UValidator.isEmpty(this.query)) {
 				if (UValidator.isNotEmpty(this.sentence) && !this.values.isEmpty()) {
 					this.query = QueryableBean.QUERY_SENTENCE_PAGINATE;
 				} else if (UValidator.isNotEmpty(this.conditional)) {
@@ -825,7 +825,7 @@ public abstract class GenericCrudDao<T, ID> {
 			val totalRows = jdbcTemplate.queryForObject(this.countQuery, Integer.class);
 			
 			List<T> content = null;
-			if(isWhere) {
+			if (isWhere) {
 				content = queryList(bean);
 			} else {
 				content = this.findAll(isConditional);
@@ -1064,7 +1064,7 @@ public abstract class GenericCrudDao<T, ID> {
 				
 				if (UValidator.isNotNullNamedParameters(this.namedParams)) {
 					rowCount = namedParamJdbcTemplate.update(query, namedParams);
-				} else if(!this.parameters.isEmpty()) {
+				} else if (!this.parameters.isEmpty()) {
 					rowCount = jdbcTemplate.update(this.query, this.parameters.toArray());
 				}
 				return rowCount == 1;
@@ -1111,7 +1111,7 @@ public abstract class GenericCrudDao<T, ID> {
 				val kh = new GeneratedKeyHolder();
 				val rowCount = jdbcTemplate.update(psc, kh);
 				
-				if(rowCount == 1) {
+				if (rowCount == 1) {
 					if (Objects.nonNull(kh)) {
 						val id = this.getIdByKeyHolder(kh, this.idClassName);
 						if (id != null) {
@@ -1327,7 +1327,7 @@ public abstract class GenericCrudDao<T, ID> {
 		if (kh != null) {
 			// ##### With jdk-15 --enable-preview
 			/*
-			 * if(kh.getKey() instanceof Integer khId) { id = khId; } else { id =
+			 * if (kh.getKey() instanceof Integer khId) { id = khId; } else { id =
 			 * UInteger.value(kh.getKey()); }
 			 */
 			id = UInteger.value(kh.getKey());
@@ -1346,7 +1346,7 @@ public abstract class GenericCrudDao<T, ID> {
 		if (kh != null) {
 			// ##### With jdk-15 --enable-preview
 			/*
-			 * if(kh.getKey() instanceof Long khId) { id = khId; } else { id =
+			 * if (kh.getKey() instanceof Long khId) { id = khId; } else { id =
 			 * ULong.value(kh.getKey()); }
 			 */
 			id = ULong.value(kh.getKey());
@@ -1360,57 +1360,57 @@ public abstract class GenericCrudDao<T, ID> {
 	 * @since 1.0.1
 	 */
 	private void sanitizeQuery() {
-		if(this.sanitizeQuery && UValidator.isNotEmpty(this.query)) {
-			if(UValidator.isNotEmpty(this.table)) {
+		if (this.sanitizeQuery && UValidator.isNotEmpty(this.query)) {
+			if (UValidator.isNotEmpty(this.table)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_TABLE, this.table);
-				if(UValidator.isNotEmpty(this.countQuery)) {
+				if (UValidator.isNotEmpty(this.countQuery)) {
 					this.countQuery = this.countQuery.replaceAll(QueryableBean.REPLACE_TABLE, this.table);
 				}
 			}
 			
-			if(UValidator.isNotEmpty(this.columns)) {
+			if (UValidator.isNotEmpty(this.columns)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_COLUMNS, this.columns);
-				if(UValidator.isNotEmpty(this.columnsReplace)) {
+				if (UValidator.isNotEmpty(this.columnsReplace)) {
 					this.query = this.query.replaceAll(Pattern.quote(QueryableBean.REPLACE_ALL), this.columnsReplace);
 				}
 			}
 			
-			if(UValidator.isNotEmpty(this.joinTables)) {
+			if (UValidator.isNotEmpty(this.joinTables)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_INNER_JOIN, this.joinTables);
-				if(UValidator.isNotEmpty(this.countQuery)) {
+				if (UValidator.isNotEmpty(this.countQuery)) {
 					this.countQuery = this.countQuery.replaceAll(QueryableBean.REPLACE_INNER_JOIN, this.joinTables);
 				}
 			}			
 			
-			if(UValidator.isNotEmpty(this.join)) {
+			if (UValidator.isNotEmpty(this.join)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_INNER_JOIN, this.join);
 			}
 			
-			if(UValidator.isNotEmpty(this.sentence)) {
+			if (UValidator.isNotEmpty(this.sentence)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_SENTENCE, this.sentence);
 			}
 			
-			if(UValidator.isNotEmpty(this.forceSentence)) {
+			if (UValidator.isNotEmpty(this.forceSentence)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_SENTENCE, this.forceSentence);
 			}
 			
-			if(UValidator.isNotEmpty(this.conditional)) {
+			if (UValidator.isNotEmpty(this.conditional)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_CONDITIONAL, this.conditional);
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_WHERE, this.where);
-				if(UValidator.isNotEmpty(this.countQuery)) {
+				if (UValidator.isNotEmpty(this.countQuery)) {
 					this.countQuery = this.countQuery.replaceAll(QueryableBean.REPLACE_WHERE, this.where);
 				}
 			}
 			
-			if(UValidator.isNotEmpty(this.orderBy)) {
+			if (UValidator.isNotEmpty(this.orderBy)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_ORDER_BY, this.orderBy);
 			}
 			
-			if(UValidator.isNotEmpty(this.limit)) {
+			if (UValidator.isNotEmpty(this.limit)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_LIMIT, this.limit);
 			}
 			
-			if(UValidator.isNotEmpty(this.offset)) {
+			if (UValidator.isNotEmpty(this.offset)) {
 				this.query = this.query.replaceAll(QueryableBean.REPLACE_OFFSET, this.offset);
 			}
 		}
@@ -1455,7 +1455,7 @@ public abstract class GenericCrudDao<T, ID> {
 			this.sanitizeQuery = bean.isSanitizeQuery();
 			
 			this.forceInsertSentence = bean.isForceInsertSentence();
-			if(Boolean.TRUE.equals(this.forceInsertSentence)) {
+			if (Boolean.TRUE.equals(this.forceInsertSentence)) {
 				this.forceSentence = bean.getInsertForceSentence();
 			}
 		}

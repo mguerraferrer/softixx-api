@@ -25,7 +25,7 @@ public class UZip {
      * @param dirCompressed String - Destination path of the file after zipping
      */
     public static void zipFile(final String sourceFile, final String dirCompressed) {
-        if(UValidator.isNotNull(sourceFile) && UValidator.isNotNull(dirCompressed)) {
+        if (UValidator.isNotNull(sourceFile) && UValidator.isNotNull(dirCompressed)) {
             FileOutputStream fos = null;
             ZipOutputStream zipOut = null;
             FileInputStream fis = null;
@@ -33,7 +33,7 @@ public class UZip {
             try {
 
                 var dirCompressedZip = "";
-                if(dirCompressed.contains(".zip")) {
+                if (dirCompressed.contains(".zip")) {
                     dirCompressedZip = dirCompressed;
                 } else {
                     dirCompressedZip = dirCompressed.concat(".zip");
@@ -53,7 +53,7 @@ public class UZip {
                         zipOut.close();
                     }
 
-                    if(fis != null) {
+                    if (fis != null) {
                         fis.close();
                     }
 
@@ -73,14 +73,14 @@ public class UZip {
      * @param dirMultiCompressed String - Destination path of the file after zipping
      */
     public static void zipMultipleFiles(final List<String> srcFiles, final String dirMultiCompressed) {
-        if(srcFiles != null && !srcFiles.isEmpty() && UValidator.isNotNull(dirMultiCompressed)) {
+        if (srcFiles != null && !srcFiles.isEmpty() && UValidator.isNotNull(dirMultiCompressed)) {
             FileOutputStream fos = null;
             ZipOutputStream zipOut = null;
 
             try {
 
                 var dirMultiCompressedZip = "";
-                if(dirMultiCompressed.contains(".zip")) {
+                if (dirMultiCompressed.contains(".zip")) {
                     dirMultiCompressedZip = dirMultiCompressed;
                 } else {
                     dirMultiCompressedZip = dirMultiCompressed.concat(".zip");
@@ -100,11 +100,11 @@ public class UZip {
             } finally {
                 try {
 
-                    if(zipOut != null) {
+                    if (zipOut != null) {
                         zipOut.close();
                     }
 
-                    if(fos != null) {
+                    if (fos != null) {
                         fos.close();
                     }
 
@@ -121,14 +121,14 @@ public class UZip {
      * @param dirCompressed String - Destination path of the file after zipping
      */
     public static void zipDirectory(final String sourceFile, final String dirCompressed) {
-        if(UValidator.isNotNull(sourceFile) && UValidator.isNotNull(dirCompressed)) {
+        if (UValidator.isNotNull(sourceFile) && UValidator.isNotNull(dirCompressed)) {
             FileOutputStream fos = null;
             ZipOutputStream zipOut = null;
 
             try {
 
                 var dirCompressedZip = "";
-                if(dirCompressed.contains(".zip")) {
+                if (dirCompressed.contains(".zip")) {
                     dirCompressedZip = dirCompressed;
                 } else {
                     dirCompressedZip = dirCompressed.concat(".zip");
@@ -247,11 +247,11 @@ public class UZip {
     private static void safeClose(final ZipInputStream zis) {
     	try {
 
-            if(zis != null) {
+            if (zis != null) {
                 zis.closeEntry();
             }
 
-            if(zis != null) {
+            if (zis != null) {
                 zis.close();
             }
 
@@ -321,7 +321,7 @@ public class UZip {
                 zipOut.closeEntry();
 
                 File[] children = fileToZip.listFiles();
-                if(children != null) {
+                if (children != null) {
                     for (File childFile : children) {
                         zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
                     }
@@ -342,7 +342,7 @@ public class UZip {
             log.error("zipFile error: {}", e.getMessage());
             e.printStackTrace();
         } finally {
-            if(fis != null) {
+            if (fis != null) {
                 fis.close();
             }
         }

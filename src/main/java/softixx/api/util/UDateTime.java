@@ -391,7 +391,7 @@ public class UDateTime {
 	public static Date parseDateTime(final String dateStr, Formatter formatter, Boolean useLastTime) {
 		try {
 			
-			if(UValidator.isNotEmpty(dateStr) && formatter != null) {
+			if (UValidator.isNotEmpty(dateStr) && formatter != null) {
 				val date = parseDate(dateStr, formatter);
 				val time = (useLastTime) ? parseDate(LAST_TIME_OF_DATE, formatter) : new Date();
 				val ldt = localDateTime(date, time);
@@ -435,7 +435,7 @@ public class UDateTime {
 	public static Integer month(final Date date) {
 		try {
 			
-			if(date != null) {
+			if (date != null) {
 				val ldt = localDate(date);
 				if (ldt != null) {
 					return ldt.getMonthValue();
@@ -1024,7 +1024,7 @@ public class UDateTime {
 	}
 	
 	public static String sanitizeDate(final String dateStr) {
-		if(UValidator.isNotEmpty(dateStr)) {
+		if (UValidator.isNotEmpty(dateStr)) {
 			return dateStr.toUpperCase();
 		}
 		return UValue.EMPTY;
@@ -1033,10 +1033,10 @@ public class UDateTime {
 	public static String sanitizeTime(final String dateStr) {
 		try {
 			
-			if(UValidator.isNotEmpty(dateStr)) {
+			if (UValidator.isNotEmpty(dateStr)) {
 				val timeStr = dateStr.toUpperCase();
 				val hour = timeStr.split(Pattern.quote(":"))[0];
-				if(hour.length() < 2) {
+				if (hour.length() < 2) {
 					return "0" + timeStr;
 				}
 				return timeStr;
@@ -1051,7 +1051,7 @@ public class UDateTime {
 	public static LocalTime localTime(final String dateStr, final Formatter formatter) {
 		try {
 			
-			if(UValidator.isNotEmpty(dateStr) && UValidator.isNotEmpty(formatter)) {
+			if (UValidator.isNotEmpty(dateStr) && UValidator.isNotEmpty(formatter)) {
 				val format = DateTimeFormatter.ofPattern(formatter.format);
 				return LocalTime.parse(sanitizeTime(dateStr), format);
 			}

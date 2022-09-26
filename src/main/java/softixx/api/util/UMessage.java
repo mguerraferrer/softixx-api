@@ -35,7 +35,7 @@ public class UMessage {
 	public static String getMessage(final String key, @Nullable Object[] params) {
 		try {
 			
-			if(UValidator.isNotEmpty(key)) {
+			if (UValidator.isNotEmpty(key)) {
 				return accessor.getMessage(key, params, LocaleContextHolder.getLocale());
 			}
 			
@@ -48,7 +48,7 @@ public class UMessage {
 	public static String getMessage(final CustomMessage customMessage) {
 		try {
 			
-			if(UValidator.isNotNull(customMessage)) {
+			if (UValidator.isNotNull(customMessage)) {
 				return accessor.getMessage(customMessage.getKey(), customMessage.getParams(), LocaleContextHolder.getLocale());
 			}
 			

@@ -64,7 +64,7 @@ public class StripeChargeResponse {
     protected static StripeChargeResponse mapper(final Charge charge) {
     	try {
 			
-    		if(charge != null) {
+    		if (charge != null) {
     			return StripeChargeResponse
     					.builder()
     					.amount(charge.getAmount())

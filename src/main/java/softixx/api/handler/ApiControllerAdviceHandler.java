@@ -32,7 +32,7 @@ public class ApiControllerAdviceHandler extends ResponseEntityExceptionHandler {
 		var response = ex.getResponse() != null 
 				? ex.getResponse().getResponseJSON()
 				: UMessage.getMessage(ex.getMessage(), ex.getParams());
-		if(response == null) {
+		if (response == null) {
 			response = new ResponseJSON(UMessage.getMessage(UValidator.UNEXPECTED_ERROR));
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -41,8 +41,8 @@ public class ApiControllerAdviceHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ ThrowableException.class })
 	public String handleThrowableException(Model model, ThrowableException ex) {
 		var redirect = ex.getThrowable().getRedirectAfterError();
-		if(!redirect.startsWith("redirect:")) {
-			if(redirect.startsWith("/")) {
+		if (!redirect.startsWith("redirect:")) {
+			if (redirect.startsWith("/")) {
 				redirect = "redirect:" + redirect;
 			} else {
 				redirect = "redirect:/" + redirect;

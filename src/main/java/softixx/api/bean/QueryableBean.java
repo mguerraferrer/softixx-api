@@ -132,11 +132,11 @@ public abstract class QueryableBean implements Serializable {
 	
 	public String getInsertableSentence() {
 		String sentence = null;
-		if(fields != null && !fields.keySet().isEmpty()) {
+		if (fields != null && !fields.keySet().isEmpty()) {
 			sentence = fields.keySet().stream()
 					  		 .map(key -> "?")
 					  		 .collect(Collectors.joining(", "));
-		} else if(namedParams != null && !namedParams.getValues().isEmpty()) {
+		} else if (namedParams != null && !namedParams.getValues().isEmpty()) {
 			sentence = namedParams.getValues().entrySet().stream()
 														 .filter(item -> item.getKey() != null && item.getValue() != null)
 														 .map(item -> " :" + item.getKey())
@@ -233,8 +233,8 @@ public abstract class QueryableBean implements Serializable {
 											   .concat(item.getParam1Value().toString());
 				} else {
 					var value = UValue.NULL_SQL;
-					if(UValidator.isNotNull(item.getSqlValue())) {
-						if(UValidator.isNotNull(item.getSqlType())) {
+					if (UValidator.isNotNull(item.getSqlValue())) {
+						if (UValidator.isNotNull(item.getSqlType())) {
 							value = switch (item.getSqlType()) {
 										case 1, 12, -1, 91, 92, 93 -> (!item.getSqlValue().toString().startsWith("lower"))
 												? "\'" + item.getSqlValue() + "\'"
@@ -307,7 +307,7 @@ public abstract class QueryableBean implements Serializable {
 	}
 	
 	public void addColumn(final String columnName) {
-		if(columns == null) {
+		if (columns == null) {
 			columns = new ArrayList<>();
 		}
 		columns.add(columnName);
@@ -319,7 +319,7 @@ public abstract class QueryableBean implements Serializable {
 	}
 	
 	public void addColumnReplace(final String columnName) {
-		if(columnsReplace == null) {
+		if (columnsReplace == null) {
 			columnsReplace = new ArrayList<>();
 		}
 		columnsReplace.add(columnName);
@@ -437,7 +437,7 @@ public abstract class QueryableBean implements Serializable {
 	
 	public void addConditionalData(DataSearchBean dsb) {
 		dsb.getData().forEach(data -> {
-    		if(UValidator.isNotNull(data.getOperator())) {
+    		if (UValidator.isNotNull(data.getOperator())) {
     			addConditionalData(data.getOperator(), data.getColumnName(), data.getConditional(), data.getSqlValue(), data.getSqlType());
     		} else {
     			addConditionalData(data.getColumnName(), data.getConditional(), data.getSqlValue(), data.getSqlType());
@@ -463,7 +463,7 @@ public abstract class QueryableBean implements Serializable {
 		});
 		
 		val singleOrderBy = dsb.getOrderBy();
-		if(UValidator.isNotNull(singleOrderBy)) {
+		if (UValidator.isNotNull(singleOrderBy)) {
 			addOrderBy(singleOrderBy.getColumnName(), singleOrderBy.getDirection());
 		}
 	}

@@ -9,11 +9,6 @@ import softixx.api.validation.ValidAlphabeticNullable;
 public class AlphabeticNullableValidator implements ConstraintValidator<ValidAlphabeticNullable, String> {
 
     @Override
-    public void initialize(ValidAlphabeticNullable constraintAnnotation) {
-    	
-    }
-    
-    @Override
     public boolean isValid(String letter, ConstraintValidatorContext context) {   
         return (validateAlphabetic(letter));
     }

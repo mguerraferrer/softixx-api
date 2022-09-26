@@ -157,7 +157,7 @@ public class UResponse {
 		val bindingErrors = bindingResult.getAllErrors();
 
 		for (val obj : bindingErrors) {
-			if(obj instanceof FieldError) {
+			if (obj instanceof FieldError) {
 				val field = ((FieldError) obj).getField();
             	val msg = obj.getDefaultMessage();
 
@@ -165,11 +165,11 @@ public class UResponse {
             								.filter(map -> map.getKey().equals(field))
             								.map(map -> map.getValue())
             								.findAny().orElse(null);
-            	if(em == null) {
+            	if (em == null) {
             		errorMap.put(field, getMessage(msg));
             	} else {
             		val evaluateError = evaluateError(field, em, msg);
-            		if(evaluateError != null && evaluateError.getError() != null && !em.getError().equalsIgnoreCase(evaluateError.getError())) {
+            		if (evaluateError != null && evaluateError.getError() != null && !em.getError().equalsIgnoreCase(evaluateError.getError())) {
                     	errorMap.replace(field, evaluateError);
             		}
             	}
@@ -191,7 +191,7 @@ public class UResponse {
 		val bindingErrors = bindingResult.getAllErrors();
 
 		for (val obj : bindingErrors) {
-			if(obj instanceof FieldError) {
+			if (obj instanceof FieldError) {
 				val field = ((FieldError) obj).getField();
             	val msg = obj.getDefaultMessage();
 
@@ -199,11 +199,11 @@ public class UResponse {
             								.filter(map -> map.getKey().equals(field))
             								.map(map -> map.getValue())
             								.findAny().orElse(null);
-            	if(em == null) {
+            	if (em == null) {
             		errorMap.put(field, getMessage(msg));
             	} else {
             		val evaluateError = evaluateError(field, em, msg);
-            		if(evaluateError != null && evaluateError.getError() != null && !em.getError().equalsIgnoreCase(evaluateError.getError())) {
+            		if (evaluateError != null && evaluateError.getError() != null && !em.getError().equalsIgnoreCase(evaluateError.getError())) {
                     	errorMap.replace(field, evaluateError);
             		}
             	}
@@ -252,7 +252,7 @@ public class UResponse {
 		String action = null;
 		String url = null;
 		
-		if(responseError != null) {
+		if (responseError != null) {
 			description = responseError.getDescription();
 			action = responseError.getAction();
 			url = responseError.getUrl();
@@ -280,7 +280,7 @@ public class UResponse {
 		String action = null;
 		String url = null;
 		
-		if(responseError != null) {
+		if (responseError != null) {
 			description = responseError.getDescription();
 			action = responseError.getAction();
 			url = responseError.getUrl();
@@ -616,7 +616,7 @@ public class UResponse {
     	errorHierarchy.put(INVALID_COUPON_MESSAGE, 3);
     	errorHierarchy.put(INVALID_USED_COUPON_MESSAGE, 4);
 		
-    	if(isCustomizedHierarchy && customErrorHierarchy != null && !customErrorHierarchy.isEmpty()) {
+    	if (isCustomizedHierarchy && customErrorHierarchy != null && !customErrorHierarchy.isEmpty()) {
 			for (val entry : customErrorHierarchy.entrySet()) {
 				val key = i18nMessage(entry.getKey());
 				val value = entry.getValue();
@@ -631,24 +631,24 @@ public class UResponse {
 		String alternative = null;
 		
 		for (val errorMessage : errorMessages) {
-			if(msg.equalsIgnoreCase(errorMessage)) {
+			if (msg.equalsIgnoreCase(errorMessage)) {
 				key = errorMessage;
-			} else if(msg.contains(INVALID_FIELD_GREATER_THAN_VALIDATION)) {
+			} else if (msg.contains(INVALID_FIELD_GREATER_THAN_VALIDATION)) {
 	    		key = INVALID_FIELD_GREATER_THAN_VALIDATION;
 	    		alternative = msg;
-	    	} else if(msg.contains(INVALID_MIN_LENGTH_VALIDATION)) {
+	    	} else if (msg.contains(INVALID_MIN_LENGTH_VALIDATION)) {
 	    		key = INVALID_MIN_LENGTH_VALIDATION;
 	    		alternative = msg;
-	    	} else if(msg.contains(INVALID_MAX_LENGTH_VALIDATION)) {
+	    	} else if (msg.contains(INVALID_MAX_LENGTH_VALIDATION)) {
 	    		key = INVALID_MAX_LENGTH_VALIDATION;
 	    		alternative = msg;
-	    	} else if(msg.contains(INVALID_MIN_MAX_LENGTH_VALIDATION)) {
+	    	} else if (msg.contains(INVALID_MIN_MAX_LENGTH_VALIDATION)) {
 	    		key = INVALID_MIN_MAX_LENGTH_VALIDATION;
 	    		alternative = msg;
-	    	} else if(msg.contains(INVALID_REGEXP_VALIDATION)) {
+	    	} else if (msg.contains(INVALID_REGEXP_VALIDATION)) {
 	    		key = INVALID_REGEXP_VALIDATION;
 	    		alternative = INVALID_FIELD_MESSAGE;
-	    	} else if(msg.contains(INVALID_FILE_SIZE_VALIDATION)) {
+	    	} else if (msg.contains(INVALID_FILE_SIZE_VALIDATION)) {
 	    		key = INVALID_FILE_SIZE_VALIDATION;
 	    		alternative = msg;
 	    	}
@@ -670,18 +670,18 @@ public class UResponse {
 	
 	private static ErrorMessage evaluateError(final String field, final ErrorMessage oldError, final String newMsg) {
     	val newError = getMessage(newMsg);
-    	if(newError != null) {
+    	if (newError != null) {
     		Integer oldHierarchy = null;
-    		if(errorHierarchy.containsKey(oldError.getError())) {
+    		if (errorHierarchy.containsKey(oldError.getError())) {
     			oldHierarchy = errorHierarchy.get(oldError.getError()); 
     		}
     		
     		Integer newHierarchy = null;
-    		if(errorHierarchy.containsKey(newError.getError())) {
+    		if (errorHierarchy.containsKey(newError.getError())) {
     			newHierarchy = errorHierarchy.get(newError.getError()); 
     		}
     		
-    		if(oldHierarchy != null && newHierarchy != null && newHierarchy < oldHierarchy) {
+    		if (oldHierarchy != null && newHierarchy != null && newHierarchy < oldHierarchy) {
     			return newError;
     		}
     	}
@@ -699,7 +699,7 @@ public class UResponse {
     	val field = entry.getKey();
 		
 		var error = entry.getValue().getError();
-		if(entry.getValue().getAlternativeError() != null) {
+		if (entry.getValue().getAlternativeError() != null) {
 			error = entry.getValue().getAlternativeError();
 		}
 		

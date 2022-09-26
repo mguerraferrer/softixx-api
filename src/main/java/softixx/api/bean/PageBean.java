@@ -22,7 +22,7 @@ public class PageBean<T> {
     @SuppressWarnings("unchecked")
 	public PageBean(final List<T> content, final Pageable pageable) {
         Page<T> page = UPage.toPage(content, pageable);
-        if(page == null || page.isEmpty()) {
+        if (page == null || page.isEmpty()) {
             this.page = Page.empty();
             this.content = new ArrayList<>();
         } else {
@@ -37,14 +37,14 @@ public class PageBean<T> {
     }
 
     public Page<T> getPage() {
-        if(this.page == null) {
+        if (this.page == null) {
             return Page.empty();
         }
         return this.page;
     }
 
     public List<T> getContent() {
-        if(this.content == null) {
+        if (this.content == null) {
             return new ArrayList<>();
         }
         return this.content;

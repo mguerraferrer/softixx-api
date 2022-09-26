@@ -334,10 +334,8 @@ public class UValidator {
 	 * @return True if Object... is non-null, otherwise false
 	 */
 	public static boolean isNotNullArgs(final Object... args) {
-		if(Objects.nonNull(args)) {
-			val nonNullArgs = Arrays.stream(args)
-					.filter(item -> item != null)
-					.count();
+		if (Objects.nonNull(args)) {
+			val nonNullArgs = Arrays.stream(args).filter(Objects::nonNull).count();
 			return nonNullArgs > 0;
 		}
 		return false;
@@ -349,7 +347,7 @@ public class UValidator {
 	 * @return True if Object... is non-null, otherwise false
 	 */
 	public static boolean isNotNullArgs(final String... args) {
-		if(Objects.nonNull(args)) {
+		if (Objects.nonNull(args)) {
 			val nonNullArgs = Arrays.stream(args)
 					.filter(item -> item != null)
 					.count();
@@ -390,7 +388,7 @@ public class UValidator {
 	 * @return True if MapSqlParameterSource is non-null, otherwise false
 	 */
 	public static boolean isNotNullNamedParameters(final MapSqlParameterSource namedParams) {
-		if(namedParams != null) {
+		if (namedParams != null) {
 			val count = namedParams.getValues().entrySet().stream()
 														  .filter(item -> item.getKey() != null && item.getValue() != null)
 														  .count();
@@ -418,7 +416,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateRequired(final Object obj) {
-		if(ObjectUtils.isEmpty(obj)) {
+		if (ObjectUtils.isEmpty(obj)) {
 			return false;
 		}
 		
@@ -431,7 +429,7 @@ public class UValidator {
 	}
 	
 	public static boolean validatePattern(final String value, final String regexp) {
-		if(!ObjectUtils.isEmpty(value) && !ObjectUtils.isEmpty(regexp)) {
+		if (!ObjectUtils.isEmpty(value) && !ObjectUtils.isEmpty(regexp)) {
 			try {
 				
 				val isMatch = Pattern.matches(regexp, value);
@@ -455,11 +453,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableAlphabetic(final String letter) {
-		if(letter == null) {
+		if (letter == null) {
     		return true;
     	} else {
     		val vletter = letter.trim();
-    		if(vletter.isEmpty()) {
+    		if (vletter.isEmpty()) {
     			return true;
     		}
     	}
@@ -473,11 +471,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableAlphabeticWithSpace(final String letter) {
-		if(letter == null) {
+		if (letter == null) {
     		return true;
     	} else {
     		val vletter = letter.trim();
-    		if(vletter.isEmpty()) {
+    		if (vletter.isEmpty()) {
     			return true;
     		}
     	}
@@ -485,7 +483,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateLength(final String letter, final Integer min, final Integer max) {
-		if(letter == null) {
+		if (letter == null) {
 			return false;
 		} else {
 			return (letter.length() >= min && letter.length() <= max);
@@ -493,7 +491,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateLength(final String letter, final Integer max) {
-		if(letter == null) {
+		if (letter == null) {
 			return false;
 		} else {
 			return letter.length() <= max;
@@ -501,7 +499,7 @@ public class UValidator {
 	}
 
 	public static boolean validateNumber(final String number) {
-		if(number == null) {
+		if (number == null) {
     		return false;
     	}
 		
@@ -511,11 +509,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableNumber(final String number) {
-		if(number == null) {
+		if (number == null) {
     		return true;
     	} else {
     		val vnumber = number.trim();
-    		if(vnumber.isEmpty()) {
+    		if (vnumber.isEmpty()) {
     			return true;
     		}
     	}
@@ -529,11 +527,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableNumberWithSpace(final String number) {
-		if(number == null) {
+		if (number == null) {
     		return true;
     	} else {
     		val vnumber = number.trim();
-    		if(vnumber.isEmpty()) {
+    		if (vnumber.isEmpty()) {
     			return true;
     		}
     	}
@@ -541,7 +539,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateIntNumber(final Integer number) {
-		if(number == null) {
+		if (number == null) {
     		return false;
     	}
 		
@@ -551,11 +549,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateIntNullableNumber(final Integer number) {
-		if(number == null) {
+		if (number == null) {
     		return true;
     	} else {
     		val vnumber = UInteger.value(number).trim();
-    		if(vnumber.isEmpty()) {
+    		if (vnumber.isEmpty()) {
     			return true;
     		}
     	}
@@ -567,11 +565,11 @@ public class UValidator {
 	}
 
 	public static boolean validateNullableDate(final String date) {
-		if(date == null) {
+		if (date == null) {
     		return true;
     	} else {
     		val vdate = date.trim();
-    		if(vdate.isEmpty()) {
+    		if (vdate.isEmpty()) {
     			return true;
     		}
     		return dateValidator(vdate);
@@ -597,11 +595,11 @@ public class UValidator {
 	}
 
 	public static boolean validateNullableDateTime(final String date) {
-		if(date == null) {
+		if (date == null) {
     		return true;
     	} else {
     		val vdate = date.trim();
-    		if(vdate.isEmpty()) {
+    		if (vdate.isEmpty()) {
     			return true;
     		}
     		return dateTimeValidator(vdate);
@@ -694,11 +692,11 @@ public class UValidator {
 	}
 
 	public static boolean validateNullableDecimal(final String number) {
-		if(number == null) {
+		if (number == null) {
     		return true;
     	} else {
     		val vnumber = number.trim();
-    		if(vnumber.isEmpty()) {
+    		if (vnumber.isEmpty()) {
     			return true;
     		}
     	}
@@ -711,11 +709,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableDecimal(final Double number) {
-		if(number == null) {
+		if (number == null) {
     		return true;
     	} else {
     		val vnumber = UDouble.dValue(number).trim();
-    		if(vnumber.isEmpty()) {
+    		if (vnumber.isEmpty()) {
     			return true;
     		}
     	}
@@ -723,11 +721,11 @@ public class UValidator {
 	}
 	
 	private static boolean decimalValidator(final String number) {
-		if(number != null) {
+		if (number != null) {
 			scanner = new Scanner(number);
-			if(scanner.hasNextDouble()) {
+			if (scanner.hasNextDouble()) {
 				int pos = number.indexOf(".");
-				if(pos > 0) {
+				if (pos > 0) {
 					int decimal = number.substring(pos + 1).length();
 					return decimal <= MAX_DECIMALS;
 				} 
@@ -744,11 +742,11 @@ public class UValidator {
 	}
 	
 	public static boolean validateNullableEmail(final String email) {
-		if(email == null) {
+		if (email == null) {
     		return true;
     	} else {
     		val vemail = email.trim();
-    		if(vemail.isEmpty()) {
+    		if (vemail.isEmpty()) {
     			return true;
     		}
     		return validateEmail(vemail);
@@ -756,7 +754,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateTime12H(final String time) {
-		if(UValidator.isEmpty(time)) {
+		if (UValidator.isEmpty(time)) {
 			return false;
 		}
 		
@@ -774,7 +772,7 @@ public class UValidator {
 	}
 	
 	public static boolean validateTime24H(final String time) {
-		if(UValidator.isEmpty(time)) {
+		if (UValidator.isEmpty(time)) {
 			return false;
 		}
 		
@@ -803,11 +801,11 @@ public class UValidator {
 	}
 
 	public static boolean validateNullableRFC(final String rfc) {
-		if(rfc == null) {
+		if (rfc == null) {
     		return true;
     	} else {
     		val vrfc = rfc.trim();
-    		if(vrfc.isEmpty()) {
+    		if (vrfc.isEmpty()) {
     			return true;
     		}
     		return validateRFC(vrfc);
@@ -833,11 +831,11 @@ public class UValidator {
 	};
 	
 	public static boolean validateNullableCURP(final String curp) {
-		if(curp == null) {
+		if (curp == null) {
     		return true;
     	} else {
     		val vcurp = curp.trim();
-    		if(vcurp.isEmpty()) {
+    		if (vcurp.isEmpty()) {
     			return true;
     		}
     		return validateCURP(vcurp);

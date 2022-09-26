@@ -27,11 +27,11 @@ public abstract class FileRW {
 		
 		try {
 			
-			if(fileBean.getHeaders().isEmpty()) {
+			if (fileBean.getHeaders().isEmpty()) {
 				format = format.withFirstRecordAsHeader().withIgnoreHeaderCase();
 			}
 			
-			if(UValidator.isNotEmpty(fileBean.getSeparator())) {
+			if (UValidator.isNotEmpty(fileBean.getSeparator())) {
 				format = format.withRecordSeparator(fileBean.getSeparator());
 			}
 			
@@ -50,11 +50,11 @@ public abstract class FileRW {
 		} finally {
 			try {
 				
-				if(fileReader != null) {
+				if (fileReader != null) {
 					fileReader.close();
 				}
 				
-				if(parser != null) {
+				if (parser != null) {
 					parser.close();
 				}
 				

@@ -86,7 +86,7 @@ public class UValue {
 	}
 	
 	public static String nullableValue(final String str) {
-		if(UValidator.isEmpty(str)) {
+		if (UValidator.isEmpty(str)) {
 			return null;
 		}
 		return str.trim();
@@ -95,7 +95,7 @@ public class UValue {
 	public static boolean contains(final String sentence, final String substring) {
 		try {
 			
-			if(UValidator.isNotEmpty(sentence) && UValidator.isNotEmpty(substring)) {
+			if (UValidator.isNotEmpty(sentence) && UValidator.isNotEmpty(substring)) {
 				return StringUtils.contains(sentence, substring);
 			}
 			
@@ -254,7 +254,7 @@ public class UValue {
 	public static String textReplace(final String text) {
 		try {
 			
-			if(UValidator.isNotEmpty(text)) {
+			if (UValidator.isNotEmpty(text)) {
 				return text.trim()
 						   .toLowerCase()
 						   .replaceAll(Pattern.quote(" "), "-")
@@ -291,7 +291,7 @@ public class UValue {
 			String reverse = "";
 			
 			//##### Using own implementation
-			/*if(source == null || source.isEmpty()) {
+			/*if (source == null || source.isEmpty()) {
 				return source;
 			}
 			for (int i = source.length() - 1; i >= 0; i--) {

@@ -69,7 +69,7 @@ public abstract class StripePayment {
 	protected String paymentIntent(final StripeData data) throws StripePaymentException {
 		try {
 			
-			if(data == null) {
+			if (data == null) {
 				throw new StripePaymentException("Error: stripeDataBean is null!");
 			}
 			
@@ -87,7 +87,7 @@ public abstract class StripePayment {
 			val clientSecret = new CreatePaymentResponse(intent.getClientSecret());
 			val response = gson.toJson(clientSecret);
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("--- StripePayment#paymentIntent - Payment intent was successfully generated");
 				log.info("--- StripePayment#paymentIntent - Payment intent response [{}]", response);
 			}
@@ -176,7 +176,7 @@ public abstract class StripePayment {
 			}
 		}
 		
-		if(UValidator.isNotEmpty(this.errorMessage)) {
+		if (UValidator.isNotEmpty(this.errorMessage)) {
 			response = StripeChargeResponse
 						.builder()
 						.failureCode(this.errorCode)
@@ -194,7 +194,7 @@ public abstract class StripePayment {
 	 * @throws Exception
 	 */
 	protected StripePaymentIntentResponse paymentResponse(final String json) throws StripePaymentException {
-		if(json == null) {
+		if (json == null) {
 			throw new StripePaymentException("Error: json data is null!");
 		}
 		

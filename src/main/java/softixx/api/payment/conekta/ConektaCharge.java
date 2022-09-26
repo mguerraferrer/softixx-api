@@ -25,7 +25,7 @@ public class ConektaCharge {
 	}
 	
 	public ConektaCharge charge(final JSONObject charge) {
-		if(charge != null) {
+		if (charge != null) {
 			
 		}
 		return null;

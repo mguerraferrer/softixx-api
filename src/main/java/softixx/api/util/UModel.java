@@ -9,7 +9,7 @@ import lombok.val;
 public class UModel {
 
 	public static Model populateModel(Model model, Map<String, Object> modelMap) {
-		if(modelMap != null && !modelMap.isEmpty()) {
+		if (modelMap != null && !modelMap.isEmpty()) {
 			for (val entry : modelMap.entrySet()) {
 				val key = entry.getKey();
 				val value = entry.getValue();

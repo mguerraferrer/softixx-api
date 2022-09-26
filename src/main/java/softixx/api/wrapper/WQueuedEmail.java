@@ -66,7 +66,7 @@ public class WQueuedEmail {
 	}
 	
 	public static String ctx(Map<String, String> ctxMap) {
-		if(ctxMap == null || ctxMap.isEmpty()) {
+		if (ctxMap == null || ctxMap.isEmpty()) {
 			return null;
 		}
 		
@@ -76,7 +76,7 @@ public class WQueuedEmail {
 			val value = entry.getValue();
 			val kv = value != null ? key.concat("=").concat(value) : key.concat("=");
 			
-			if(ctx == null) {
+			if (ctx == null) {
 				ctx = kv;
 			} else {
 				ctx = ctx.concat("&").concat(kv);

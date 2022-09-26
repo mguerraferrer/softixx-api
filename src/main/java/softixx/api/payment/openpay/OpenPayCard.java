@@ -103,7 +103,7 @@ public class OpenPayCard {
 	     * @see OpenPayCardResponse
 	     */
 	    protected static OpenPayCardResponse toBean(Card card) {
-	    	if(card != null) {
+	    	if (card != null) {
 		    	return OpenPayCardResponse
 		    			.builder()
 		    			.id(card.getId())
@@ -167,7 +167,7 @@ public class OpenPayCard {
 		     * @see OpenPayCardPointsResponse
 		     */
 			protected static OpenPayCardPointsResponse toBean(PointsBalance points) {
-				if(points != null) {
+				if (points != null) {
 					return OpenPayCardPointsResponse
 							.builder()
 							.pointsType(points.getPointsType().name())

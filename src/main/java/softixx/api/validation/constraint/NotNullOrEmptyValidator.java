@@ -17,7 +17,7 @@ public class NotNullOrEmptyValidator implements ConstraintValidator<ValidNotNull
 	
 	@Override
 	public boolean isValid(Object obj, ConstraintValidatorContext context) {
-		if(ObjectUtils.isEmpty(obj)) {
+		if (ObjectUtils.isEmpty(obj)) {
 			return false;
 		}
 		

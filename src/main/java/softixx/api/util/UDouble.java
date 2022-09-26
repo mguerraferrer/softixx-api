@@ -20,7 +20,7 @@ public class UDouble {
 	public static Double dValue(String str) {
 		try {
 
-			if(UValidator.isNotEmpty(str)) {
+			if (UValidator.isNotEmpty(str)) {
 				str = UDecimal.decimal(str);
 				val d = Double.valueOf(str.replace(",", ""));
 				val value = DECIMAL_FORMAT_DEFAULT.format(d);
@@ -36,7 +36,7 @@ public class UDouble {
 	public static Double dValueWithoutDecimals(String str) {
 		try {
 
-			if(UValidator.isNotEmpty(str)) {
+			if (UValidator.isNotEmpty(str)) {
 				str = UDecimal.decimal(str);
 				val d = Double.valueOf(str.replace(",", ""));
 				val value = DECIMAL_FORMAT_WITHOUT_DECIMALS.format(d);
@@ -52,7 +52,7 @@ public class UDouble {
 	public static Double dValue(Integer i) {
 		try {
 
-			if(i != null) {
+			if (i != null) {
 				Double value = i.doubleValue();
 				return value;
 			}
@@ -66,7 +66,7 @@ public class UDouble {
 	public static Double dValue(BigDecimal b) {
 		try {
 
-			if(b != null) {
+			if (b != null) {
 				return b.doubleValue();
 			}
 
@@ -81,7 +81,7 @@ public class UDouble {
 
 			if (d != null) {
 				var str = DECIMAL_FORMAT_DEFAULT.format(d);
-				if(str.startsWith(".")) {
+				if (str.startsWith(".")) {
 					str = "0".concat(str);
 				}
 				return str;
@@ -96,7 +96,7 @@ public class UDouble {
 	public static String integerPart(final Double value) {
 		try {
 			
-			if(!UValidator.isNull(value)) {
+			if (!UValidator.isNull(value)) {
 				val doubleAsString = String.valueOf(value);
 				val indexOfDecimal = doubleAsString.indexOf(".");
 				
@@ -116,7 +116,7 @@ public class UDouble {
 	public static Double round(final Double value) {
 		try {
 			
-			if(value != null) {
+			if (value != null) {
 				BigDecimal bd = new BigDecimal(value);
 				bd = bd.setScale(2, HALF_UP); //##### 2 decimales
 				return dValue(bd);
@@ -131,7 +131,7 @@ public class UDouble {
 	public static Double roundCommision(final Double value) {
 		try {
 			
-			if(value != null) {
+			if (value != null) {
 				//##### Redondeando inicialmente a 2 decimales
 				val dVal = round(value);
 				

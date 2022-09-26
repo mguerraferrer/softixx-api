@@ -76,14 +76,14 @@ public abstract class GenericCloudinary {
 	protected String uploadFile(final File uploadedFile, final String fileName) {
 		try {
 			
-			if(UValidator.isNotNull(uploadedFile) && UValidator.isNotEmpty(fileName)) {
+			if (UValidator.isNotNull(uploadedFile) && UValidator.isNotEmpty(fileName)) {
 				val publicId = cloudinaryFolder() + "/" + fileName;
 				Map uploadResult = cloudinary.uploader().upload(uploadedFile, ObjectUtils.asMap("public_id", publicId));
 				return uploadResult.get("url").toString();
 			}
 
 		} catch (Exception e) {
-			if(this.showStackTrace) {
+			if (this.showStackTrace) {
 				e.printStackTrace();
 			}
 			if (this.showLogs) {
@@ -102,7 +102,7 @@ public abstract class GenericCloudinary {
 	protected String deleteFile(final String publicId) {
 		try {
 			
-			if(UValidator.isNotEmpty(publicId)) {
+			if (UValidator.isNotEmpty(publicId)) {
 				if (existsFile(publicId)) {
 					val cloudPublicId = cloudinaryPublicId(publicId);
 					Map result = cloudinary.uploader().destroy(cloudPublicId, ObjectUtils.emptyMap());
@@ -113,7 +113,7 @@ public abstract class GenericCloudinary {
 			}
 
 		} catch (Exception e) {
-			if(this.showStackTrace) {
+			if (this.showStackTrace) {
 				e.printStackTrace();
 			}
 			if (this.showLogs) {
@@ -134,7 +134,7 @@ public abstract class GenericCloudinary {
 	protected Boolean existsFile(final String publicId) {
 		try {
 			
-			if(UValidator.isNotEmpty(publicId)) {
+			if (UValidator.isNotEmpty(publicId)) {
 				val cloudPublicId = cloudinaryPublicId(publicId);
 				Map result = cloudinary.api().resource(cloudPublicId, ObjectUtils.emptyMap());
 				val url = result.get("url").toString();
@@ -142,7 +142,7 @@ public abstract class GenericCloudinary {
 			}
 
 		} catch (Exception e) {
-			if(this.showStackTrace) {
+			if (this.showStackTrace) {
 				e.printStackTrace();
 			}
 			if (this.showLogs) {

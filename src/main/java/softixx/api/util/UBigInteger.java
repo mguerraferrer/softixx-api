@@ -21,8 +21,8 @@ public class UBigInteger {
 		try {
 			
 			//JDK 11
-			//if(str != null && !str.isBlank() && !str.isEmpty()) {
-			if(str != null && !str.isEmpty()) {
+			//if (str != null && !str.isBlank() && !str.isEmpty()) {
+			if (str != null && !str.isEmpty()) {
 				return new BigInteger(str);
 			}			
 

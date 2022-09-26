@@ -28,7 +28,7 @@ public class FutureOrPresentValidator implements ConstraintValidator<ValidFuture
 	
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if(ObjectUtils.isEmpty(value)) {
+		if (ObjectUtils.isEmpty(value)) {
 			return true;
 		}
 		

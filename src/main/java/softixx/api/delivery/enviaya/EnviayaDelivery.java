@@ -91,12 +91,12 @@ public abstract class EnviayaDelivery {
 	protected List<EnviayaRate> rates(final EnviayaRating enviayaRating) {
 		try {
 
-			if(UValidator.isNull(enviayaRating.getApiKey())) {
+			if (UValidator.isNull(enviayaRating.getApiKey())) {
 				enviayaRating.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaRating.toJsonString(enviayaRating);
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#rates request {}", requestJson);
 			}
 
@@ -109,7 +109,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#rates responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#rates responseBody {}", responseBody);
 			}
@@ -159,12 +159,12 @@ public abstract class EnviayaDelivery {
 	protected EnviayaShipment shipmentBooking(final EnviayaShipmentBooking shipmentBooking) {
 		try {
 			
-			if(UValidator.isNull(shipmentBooking.getApiKey())) {
+			if (UValidator.isNull(shipmentBooking.getApiKey())) {
 				shipmentBooking.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaShipmentBooking.toJsonString(shipmentBooking);
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentBooking request {}", requestJson);
 			}
 
@@ -177,7 +177,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentBooking responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#shipmentBooking responseBody {}", responseBody);
 			}
@@ -202,14 +202,14 @@ public abstract class EnviayaDelivery {
 	protected EnviayaShipment shipmentLookUp(final EnviayaShipmentData data) {
 		try {
 			
-			if(UValidator.isNull(data.getApiKey())) {
+			if (UValidator.isNull(data.getApiKey())) {
 				data.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaShipmentData.toJsonString(data);
 			val url = sanitizeUrl(SHIPMENTS_LOOK_UP_URL, "enviayaId", data.getEnviayaId());
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentLookUp url {}", url);
 				log.info("EnviayaDelivery#shipmentLookUp request {}", requestJson);
 			}
@@ -223,7 +223,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentLookUp responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#shipmentLookUp responseBody {}", responseBody);
 			}
@@ -248,12 +248,12 @@ public abstract class EnviayaDelivery {
 	protected EnviayaShipment shipmentCancellation(final EnviayaShipmentData data) {
 		try {
 			
-			if(UValidator.isNull(data.getApiKey())) {
+			if (UValidator.isNull(data.getApiKey())) {
 				data.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaShipmentData.toJsonString(data);
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentCancellation request {}", requestJson);
 			}
 
@@ -266,7 +266,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentCancellation responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#shipmentCancellation responseBody {}", responseBody);
 			}
@@ -291,12 +291,12 @@ public abstract class EnviayaDelivery {
 	protected EnviayaTrackingResponse shipmentTracking(final EnviayaTracking tracking) {
 		try {
 			
-			if(UValidator.isNull(tracking.getApiKey())) {
+			if (UValidator.isNull(tracking.getApiKey())) {
 				tracking.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaTracking.toJsonString(tracking);
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentTracking request {}", requestJson);
 			}
 
@@ -309,7 +309,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#shipmentTracking responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#shipmentTracking responseBody {}", responseBody);
 			}
@@ -334,12 +334,12 @@ public abstract class EnviayaDelivery {
 	protected EnviayaPickupResponse pickupsBooking(final EnviayaPickup enviayaPickup) {
 		try {
 
-			if(UValidator.isNull(enviayaPickup.getApiKey())) {
+			if (UValidator.isNull(enviayaPickup.getApiKey())) {
 				enviayaPickup.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaPickup.toJsonString(enviayaPickup);
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#pickupsBooking request {}", requestJson);
 			}
 
@@ -352,7 +352,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#pickupsBooking responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#pickupsBooking responseBody {}", responseBody);
 			}
@@ -377,14 +377,14 @@ public abstract class EnviayaDelivery {
 	protected EnviayaPickupResponse pickupsLookUp(final EnviayaPickup enviayaPickup) {
 		try {
 			
-			if(UValidator.isNull(enviayaPickup.getApiKey())) {
+			if (UValidator.isNull(enviayaPickup.getApiKey())) {
 				enviayaPickup.setApiKey(this.apiKey);
 			}
 			
 			val requestJson = EnviayaPickup.toJsonString(enviayaPickup);
 			val url = sanitizeUrl(PICKUPS_LOOK_UP_URL, "pickupId", enviayaPickup.getId().toString());
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#pickupsLookUp url {}", url);
 				log.info("EnviayaDelivery#pickupsLookUp request {}", requestJson);
 			}
@@ -398,7 +398,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#pickupsLookUp responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#pickupsLookUp responseBody {}", responseBody);
 			}
@@ -431,7 +431,7 @@ public abstract class EnviayaDelivery {
 				default -> throw new IllegalArgumentException("getCatalogue unexpected value: " + type);
 			};
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#getCatalogue url {}", url);
 			}
 			
@@ -444,7 +444,7 @@ public abstract class EnviayaDelivery {
 			val responseStatusCode = response.getStatusCode();
 			val responseBody = response.getBody();
 			
-			if(this.showLogs) {
+			if (this.showLogs) {
 				log.info("EnviayaDelivery#getCatalogue responseStatusCode {}", responseStatusCode);
 				log.info("EnviayaDelivery#getCatalogue responseBody {}", responseBody);
 			}

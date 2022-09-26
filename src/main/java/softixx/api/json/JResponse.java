@@ -88,7 +88,7 @@ public class JResponse {
 	}
 	
 	public List<JError> getErrors() {
-		if(this.errors == null) {
+		if (this.errors == null) {
 			this.errors = new ArrayList<>();
 		}
 		return this.errors;
@@ -194,12 +194,12 @@ public class JResponse {
 			val notification = new JNotification();
 			
 			var searchResultEmpty = UMessage.getMessage("paginate.text.empty");
-			if(isSearch) {
+			if (isSearch) {
 				notification.setSearch(Boolean.TRUE);
 				searchResultEmpty = UMessage.getMessage("paginate.text.empty.search");
 			}
 			
-			if(isResultEmpty) {
+			if (isResultEmpty) {
 				notification.setSearchResultMessage(searchResultEmpty);
 				notification.setPanelMessage(true);
 				notification.setCssStyleClass(CssStyleClass.INFO.value());

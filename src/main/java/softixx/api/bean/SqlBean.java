@@ -126,10 +126,10 @@ public class SqlBean<T, ID> extends CommonBean<T, ID> implements Serializable {
 	}
 	
 	public RowMapper<T> getRowMapper() {
-		if(this.rowMapper == null) {
-			if(this.rowMapperId != null) {
+		if (this.rowMapper == null) {
+			if (this.rowMapperId != null) {
 				this.rowMapper = this.rowMapperId;
-			} else if(this.rowMapperCustom != null) {
+			} else if (this.rowMapperCustom != null) {
 				this.rowMapper = this.rowMapperCustom;
 			}
 		}
@@ -197,14 +197,14 @@ public class SqlBean<T, ID> extends CommonBean<T, ID> implements Serializable {
 	public String getInsertForceSentence() {
 		var sentence = "";
 		
-		if(!declaredParameters.isEmpty()) {
+		if (!declaredParameters.isEmpty()) {
 			sentence = declaredParameters.stream()
 							  			 .map(item -> "?")
 							  			 .reduce((x, y) -> String.join(", ", x, y))
 							  			 .orElse("");
 		}
 		
-		if(UValidator.isEmpty(sentence) && namedParams != null && !namedParams.getValues().isEmpty()) {
+		if (UValidator.isEmpty(sentence) && namedParams != null && !namedParams.getValues().isEmpty()) {
 			sentence = namedParams.getValues().entrySet().stream()
 														 .filter(item -> item.getKey() != null && item.getValue() != null)
 														 .map(item -> " :" + item.getKey())

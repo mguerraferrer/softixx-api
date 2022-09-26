@@ -95,7 +95,7 @@ public class OpenPayCharge {
 	    private	boolean cardCreated = false;
 	    
 	    public static OpenPayChargeResponse toBean(Charge charge) {
-	    	if(charge != null) {
+	    	if (charge != null) {
 	    		return OpenPayChargeResponse
 	    				.builder()
 	    				.id(charge.getId())
@@ -138,7 +138,7 @@ public class OpenPayCharge {
 	        private Date creationDate;
 	        
 	        public static OpenPayBankAccount toBean(BankAccount bankAccount) {
-	        	if(bankAccount != null) {
+	        	if (bankAccount != null) {
 	        		return OpenPayBankAccount
 	        				.builder()
 	        				.id(bankAccount.getId())
@@ -161,7 +161,7 @@ public class OpenPayCharge {
 	    	private BigDecimal tax;
 	    	
 	    	public static OpenPayTransactionFee toBean(TransactionFee fee) {
-	    		if(fee != null) {
+	    		if (fee != null) {
 		    		return OpenPayTransactionFee
 		    				.builder()
 		    				.amount(fee.getAmount())
@@ -182,7 +182,7 @@ public class OpenPayCharge {
 	    	private BigDecimal rate;
 	    	
 	    	public static OpenPayExchangeRate toBean(ExchangeRate exchangeRate) {
-	    		if(exchangeRate != null) {
+	    		if (exchangeRate != null) {
 	    			return OpenPayExchangeRate
 	    					.builder()
 	    					.fromCurrency(exchangeRate.getFromCurrency())
@@ -209,7 +209,7 @@ public class OpenPayCharge {
 	        private OpenPayTransactionFee fee;
 	        
 	        public static OpenPaySimpleRefund toBean(SimpleRefund refund) {
-	        	if(refund != null) {
+	        	if (refund != null) {
 		        	return OpenPaySimpleRefund
 		        			.builder()
 		        			.id(refund.getId())
@@ -226,7 +226,7 @@ public class OpenPayCharge {
 	        }
 	        
 	        public static List<OpenPaySimpleRefund> to(List<SimpleRefund> refunds) {
-	        	if(refunds != null && !refunds.isEmpty()) {
+	        	if (refunds != null && !refunds.isEmpty()) {
 	        		return refunds.stream()
 	        					  .map(item -> toBean(item))
 	        					  .filter(item -> item != null)
@@ -242,7 +242,7 @@ public class OpenPayCharge {
 	    	 private String affiliation;
 	    	 
 	    	 public static OpenPayGatewayResponse to(GatewayResponse gateway) {
-	    		 if(gateway != null) {
+	    		 if (gateway != null) {
 	    			 return OpenPayGatewayResponse
 	    					 .builder()
 	    					 .affiliation(gateway.getAffiliation())

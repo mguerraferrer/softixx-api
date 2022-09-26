@@ -27,7 +27,7 @@ public class FieldsValueMatchValidator implements ConstraintValidator<ValidField
 		boolean valid = true;
 		if (fieldValue != null && fieldMatchValue != null) {
             valid = fieldValue.equals(fieldMatchValue);
-            if(!valid) {
+            if (!valid) {
             	context.buildConstraintViolationWithTemplate(message)
             		   .addPropertyNode(fieldMatch)
             		   .addConstraintViolation()

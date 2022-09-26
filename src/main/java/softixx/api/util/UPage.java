@@ -15,7 +15,7 @@ public class UPage {
 	}
 	
 	public static <T> Page<T> toPage(final List<T> list, final Pageable pageable) {
-		if(list.isEmpty() || pageable == null || pageable.getOffset() >= list.size()) {
+		if (list.isEmpty() || pageable == null || pageable.getOffset() >= list.size()) {
 			return Page.empty();
 		}
 		

@@ -79,7 +79,7 @@ public class JSelect {
 	}
 	
 	public static String option(String id, String value, boolean isSelected) {
-		if(isSelected) {
+		if (isSelected) {
 			return OPTION_START + id + "\" selected=\"selected\">" + value + OPTION_END;
 		}
 		return OPTION_START + id + "\">" + value + OPTION_END;

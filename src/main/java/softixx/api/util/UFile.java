@@ -45,7 +45,7 @@ public class UFile {
 	}
 	
 	public static String fileName(final File file) {
-		if(file == null) {
+		if (file == null) {
 			return null;
 		}
 		return file.getName();
@@ -53,7 +53,7 @@ public class UFile {
 	
 	public static String fileName(final MultipartFile multipart) {
 		val isValid = isValid(multipart); 
-		if(isValid) {
+		if (isValid) {
 			return multipart.getOriginalFilename();
 		}
 		return null;
@@ -61,7 +61,7 @@ public class UFile {
 	
 	public static String fileName(final String name) {
 		String fileName = null;
-		if(name != null && !name.isEmpty()) {
+		if (name != null && !name.isEmpty()) {
 			try {
 				
 				fileName = name.substring(0, name.lastIndexOf("."));
@@ -97,7 +97,7 @@ public class UFile {
 	}
 	
 	public static Boolean isValid(final MultipartFile[] multipartFile) {
-		if(multipartFile == null) {
+		if (multipartFile == null) {
 			return false;
 		}
 		
@@ -112,7 +112,7 @@ public class UFile {
 			val isValid = isValid(multipartFile);
 			if (isValid) {
 				val fileName = fileName(multipartFile);
-				if(UValidator.isNotEmpty(fileName)) {
+				if (UValidator.isNotEmpty(fileName)) {
 					val fileExt = fileExtension(fileName);
 					return isValidExtension(allowedExtensions, fileExt);
 				}
@@ -128,7 +128,7 @@ public class UFile {
 		try {
 			
 			val isValid = isValid(multipartFile);
-			if(isValid) {
+			if (isValid) {
 				val file = new File(multipartFile.getOriginalFilename());
 			    file.createNewFile();
 			    
@@ -146,7 +146,7 @@ public class UFile {
 	
 	public static InputStream multipartFileToInputStream(final MultipartFile multipart) throws IOException {
 		val isValid = isValid(multipart); 
-		if(!isValid) {
+		if (!isValid) {
 			return null;
 		}
 		return multipart.getInputStream();
@@ -164,7 +164,7 @@ public class UFile {
 	}
 	
 	public static File byteToFile(byte[] data) throws IOException {
-		if(data != null) {
+		if (data != null) {
 			return File.createTempFile("java", "tmp");
 		}
 		return null;
@@ -181,21 +181,21 @@ public class UFile {
     }
 	
 	public static InputStream fileToInputStream(final File file) throws IOException {
-		if(file == null) {
+		if (file == null) {
 			return null;
 		}
 		return new FileInputStream(file);
 	}
 	
 	public static InputStream fileToInputStreamWithDIS(final File file) throws IOException {
-		if(file == null) {
+		if (file == null) {
 			return null;
 		}
 		return new DataInputStream(new FileInputStream(file));
 	}
 	
 	public static InputStream fileToInputStreamWithCIO(final File file) throws IOException {
-		if(file == null) {
+		if (file == null) {
 			return null;
 		}
 		return FileUtils.openInputStream(file);

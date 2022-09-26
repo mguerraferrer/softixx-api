@@ -40,7 +40,7 @@ public class PaginatorBean<T> {
 	public PaginatorBean(final Page<T> page, final SearchBean searchBean) {
     	val pageNumber = searchBean.getPage();
     	
-    	if(page.isFirst()) {
+    	if (page.isFirst()) {
     		this.firstTitle = "";
     		this.isDisableFirst = true;
     		
@@ -55,7 +55,7 @@ public class PaginatorBean<T> {
     		this.previouslyTitle = PREVIOUS_TITLE;
     	}
     	
-    	if(page.isLast()) {
+    	if (page.isLast()) {
     		this.lastTitle = "";
     		this.isDisableLast = true;
     		
@@ -82,7 +82,7 @@ public class PaginatorBean<T> {
     	request = request.concat("&size=").concat(UInteger.value(searchBean.getPageSize()));
     	
     	var params = "";
-    	if(searchBean.getParams() != null && !searchBean.getParams().isEmpty()) {
+    	if (searchBean.getParams() != null && !searchBean.getParams().isEmpty()) {
     		params = searchBean.getParams().entrySet().stream()
 													  .filter(item -> item.getKey() != null && item.getValue() != null)
 													  .map(item -> item.getKey() + "=" + item.getValue())
@@ -90,7 +90,7 @@ public class PaginatorBean<T> {
 													  .orElse("");
     	}
     	
-    	if(UValidator.isNotEmpty(params)) {
+    	if (UValidator.isNotEmpty(params)) {
     		request = request.concat("&").concat(params);
     	}
     	return request;

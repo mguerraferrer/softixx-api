@@ -71,7 +71,7 @@ public class DataSearchBean {
 	}
 	
 	public List<DataOrderByBean> getOrderByList() {
-		if(orderByList == null) {
+		if (orderByList == null) {
 			orderByList = new ArrayList<>();
 		}
 		return this.orderByList;

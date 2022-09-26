@@ -53,7 +53,7 @@ public class UCalculation {
 	public static Double total(final Double subTotal, @Nullable Double taxOrShipping) {
 		try {
 			
-			if(taxOrShipping == null) {
+			if (taxOrShipping == null) {
 				taxOrShipping = 0d;
 			}
 			
@@ -70,11 +70,11 @@ public class UCalculation {
 	public static Double total(final Double subTotal, @Nullable Double taxOrShipping, @Nullable Double discount) {
 		try {
 			
-			if(discount == null) {
+			if (discount == null) {
 				discount = 0d;
 			}
 			
-			if(taxOrShipping == null) {
+			if (taxOrShipping == null) {
 				taxOrShipping = 0d;
 			}
 			
@@ -91,15 +91,15 @@ public class UCalculation {
 	public static Double total(final Double subTotal, @Nullable Double discount, @Nullable Double shiping, @Nullable Double tax) {
 		try {
 			
-			if(discount == null) {
+			if (discount == null) {
 				discount = 0d;
 			}
 			
-			if(shiping == null) {
+			if (shiping == null) {
 				shiping = 0d;
 			}
 			
-			if(tax == null) {
+			if (tax == null) {
 				tax = 0d;
 			}
 			
@@ -118,7 +118,7 @@ public class UCalculation {
 			
 			String valueNull = null;
 			
-			if(tax == null) {
+			if (tax == null) {
 				tax = UBigDecimal.bValue(valueNull);
 			}
 			
@@ -137,11 +137,11 @@ public class UCalculation {
 			
 			String valueNull = null;
 			
-			if(tax == null) {
+			if (tax == null) {
 				tax = UBigDecimal.bValue(valueNull);
 			}
 			
-			if(discount == null) {
+			if (discount == null) {
 				discount = UBigDecimal.bValue(valueNull);
 			}
 			
@@ -156,7 +156,7 @@ public class UCalculation {
 	}
 	
 	public static Integer penniesInt(final Double total) {
-		if(total != null) {
+		if (total != null) {
 			val totalInPennies = UInteger.value(total * 100);
 			return totalInPennies;
 			
@@ -165,7 +165,7 @@ public class UCalculation {
 	}
 	
 	public static Long penniesLong(final Double total) {
-		if(total != null) {
+		if (total != null) {
 			val totalInPennies = UInteger.value(total * 100);
 			return ULong.value(totalInPennies);
 			

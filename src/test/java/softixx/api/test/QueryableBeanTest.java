@@ -21,12 +21,12 @@ public class QueryableBeanTest {
 		String query = "INSERT INTO table (<columns>) VALUES (<sentence>)";
 		
 		val columns = getInsertableColumns();
-		if(!UValidator.isNull(columns)) {
+		if (!UValidator.isNull(columns)) {
 			query = query.replaceAll("<columns>", columns);
 		}
 		
 		val values = getInsertableValues();
-		if(!UValidator.isNull(values)) {
+		if (!UValidator.isNull(values)) {
 			query = query.replaceAll("<sentence>", values);
 		}
 		

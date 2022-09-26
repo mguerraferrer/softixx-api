@@ -41,19 +41,19 @@ public class OptionDto {
 		String value = null;
 		String name = null;
 		
-		if(objDto instanceof IOptionDto) {
+		if (objDto instanceof IOptionDto) {
 			val dto = (IOptionDto) objDto;
 			id = UCrypto.idEncode(dto.getId());
 			code = dto.getCode();
 			value = dto.getValue();
 			name = dto.getName();
-		} else if(objDto instanceof LOptionDto) {
+		} else if (objDto instanceof LOptionDto) {
 			val dto = (LOptionDto) objDto;
 			id = UCrypto.idEncode(dto.getId());
 			code = dto.getCode();
 			value = dto.getValue();
 			name = dto.getName();
-		} else if(objDto instanceof BIOptionDto) {
+		} else if (objDto instanceof BIOptionDto) {
 			val dto = (BIOptionDto) objDto;
 			id = UCrypto.idEncode(dto.getId());
 			code = dto.getCode();
